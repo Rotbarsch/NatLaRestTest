@@ -416,3 +416,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Ignore compiled feature files
+
+*.feature.cs
+/NatLaRestTest.DemoWebApi/appsettings.Development.json

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Bindings.md" />
+    <File Path="LICENSE.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="NatLaRestTest.Bindings/NatLaRestTest.Bindings.csproj" />
+  <Project Path="NatLaRestTest.Demo/NatLaRestTest.Demo.csproj" />
+  <Project Path="NatLaRestTest.DemoWebApi/NatLaRestTest.DemoWebApi.csproj" Id="b01e2207-0fb0-4e23-bc31-112c27852644" />
+</Solution>

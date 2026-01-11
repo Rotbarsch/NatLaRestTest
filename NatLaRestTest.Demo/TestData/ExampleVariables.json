@@ -1,0 +1,16 @@
+{
+  "testVariables": [
+    {
+      "name": "exampleString",
+      "value": "Testing"
+    },
+    {
+      "name": "exampleNumber",
+      "value": 42
+    },
+    {
+      "name": "exampleNull",
+      "value": null
+    }
+  ]
+}
