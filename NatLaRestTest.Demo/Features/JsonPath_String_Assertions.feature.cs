@@ -131,41 +131,44 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 5
  await testRunner.WhenAsync("the following value is stored in variable \'sampleJson\':", "{ \"path\": \"/root/item/1\", \"empty\": \"\" }", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 9
- await testRunner.ThenAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' contains \'root\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
 #line 10
+ await testRunner.ThenAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' returns any value", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 11
+ await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' contains \'root\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 12
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' does not contain \'product" +
                         "s\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 13
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' starts with \'/root\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 14
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' does not start with \'http" +
                         "\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 13
+#line 15
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' ends with \'/1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 14
+#line 16
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' does not end with \'/2\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 15
+#line 17
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' is \'12\' characters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 16
+#line 18
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' is not empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 17
+#line 19
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' is more than \'5\' characte" +
                         "rs long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 18
+#line 20
  await testRunner.AndAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' is less than \'100\' charac" +
                         "ters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 19
+#line 21
  await testRunner.AndAsync("the value of JSONPath \'$.empty\' in variable \'sampleJson\' is empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
