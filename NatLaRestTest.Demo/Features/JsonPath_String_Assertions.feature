@@ -6,7 +6,9 @@ Scenario: JSONPath string assertion variations
 		"""
 		{ "path": "/root/item/1", "empty": "" }
 		"""
-	Then the value of JSONPath '$.path' in variable 'sampleJson' contains 'root'
+	
+	Then the value of JSONPath '$.path' in variable 'sampleJson' returns any value
+	And the value of JSONPath '$.path' in variable 'sampleJson' contains 'root'
 	And the value of JSONPath '$.path' in variable 'sampleJson' does not contain 'products'
 	And the value of JSONPath '$.path' in variable 'sampleJson' starts with '/root'
 	And the value of JSONPath '$.path' in variable 'sampleJson' does not start with 'http'

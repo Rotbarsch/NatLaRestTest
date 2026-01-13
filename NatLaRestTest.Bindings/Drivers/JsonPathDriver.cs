@@ -32,4 +32,12 @@ public class JsonPathDriver : IJsonPathDriver
 
         return token?.ToString();
     }
+
+    public bool JsonPathReturnsAnyValue(string? inputJson, string jsonPathExpression)
+    {
+        var jToken = JToken.Parse(inputJson!);
+        var token = jToken.SelectToken(jsonPathExpression);
+
+        return token is not null;
+    }
 }

@@ -47,4 +47,15 @@ public class BasicVariableJsonPathAssertions
         var selection = _jsonPathDriver.GetValueFromJsonPath(_variableDriver.GetVariable(variable), jsonPath);
         Assert.AreNotEqual(comparison, selection?.ToString(), $"The value at JSONPath '{jsonPath}' in variable '{variable}' equals '{comparison}'.");
     }
+
+    /// <summary>
+    /// Then step: Asserts that the provided JSONPath in the specified variable returns any value.
+    /// </summary>
+    /// <param name="jsonPath">The JSONPath expression used to select a value.</param>
+    /// <param name="variable">The name of the variable containing a JSON string to evaluate.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' returns any value")]
+    public void AssertJsonPathReturnsAnyValue(string jsonPath, string variable)
+    {
+        Assert.True(_jsonPathDriver.JsonPathReturnsAnyValue(_variableDriver.GetVariable(variable),jsonPath),$"JSONPath expression '{jsonPath}' did not resolve in variable '{variable}'.");
+    }
 }
