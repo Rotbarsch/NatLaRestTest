@@ -1,0 +1,27 @@
+﻿{
+  "$schema": "https://schemas.reqnroll.net/reqnroll-config-latest.json",
+  "language": {
+    "feature": "de-DE"
+  },
+  "trace": {
+    "stepDefinitionSkeletonStyle": "RegexAttribute"
+  },
+  "bindingAssemblies": [
+    {
+      "assembly": "NatLaRestTest.Core"
+    },
+    {
+      "assembly": "NatLaRestTest.Bindings.de"
+    }
+  ],
+  "testVariables": [
+    {
+      "name": "demoApiBaseUrl",
+      "value": "https://localhost:7031"
+    },
+    {
+      "name": "nullExample",
+      "value": null
+    }
+  ]
+}

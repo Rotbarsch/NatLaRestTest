@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Reqnroll" Version="3.3.2" />
+    <PackageReference Include="Reqnroll.NUnit" Version="3.3.2">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NatLaRestTest.Bindings.Interfaces\NatLaRestTest.Bindings.Interfaces.csproj" />
+    <ProjectReference Include="..\NatLaRestTest.Core\NatLaRestTest.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -8,12 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="35.6.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
-    <PackageReference Include="Reqnroll" Version="3.3.1" />
-    <PackageReference Include="Reqnroll.Microsoft.Extensions.DependencyInjection" Version="3.3.1" />
-    <PackageReference Include="Reqnroll.NUnit" Version="3.3.1" />
+    <PackageReference Include="Reqnroll" Version="3.3.2" />
+    <PackageReference Include="Reqnroll.NUnit" Version="3.3.2">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NatLaRestTest.Bindings.Interfaces\NatLaRestTest.Bindings.Interfaces.csproj" />
+    <ProjectReference Include="..\NatLaRestTest.Core\NatLaRestTest.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,27 @@
 <Solution>
+  <Folder Name="/Core/">
+    <Project Path="NatLaRestTest.Core.Contracts/NatLaRestTest.Core.Contracts.csproj" Id="4e2cb30a-f79d-4758-a94d-9010a11badc5" />
+    <Project Path="NatLaRestTest.Core/NatLaRestTest.Core.csproj" />
+  </Folder>
+  <Folder Name="/Demo/">
+    <Project Path="NatLaRestTest.Bindings.de/NatLaRestTest.Bindings.de.csproj" Id="e04f0fe0-a25d-4d4b-916f-98ea1dc75dea" />
+    <Project Path="NatLaRestTest.Demo.de/NatLaRestTest.Demo.de.csproj" Id="3a8e6fde-ae90-41da-8474-d0f389a00349" />
+    <Project Path="NatLaRestTest.Demo/NatLaRestTest.Demo.csproj" />
+    <Project Path="NatLaRestTest.DemoWebApi/NatLaRestTest.DemoWebApi.csproj" />
+  </Folder>
+  <Folder Name="/Drivers/">
+    <Project Path="NatLaRestTest.Drivers.Interfaces/NatLaRestTest.Drivers.Interfaces.csproj" />
+    <Project Path="NatLaRestTest.Drivers/NatLaRestTest.Drivers.csproj" />
+  </Folder>
+  <Folder Name="/Logic/">
+    <Project Path="NatLaRestTest.Logic.Interfaces/NatLaRestTest.Logic.Interfaces.csproj" />
+    <Project Path="NatLaRestTest.Logic/NatLaRestTest.Logic.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path="Bindings.md" />
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
+  <Project Path="NatLaRestTest.Bindings.Interfaces/NatLaRestTest.Bindings.Interfaces.csproj" />
   <Project Path="NatLaRestTest.Bindings/NatLaRestTest.Bindings.csproj" />
-  <Project Path="NatLaRestTest.Demo/NatLaRestTest.Demo.csproj" />
-  <Project Path="NatLaRestTest.DemoWebApi/NatLaRestTest.DemoWebApi.csproj" Id="b01e2207-0fb0-4e23-bc31-112c27852644" />
 </Solution>
