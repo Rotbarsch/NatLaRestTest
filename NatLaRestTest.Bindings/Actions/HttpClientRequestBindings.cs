@@ -1,0 +1,63 @@
+﻿using NatLaRestTest.Bindings.Interfaces.Actions;
+using NatLaRestTest.Logic.Interfaces;
+using Reqnroll;
+
+namespace NatLaRestTest.Bindings.Actions;
+
+/// <summary>
+///     Step bindings for issuing HTTP requests with the shared HTTP client (GET and generic verbs, with/without body).
+/// </summary>
+[Binding]
+public class HttpClientRequestBindings : IHttpClientRequestBindings
+{
+    private readonly IHttpClientLogic _httpClientLogic;
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="HttpClientRequestBindings" /> class.
+    /// </summary>
+    /// <param name="httpClientLogic">Logic component used to send HTTP requests.</param>
+    public HttpClientRequestBindings(IHttpClientLogic httpClientLogic)
+    {
+        _httpClientLogic = httpClientLogic;
+    }
+
+    /// <summary>
+    ///     When step: Sends an HTTP GET request to the specified relative path using the shared HTTP client.
+    /// </summary>
+    /// <param name="relativePath">The relative path for the request (e.g., "products/1").</param>
+    [When("a request to '(.*)' is made")]
+    public async Task GetRequest(string relativePath) =>
+        await _httpClientLogic.SendRequest(HttpMethod.Get.Method, relativePath);
+
+    /// <summary>
+    ///     When step: Sends an HTTP request with the specified method to the relative path without a request body.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., GET, POST, PUT, DELETE).</param>
+    /// <param name="relativePath">The relative path for the request.</param>
+    [When("a '(.*)' request to '(.*)' is made")]
+    public async Task SendRequestWithoutBody(string httpMethod, string relativePath) =>
+        await _httpClientLogic.SendRequest(httpMethod, relativePath);
+
+    /// <summary>
+    ///     When step: Sends an HTTP request with the specified method and request body to the relative path. Uses the default
+    ///     content type "application/json".
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., POST or PUT).</param>
+    /// <param name="relativePath">The relative path for the request.</param>
+    /// <param name="requestBody">The raw request body payload.</param>
+    [When("a '(.*)' request to '(.*)' is made with the following request body:")]
+    public async Task SendRequestWithBodyWithoutContentType(string httpMethod, string relativePath, string requestBody) =>
+        await _httpClientLogic.SendRequest(httpMethod, relativePath, requestBody);
+
+    /// <summary>
+    ///     When step: Sends an HTTP request with the specified method, content type, and request body to the relative path.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., POST or PUT).</param>
+    /// <param name="relativePath">The relative path for the request.</param>
+    /// <param name="contentType">The content type to set (e.g., "application/json").</param>
+    /// <param name="requestBody">The raw request body payload.</param>
+    [When("a '(.*)' request to '(.*)' is made with content type '(.*)' and the following request body:")]
+    public async Task SendRequestWithBodyWithContentType(string httpMethod, string relativePath, string contentType,
+        string requestBody) =>
+        await _httpClientLogic.SendRequest(httpMethod, relativePath, requestBody, contentType);
+}

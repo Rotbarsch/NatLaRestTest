@@ -1,351 +1,411 @@
 ## Table of Contents
-- [Namespace: NatLaRestTest.Bindings.Bindings.Actions](#namespace-natlaresttestbindingsbindingsactions)
-  - [Class: BasicVariableBindings](#class-basicvariablebindings)
-  - [Class: HttpClientRequestBindings](#class-httpclientrequestbindings)
-  - [Class: HttpClientRequestStreamBindings](#class-httpclientrequeststreambindings)
-  - [Class: HttpResponseStreamBindings](#class-httpresponsestreambindings)
-  - [Class: HttpResponseVariableBindings](#class-httpresponsevariablebindings)
-  - [Class: VariableJsonBindings](#class-variablejsonbindings)
-  - [Class: VariableXmlBindings](#class-variablexmlbindings)
-- [Namespace: NatLaRestTest.Bindings.Bindings.Actions.ManipulateVariableActions](#namespace-natlaresttestbindingsbindingsactionsmanipulatevariableactions)
-  - [Class: DateTimeVariableManipulationBindings](#class-datetimevariablemanipulationbindings)
-  - [Class: NumericVariableManipulationBindings](#class-numericvariablemanipulationbindings)
-  - [Class: StringVariableManipulationBindings](#class-stringvariablemanipulationbindings)
-- [Namespace: NatLaRestTest.Bindings.Bindings.Actions.SetVariableActions](#namespace-natlaresttestbindingsbindingsactionssetvariableactions)
-  - [Class: DateTimeVariableBindings](#class-datetimevariablebindings)
-  - [Class: RandomNumberVariableBindings](#class-randomnumbervariablebindings)
-  - [Class: RandomStringVariableBindings](#class-randomstringvariablebindings)
-  - [Class: SetFromFile](#class-setfromfile)
-  - [Class: StringOperationBindings](#class-stringoperationbindings)
-- [Namespace: NatLaRestTest.Bindings.Bindings.Assertions](#namespace-natlaresttestbindingsbindingsassertions)
-  - [Class: BasicVariableAssertions](#class-basicvariableassertions)
-  - [Class: CollectionVariableAssertions](#class-collectionvariableassertions)
-  - [Class: HttpResponseAssertionBindings](#class-httpresponseassertionbindings)
-  - [Class: JsonSchemaAssertions](#class-jsonschemaassertions)
-  - [Class: NumericVariablePathAssertions](#class-numericvariablepathassertions)
-  - [Class: RegExAssertions](#class-regexassertions)
-  - [Class: StringVariableAssertions](#class-stringvariableassertions)
-- [Namespace: NatLaRestTest.Bindings.Bindings.Assertions.JsonPath](#namespace-natlaresttestbindingsbindingsassertionsjsonpath)
-  - [Class: BasicVariableJsonPathAssertions](#class-basicvariablejsonpathassertions)
-  - [Class: CollectionVariableJsonPathAssertions](#class-collectionvariablejsonpathassertions)
-  - [Class: NumericVariableJsonPathAssertions](#class-numericvariablejsonpathassertions)
-  - [Class: StringVariableJsonPathAssertions](#class-stringvariablejsonpathassertions)
-- [Namespace: NatLaRestTest.Bindings.Bindings.Setup](#namespace-natlaresttestbindingsbindingssetup)
-  - [Class: HttpClientConfigurationBindings](#class-httpclientconfigurationbindings)
+- [Namespace: Ekto.TestUtilities.SlimTestKit.StepDefinitions](#namespace-ektotestutilitiesslimtestkitstepdefinitions)
+  - [Class: CurrentExecutionDirectoryBindings](#class-currentexecutiondirectorybindings)
+  - [Class: DebugBindings](#class-debugbindings)
+  - [Class: KeyboardBindings](#class-keyboardbindings)
+  - [Class: ModalWindowBindings](#class-modalwindowbindings)
+  - [Class: PropertyViewBindings](#class-propertyviewbindings)
+  - [Class: TableBindings](#class-tablebindings)
+  - [Class: TestDataManagement](#class-testdatamanagement)
+- [Namespace: Slim.TestKit.FlaUI.BDD.Actions](#namespace-slimtestkitflauibddactions)
+  - [Class: AutomationElementActions](#class-automationelementactions)
+  - [Class: CheckBoxActions](#class-checkboxactions)
+  - [Class: ClickActions](#class-clickactions)
+  - [Class: ComboBoxActions](#class-comboboxactions)
+  - [Class: CommonDialogActions](#class-commondialogactions)
+  - [Class: ComponentGeneratorActions](#class-componentgeneratoractions)
+  - [Class: CustomDialogActions](#class-customdialogactions)
+  - [Class: FileActions](#class-fileactions)
+  - [Class: GeneralActions](#class-generalactions)
+  - [Class: ListActions](#class-listactions)
+  - [Class: MasifSimulatorActions](#class-masifsimulatoractions)
+  - [Class: MessageBoxActions](#class-messageboxactions)
+  - [Class: ProgressBarActions](#class-progressbaractions)
+  - [Class: TableActions](#class-tableactions)
+  - [Class: TextBlockActions](#class-textblockactions)
+  - [Class: TextBoxActions](#class-textboxactions)
+  - [Class: TimerActions](#class-timeractions)
+  - [Class: WaitActions](#class-waitactions)
+  - [Class: WindowActions](#class-windowactions)
 
-<a id="namespace-natlaresttestbindingsbindingsactions"></a>
-# Namespace: NatLaRestTest.Bindings.Bindings.Actions
+<a id="namespace-ektotestutilitiesslimtestkitstepdefinitions"></a>
+# Namespace: Ekto.TestUtilities.SlimTestKit.StepDefinitions
 
-<a id="class-basicvariablebindings"></a>
-## Class: BasicVariableBindings
-<br>            Step bindings for setting scenario variables to explicit string values (single line or multiline).<br>            <br>
+<a id="class-currentexecutiondirectorybindings"></a>
+## Class: CurrentExecutionDirectoryBindings
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| SetVariableManually | When the value '(.\*)' is stored in variable '(.\*)' | When step: Sets the specified scenario variable to the provided string value.<br>*variableName*: The name of the variable to set.<br>*value*: The value to assign to the variable. |
-| SetVariableManuallyMultiline | When the following value is stored in variable '(.\*)': | When step: Sets the specified scenario variable to the provided multiline string value.<br>*variableName*: The name of the variable to set.<br>*value*: The value to assign to the variable. |
+| WhenTheUserStoresTheCurrentExecutionDirectoryInTestDataStoreVariable | When the user stores the current execution directory in TestDataStore variable '([^']\*)' |  |
 
 
-<a id="class-httpclientrequestbindings"></a>
-## Class: HttpClientRequestBindings
-<br>            Step bindings for issuing HTTP requests with the shared HTTP client (GET and generic verbs, with/without body).<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| GetRequest | When a request to '(.\*)' is made | When step: Sends an HTTP GET request to the specified relative path using the shared HTTP client.<br>*relativePath*: The relative path for the request (e.g., "products/1"). |
-| SendRequestWithBodyWithContentType | When a '(.\*)' request to '(.\*)' is made with content type '(.\*)' and the following request body: | When step: Sends an HTTP request with the specified method, content type, and request body to the relative path.<br>*httpMethod*: The HTTP method (e.g., POST or PUT).<br>*relativePath*: The relative path for the request.<br>*contentType*: The content type to set (e.g., "application/json").<br>*requestBody*: The raw request body payload. |
-| SendRequestWithBodyWithoutContentType | When a '(.\*)' request to '(.\*)' is made with the following request body: | When step: Sends an HTTP request with the specified method and request body to the relative path. Uses the default content type "application/json".<br>*httpMethod*: The HTTP method (e.g., POST or PUT).<br>*relativePath*: The relative path for the request.<br>*requestBody*: The raw request body payload. |
-| SendRequestWithoutBody | When a '(.\*)' request to '(.\*)' is made | When step: Sends an HTTP request with the specified method to the relative path without a request body.<br>*httpMethod*: The HTTP method (e.g., GET, POST, PUT, DELETE).<br>*relativePath*: The relative path for the request. |
-
-
-<a id="class-httpclientrequeststreambindings"></a>
-## Class: HttpClientRequestStreamBindings
-<br>            Step bindings for uploading files as stream content in HTTP requests.<br>            <br>
+<a id="class-debugbindings"></a>
+## Class: DebugBindings
+<br>            Step definitions for debugging purposes.<br>            <br>
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| UploadFile | When a '(.\*)' request is made to '(.\*)' with the contents of file '(.\*)' as stream content | When step: Sends an HTTP request and uploads the contents of a file as stream content.<br>*httpMethod*: The HTTP method (e.g., POST, PUT).<br>*url*: The absolute or relative URL to request.<br>*fileName*: The path to the file whose contents will be uploaded. |
-| UploadFile | When a '(.\*)' request is made to '(.\*)' with the contents of file '(.\*)' as stream content with content type '(.\*)' | When step: Sends an HTTP request and uploads the contents of a file as stream content with an explicit content type.<br>*httpMethod*: The HTTP method (e.g., POST, PUT).<br>*url*: The absolute or relative URL to request.<br>*fileName*: The path to the file whose contents will be uploaded.<br>*contentType*: The content type for the stream part. |
+| Break | When ^break\\$ | Breaks the exeution when hit. |
 
 
-<a id="class-httpresponsestreambindings"></a>
-## Class: HttpResponseStreamBindings
-<br>            Step bindings for working with HTTP response streams, including saving to a file and storing the stream length.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| SaveResponseStreamToFile | When the response stream is saved to file '(.\*)' | When step: Saves the current response stream to a file.<br>*filePath*: The target file path. |
-| StoreResponseStreamLengthInVariable | When the length of the response stream is stored in variable '(.\*)' | When step: Stores the length of the current response stream (in bytes) into a scenario variable.<br>*variableName*: The target variable name. |
-
-
-<a id="class-httpresponsevariablebindings"></a>
-## Class: HttpResponseVariableBindings
-<br>            Step bindings for storing parts of the HTTP response (e.g., body) into scenario variables.<br>            <br>
+<a id="class-keyboardbindings"></a>
+## Class: KeyboardBindings
+<br>            Bindings simulating keyboard input.<br>            <br>
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| StoreResponseBody | When the response body is stored in variable '(.\*)' | When step: Stores the body of the current HTTP response as a string in the specified variable. Asserts that a response is available.<br>*variableName*: The name of the variable to store the response body. |
-| StoreResponseHeaderValue | When the value of header '(.\*)' is stored in variable '(.\*)' | When step: Stores the value of the specified response header into a scenario variable.<br>*headerName*: The response header to read.<br>*variableName*: The target variable name. |
+| WhenTheUserHitsTheKey | When the user hits the '([^']\*)' key | Simulates pressing a specific key.<br>*key*: The key to press. Must deserialize to  enum. |
+| WhenTheUserTypes | When the user types '([^']\*)' | Simulates typing the given text.<br>*inputText*: Text to input. |
 
 
-<a id="class-variablejsonbindings"></a>
-## Class: VariableJsonBindings
-<br>            Step bindings for extracting values from JSON variables using JSONPath and storing them in scenario variables.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| SetVariableFromJPath | When the value of JSONPath '(.\*)' in variable '(.\*)' is stored in variable '(.\*)' | When step: Extracts a value from a JSON variable via JSONPath and stores it as a new variable (stringified).<br>*jPath*: The JSONPath expression to evaluate.<br>*sourceVariableName*: The name of the source variable containing JSON.<br>*targetVariableName*: The name of the variable to set with the extracted value. |
-
-
-<a id="class-variablexmlbindings"></a>
-## Class: VariableXmlBindings
-<br>            Step bindings for extracting values from XML using XPath and storing them in scenario variables.<br>            The XML source is expected to be provided in the scenario variable named 'xml'.<br>            <br>
+<a id="class-modalwindowbindings"></a>
+## Class: ModalWindowBindings
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| SetVariableFromXPath | When when the value of XPath '(.\*)' is stored in variable '(.\*)' | When step: Evaluates the given XPath expression against the XML stored in scenario variable 'xml'<br>            and stores the resulting node/attribute string value in the specified target variable.<br>*xPath*: The XPath expression to evaluate.<br>*targetVariableName*: The name of the variable where the extracted value will be stored. |
+| SwitchToApplicationMainWindow | When ^the context switches back to the MainWindow\\$ |  |
+| SwitchToModalWindow | When ^the context switches to the window with the name '(.\*)'\\$ |  |
 
-<a id="namespace-natlaresttestbindingsbindingsactionsmanipulatevariableactions"></a>
-# Namespace: NatLaRestTest.Bindings.Bindings.Actions.ManipulateVariableActions
 
-<a id="class-datetimevariablemanipulationbindings"></a>
-## Class: DateTimeVariableManipulationBindings
-<br>            Step bindings for manipulating existing DateTime variables by adding or subtracting a TimeSpan, and computing differences.<br>            <br>
+<a id="class-propertyviewbindings"></a>
+## Class: PropertyViewBindings
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AddTimeSpanToVariable | When the timespan '(.\*)' is added to the value of variable '(.\*)' | When step: Adds the provided timespan to the current DateTime value stored in the specified variable.<br>*timeSpan*: The timespan to add (e.g., "01:30:00" for 1h30m).<br>*variableName*: The target variable name. |
-| SubtractDateTimeFromDateTime | When the date '(.\*)' is subtracted from the value of variable '(.\*)' | When step: Subtracts the provided date/time value from the current DateTime stored in the specified variable and stores the difference as a constant format string.<br>*dateToSubstract*: The date/time string to subtract.<br>*variableName*: The target variable name. |
-| SubtractTimeSpanFromVariable | When the timespan '(.\*)' is subtracted from the value of variable '(.\*)' | When step: Subtracts the provided timespan from the current DateTime value stored in the specified variable.<br>*timeSpan*: The timespan to subtract.<br>*variableName*: The target variable name. |
+| SelectRow | When ^the user selects the row describing the property '(.\*)' in property view '(.\*)'\\$ |  |
+| SetPropertyViewValue | When ^the user sets property '(.\*)' to value '(.\*)' in property view '(.\*)'\\$ |  |
 
 
-<a id="class-numericvariablemanipulationbindings"></a>
-## Class: NumericVariableManipulationBindings
-<br>            Step bindings for manipulating existing numeric variables by applying arithmetic operations.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| AddNumberToVariable | When the number '(.\*)' is added to the value of variable '(.\*)' | When step: Adds the provided number to the current numeric value stored in the specified variable.<br>*number*: The number to add.<br>*variableName*: The target variable name. |
-| DivideNumberByVariable | When the number '(.\*)' is divided by the value of variable '(.\*)' | When step: Divides the provided number by the current numeric value stored in the specified variable (number / variable).<br>*number*: The dividend.<br>*variableName*: The variable containing the divisor. |
-| DivideVariableByNumber | When the value of variable '(.\*)' is divided by the number '(.\*)' | When step (inverse of above): Divides the current numeric value stored in the specified variable by the provided number (variable / number).<br>*variableName*: The variable containing the dividend.<br>*number*: The divisor. |
-| MultiplyNumberWithVariable | When the number '(.\*)' is multiplied with the value of variable '(.\*)' | When step: Multiplies the provided number with the current numeric value stored in the specified variable.<br>*number*: The number to multiply with.<br>*variableName*: The target variable name. |
-| SubtractNumberFromVariable | When the number '(.\*)' is subtracted from the value of variable '(.\*)' | When step: Subtracts the provided number from the current numeric value stored in the specified variable (variable - number).<br>*number*: The number to subtract.<br>*variableName*: The target variable name. |
-| SubtractVariableFromNumber | When the value of variable '(.\*)' is subtracted from the number '(.\*)' | When step (inverse of above): Subtracts the current numeric value stored in the specified variable from the provided number (number - variable).<br>*variableName*: The variable containing the subtrahend.<br>*number*: The minuend. |
-
-
-<a id="class-stringvariablemanipulationbindings"></a>
-## Class: StringVariableManipulationBindings
-<br>            Step bindings for manipulating existing string variables by appending, prepending, or replacing content.<br>            <br>
+<a id="class-tablebindings"></a>
+## Class: TableBindings
+<br>            Remove this whole file when SlimTestKit supports clicking table cells natively.<br>            <br>
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AppendStringToVariable | When the string '(.\*)' is appended to the value of variable '(.\*)' | When step: Appends a literal string to the end of the specified variable's current value.<br>*valueToAppend*: The string to append.<br>*variableName*: The target variable name. |
-| PrependStringToVariable | When the string '(.\*)' is prepended to the value of variable '(.\*)' | When step: Prepends a literal string to the beginning of the specified variable's current value.<br>*valueToPrepend*: The string to prepend.<br>*variableName*: The target variable name. |
-| ReplaceStringInVariable | When the string '(.\*)' is replaced with '(.\*)' in the value of variable '(.\*)' | When step: Replaces all occurrences of a substring with another within the specified variable's value.<br>*oldValue*: The substring to replace.<br>*newValue*: The replacement string.<br>*variableName*: The target variable name. |
+| DoubleClickCellInRow | When ^the user double clicks the cell in column '(.\*)' in row with the following values in table '(.\*)':\\$ |  |
 
-<a id="namespace-natlaresttestbindingsbindingsactionssetvariableactions"></a>
-# Namespace: NatLaRestTest.Bindings.Bindings.Actions.SetVariableActions
 
-<a id="class-datetimevariablebindings"></a>
-## Class: DateTimeVariableBindings
-<br>            Step bindings for storing date/time based values into scenario variables.<br>            <br>
+<a id="class-testdatamanagement"></a>
+## Class: TestDataManagement
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| SetCurrentDate | When ^the current date is stored in variable '([^']+)'\\$ | When step: Stores the current date/time as a string in the specified variable using the system default format.<br>*variableName*: The variable name to store the current date/time into. |
-| SetCurrentDateFormatted | When ^the current date is stored in variable '([^']+)' in format '([^']+)'\\$ | When step: Stores the current date/time as a string in the specified variable using the provided .NET date/time format string.<br>*variableName*: The variable name to store the formatted date/time into.<br>*dateFormat*: A .NET date/time format string (e.g., "yyyy-MM-dd"). |
+| PrepareTestData | Given ^the dataset '(.\*)' is loaded\\$ |  |
 
+<a id="namespace-slimtestkitflauibddactions"></a>
+# Namespace: Slim.TestKit.FlaUI.BDD.Actions
 
-<a id="class-randomnumbervariablebindings"></a>
-## Class: RandomNumberVariableBindings
-<br>            Step bindings for generating and storing random numeric values in scenario variables.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| SetRandomDoubleInRange | When a random double between (.\*) and (.\*) is stored in variable '(.\*)' | When step: Generates a random double within the inclusive lower and exclusive upper bounds and stores it in the specified variable.<br>*minValue*: The inclusive lower bound of the random range.<br>*maxValue*: The exclusive upper bound of the random range.<br>*variableName*: The variable name to store the generated double value. |
-| SetRandomNumberInRange | When a random integer between (.\*) and (.\*) is stored in variable '(.\*)' | When step: Generates a random integer within the inclusive lower/upper bounds and stores it in the specified variable.<br>*minValue*: The inclusive lower bound of the random range.<br>*maxValue*: The exclusive upper bound of the random range.<br>*variableName*: The variable name to store the generated integer value. |
-
-
-<a id="class-randomstringvariablebindings"></a>
-## Class: RandomStringVariableBindings
-<br>            Step bindings for generating and storing random strings in scenario variables.<br>            <br>
+<a id="class-automationelementactions"></a>
+## Class: AutomationElementActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| SetRandomString | When a random '(.\*)' string is stored in variable '(.\*)' | When step: Generates a random string based on the specified type and stores it in the given variable.<br>*stringType*: The category/type of random string to generate. Supported values:<br>            FirstName: A random first name.<br>            LastName: A random last name.<br>            FullName: A random full name.<br>            UserName: A random internet username.<br>            Email: A random email address.<br>            PhoneNumber: A random phone number.<br>            CompanyName: A random company name.<br>            JobTitle: A random job title.<br>            City: A random city name.<br>            Country: A random country name.<br>            StreetAddress: A random street address.<br>            ZipCode: A random ZIP/postal code.<br>            Url: A random internet URL.<br>            Word: A random lorem word.<br>            Sentence: A random lorem sentence.<br>            Ipv4: A random IPv4 address.<br>            Ipv6: A random IPv6 address.<br>            Guid: A random GUID.<br>*variableName*: The variable name to store the generated string value. |
+| ThenElementsAreAvailable | Then ^the following elements are available and (unique):\\$ |  |
+| ThenElementsAreEnabled | Then ^the following elements are (enabled\\|disabled):\\$ |  |
+| ThenElementsAreEnabled | Then ^the following elements have the enablement statuses:\\$ |  |
+| ThenIsEnabled | Then ^'([^']\*)' is (enabled\\|disabled)\\$ |  |
+| ThenTheElementIsAvailableAndUnique | Then ^'(.\*)' is available and (unique)\\$ |  |
+| ThenTheElementIsNotAvailable | Then ^'(.\*)' is not available\\$ |  |
+| WhenClickOnContextMenuElement | When ^the user clicks on item '(.\*)' in the context menu\\$ |  |
+| WhenClickOnContextMenuElement | When ^the user clicks on item '(.\*)' in the '(.\*)' context menu\\$ |  |
+| WhenHighlightForGivenTimeframe | When ^the user highlights '(.\*)' with '(.\*)' color\\$ |  |
+| WhenHighlightOn | When ^the user highlights '(.\*)' with '(.\*)' color for '(.\*)' seconds?\\$ |  |
+| WhenHighlightWithGivenColorForGivenTimeframe | When ^the user highlights '(.\*)'\\$ |  |
 
 
-<a id="class-setfromfile"></a>
-## Class: SetFromFile
-<br>            Step bindings to load the content of a file and store it into a scenario variable.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| LoadVariablesFile | Given the variables file '(.\*)' is loaded | Given step: Loads variables from a JSON file into the variable storage.<br>*filePath*: Path to the variables JSON file. |
-| SetVariableFromFile | When the content of file '(.\*)' is stored in variable '(.\*)' | When step: Reads all text from the specified file path and stores it into the given variable.<br>*filePath*: The path to the file to read.<br>*variableName*: The target variable name. |
-
-
-<a id="class-stringoperationbindings"></a>
-## Class: StringOperationBindings
-<br>            Step bindings that perform string operations and store results in scenario variables.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| GetStringLength | When the length of string '(.\*)' is stored in variable '(.\*)' | When step: Stores the length of the given input string in the specified target variable.<br>*input*: The input string to measure.<br>*targetVariableName*: The name of the variable where the length will be stored. |
-| GetSubString | When the substring from index '(.\*)' and length '(.\*)' is extracted from '(.\*)' and stored in variable '(.\*)' | When step: Extracts a substring from the provided input string using the given start index and length,<br>            then stores the result in the specified target variable.<br>*startIndex*: The zero-based starting index of the substring.<br>*length*: The number of characters to include in the substring.<br>*input*: The source string to extract from.<br>*targetVariableName*: The name of the variable where the substring will be stored. |
-
-<a id="namespace-natlaresttestbindingsbindingsassertions"></a>
-# Namespace: NatLaRestTest.Bindings.Bindings.Assertions
-
-<a id="class-basicvariableassertions"></a>
-## Class: BasicVariableAssertions
-<br>            Step bindings providing basic assertions on scenario variables (null/not null).<br>            <br>
+<a id="class-checkboxactions"></a>
+## Class: CheckBoxActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AssertVariableIsNotNull | Then the value of variable '(.\*)' is not null | Then step: Asserts that the specified variable is not null.<br>*variableName*: The name of the variable to check. |
-| AssertVariableIsNull | Then the value of variable '(.\*)' is null | Then step: Asserts that the specified variable is null.<br>*variableName*: The name of the variable to check. |
+| ThenCheckBoxesAreChecked | Then ^the following CheckBoxes are (checked\\|unchecked):\\$ |  |
+| ThenCheckBoxesWithLabelsAreChecked | Then ^the following CheckBoxes with labels are (checked\\|unchecked):\\$ |  |
+| ThenCheckboxHasLabel | Then ^CheckBox '([^']\*)' label is equal to '([^']\*)'\\$ |  |
+| ThenCheckBoxIsChecked | Then ^CheckBox '([^']\*)' is (checked\\|unchecked)\\$ |  |
+| ThenCheckBoxWithLabelIsChecked | Then ^CheckBox with label '([^']\*)' is (checked\\|unchecked)\\$ |  |
+| WhenCheckTheCheckbox | When ^the user checks the CheckBox '([^']\*)'\\$ |  |
+| WhenCheckTheCheckboxes | When ^the user checks the following CheckBoxes:\\$ |  |
+| WhenCheckTheCheckboxesWithLabels | When ^the user checks the following CheckBoxes with labels:\\$ |  |
+| WhenCheckTheCheckboxWithLabel | When ^the user checks the CheckBox with label '([^']\*)'\\$ |  |
+| WhenUncheckTheCheckbox | When ^the user unchecks the CheckBox '([^']\*)'\\$ |  |
+| WhenUncheckTheCheckboxes | When ^the user unchecks the following CheckBoxes:\\$ |  |
+| WhenUnCheckTheCheckboxesWithLabels | When ^the user unchecks the following CheckBoxes with labels:\\$ |  |
+| WhenUncheckTheCheckboxWithLabel | When ^the user unchecks the CheckBox with label '([^']\*)'\\$ |  |
 
 
-<a id="class-collectionvariableassertions"></a>
-## Class: CollectionVariableAssertions
-<br>            Step bindings providing assertions for variables representing JSON arrays (element count checks).<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| AssertCollectionHasExactCount | Then the value of variable '(.\*)' has '(.\*)' elements | Then step: Asserts that the JSON array stored in the specified variable has exactly the given number of elements.<br>*variableName*: The variable name containing a JSON array string.<br>*count*: The expected number of elements. |
-| AssertCollectionHasLessThanNElements | Then the value of variable '(.\*)' has less than '(.\*)' elements | Then step: Asserts that the JSON array stored in the specified variable has less than the given number of elements.<br>*variableName*: The variable name containing a JSON array string.<br>*count*: The threshold (exclusive) for element count. |
-| AssertCollectionHasMoreThanNElements | Then the value of variable '(.\*)' has more than '(.\*)' elements | Then step: Asserts that the JSON array stored in the specified variable has more than the given number of elements.<br>*variableName*: The variable name containing a JSON array string.<br>*count*: The threshold (exclusive) for element count. |
-| AssertCollectionIsEmpty | Then the value of variable '(.\*)' has no elements | Then step: Asserts that the JSON array stored in the specified variable has no elements.<br>*variableName*: The variable name containing a JSON array string. |
-| AssertCollectionIsNotEmpty | Then the value of variable '(.\*)' has any elements | Then step: Asserts that the JSON array stored in the specified variable has at least one element.<br>*variableName*: The variable name containing a JSON array string. |
-
-
-<a id="class-httpresponseassertionbindings"></a>
-## Class: HttpResponseAssertionBindings
-<br>            Step bindings providing assertions for the current HTTP response (status success, exact/not-equal status codes).<br>            <br>
+<a id="class-clickactions"></a>
+## Class: ClickActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AssertResponseCode | Then the response code equals '(.\*)' | Then step: Asserts that the current HTTP response status code equals the expected value.<br>*code*: The expected HTTP status code (e.g., 200). |
-| AssertResponseCodeIsNot | Then the response code does not equal '(.\*)' | Then step: Asserts that the current HTTP response status code does not equal the specified value.<br>*code*: The HTTP status code that must not match. |
-| ResponseIsNotSuccess | Then the response does not indicate success | Then step: Asserts that the current HTTP response exists and does not indicate success. |
-| ResponseIsSuccess | Then the response indicates success | Then step: Asserts that the current HTTP response exists and indicates success (2xx status). |
+| WhenClick | When ^the user clicks on '([^']\*)'\\$ |  |
+| WhenDoubleClick | When ^the user double clicks on '([^']\*)'\\$ |  |
+| WhenRightClick | When ^the user right clicks on '([^']\*)'\\$ |  |
 
 
-<a id="class-jsonschemaassertions"></a>
-## Class: JsonSchemaAssertions
-<br>            Step bindings providing JSON Schema validation assertions for JSON stored in scenario variables.<br>            <br>
+<a id="class-comboboxactions"></a>
+## Class: ComboBoxActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AssertVariableConformsToJsonSchema | Then the value of variable '(.\*)' matches the JSON schema: | Then step: Asserts that the JSON stored in the specified variable conforms to the provided JSON Schema.<br>*variableName*: The variable containing the JSON document to validate.<br>*jsonSchema*: The JSON Schema to validate against. |
+| ThenComboBoxesAreLoaded | Then ^the following ComboBoxes are (loaded):\\$ |  |
+| ThenComboBoxIsLoaded | Then ^ComboBox '([^']\*)' is (loaded)\\$ |  |
+| ThenComboBoxItemWithIndexIsSelected | Then ^the '([^']\*)'. ComboBoxItem from ComboBox '([^']\*)' is selected\\$ |  |
+| ThenComboBoxItemWithTextIsSelected | Then ^ComboBoxItem with text '([^']\*)' from ComboBox '([^']\*)' is selected\\$ |  |
+| WhenSelectItemByIndexFromCombobox | When ^the user selects '([^']\*)'. item from ComboBox '([^']\*)'\\$ |  |
+| WhenSelectItemByIndexFromComboboxWithDropdownOpen | When ^the user selects '([^']\*)'. item from ComboBox '([^']\*)' with keeping the dropdown open\\$ |  |
+| WhenSelectItemFromCombobox | When ^the user selects item '([^']\*)' from ComboBox '([^']\*)'\\$ |  |
+| WhenSelectItemFromComboboxWithDropdownOpen | When ^the user selects item '([^']\*)' from ComboBox '([^']\*)' with keeping the dropdown open\\$ |  |
 
 
-<a id="class-numericvariablepathassertions"></a>
-## Class: NumericVariablePathAssertions
-<br>            Step bindings providing numeric assertions on variables that store numeric values.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| NumericVariableIsGreaterThan | Then the value of variable '(.\*)' is greater than '(.\*)' | Then step: Asserts that the numeric value stored in the specified variable is greater than the given value.<br>*variableName*: The variable name containing a numeric value.<br>*value*: The threshold value (exclusive). |
-| NumericVariableIsLessThan | Then the value of variable '(.\*)' is less than '(.\*)' | Then step: Asserts that the numeric value stored in the specified variable is less than the given value.<br>*variableName*: The variable name containing a numeric value.<br>*value*: The threshold value (exclusive). |
-
-
-<a id="class-regexassertions"></a>
-## Class: RegExAssertions
-<br>            Step bindings providing regular expression based assertions on scenario variables.<br>            <br>
+<a id="class-commondialogactions"></a>
+## Class: CommonDialogActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AssertVariableMatchesRegex | Then the value of variable '(.\*)' matches the regex pattern '(.\*)' | Then step: Asserts that the value of the specified variable matches the provided regular expression pattern.<br>*variableName*: The name of the variable whose value will be tested.<br>*pattern*: The regular expression pattern to match against. |
+| ThenVerifyFolderPath | Then ^folder path contains '(.\*)' in the AddressBar of the dialog\\$ |  |
+| ThenVerifySelectedElement | Then ^(?:file\\|folder) '(.\*)' is selected in the main panel of the dialog\\$ |  |
+| WhenCancel | When ^the user cancels the (?:open file\\|open folder\\|save file) dialog\\$ |  |
+| WhenClickOnElement | When ^the user clicks on (?:file\\|folder) '(.\*)' in the main panel of the dialog\\$ |  |
+| WhenCloseDialog | When ^the user closes the opened (?:open file\\|open folder\\|save file) dialog\\$ |  |
+| WhenConfirmAction | When ^the user opens the selected (?:file\\|folder) by clicking on Open button\\$ |  |
+| WhenConfirmAction | When ^the user saves the given file by clicking on Save button\\$ |  |
+| WhenDoubleClickOnFile | When ^the user double clicks on the file '(.\*)' in the main panel of the dialog\\$ |  |
+| WhenDoubleClickOnFolder | When ^the user double clicks on the folder '(.\*)' in the main panel of the dialog\\$ |  |
+| WhenEnterElementPath | When ^the user enters (?:file\\|folder) path '(.\*)' in the TextBox of the dialog\\$ |  |
+| WhenEnterFolderPathIntoAddressBar | When ^the user enters folder path '(.\*)' in the AddressBar of the dialog\\$ |  |
+| WhenOpenDialogWithClick | When ^the user opens (open file\\|open folder\\|save file) dialog by clicking on '([^']\*)'\\$ |  |
+| WhenOpenElementByEnteringNamePlusOpenButton | When ^the user opens the (?:file\\|folder) '(.\*)' with path by clicking on Open button\\$ |  |
+| WhenOpenFileWithDoubleClicking | When ^the user opens the file '(.\*)' by double clicking on its name\\$ |  |
+| WhenOpenFolderWithDoubleClicking | When ^the user opens the folder '(.\*)' by double clicking on its name and clicking on Open button\\$ |  |
+| WhenPressEnter | When ^the user opens the selected file by pressing ENTER\\$ |  |
+| WhenPressEnter | When ^the user saves the given file by pressing ENTER\\$ |  |
+| WhenSaveFileByEnteringNamePlusEnterKey | When ^the user saves the file by entering path '(.\*)' in the TextBox and pressing ENTER\\$ |  |
+| WhenSaveFileByEnteringNamePlusSaveButton | When ^the user saves the file by entering path '(.\*)' in the TextBox and clicking on Save button\\$ |  |
+| WhenSaveFileWithEnter | When ^the user saves the file by entering file name '(.\*)' in the TextBox and pressing ENTER\\$ |  |
+| WhenSaveFileWithSaveButton | When ^the user saves the file by entering file name '(.\*)' in the TextBox and clicking on Save button\\$ |  |
+| WhenSelectFileByEnteringNamePlusEnter | When ^the user opens the file '(.\*)' with path by pressing ENTER\\$ |  |
+| WhenSelectFileBySingleClickPlusEnter | When ^the user opens the file '(.\*)' by clicking on its name and pressing ENTER\\$ |  |
+| WhenSelectFileBySingleClickPlusOpenButton | When ^the user opens the (?:file\\|folder) '(.\*)' by clicking on its name and clicking on Open button\\$ |  |
 
 
-<a id="class-stringvariableassertions"></a>
-## Class: StringVariableAssertions
-<br>            Step bindings providing string-related assertions on scenario variables.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| StringVariableContains | Then the value of variable '(.\*)' contains '(.\*)' | Then step: Asserts that the specified variable's string value contains the given substring.<br>*variableName*: The variable to inspect.<br>*substring*: The expected substring. |
-| StringVariableEndsWith | Then the value of variable '(.\*)' ends with '(.\*)' | Then step: Asserts that the specified variable's string value ends with the given suffix.<br>*variableName*: The variable to inspect.<br>*suffix*: The expected suffix. |
-| StringVariableEquals | Then the value of variable '(.\*)' equals '(.\*)' | Then step: Asserts that the specified variable's string value equals the given comparison string.<br>*variableName*: The variable to inspect.<br>*comparison*: The expected value. |
-| StringVariableIsEmpty | Then the value of variable '(.\*)' is empty | Then step: Asserts that the specified variable's string value is empty.<br>*variableName*: The variable to inspect. |
-| StringVariableIsNotEmpty | Then the value of variable '(.\*)' is not empty | Then step: Asserts that the specified variable's string value is not empty.<br>*variableName*: The variable to inspect. |
-| StringVariableLengthIs | Then the value of variable '(.\*)' is '(.\*)' characters long | Then step: Asserts that the length of the specified variable's string value equals the given length.<br>*variableName*: The variable to inspect.<br>*length*: The expected length. |
-| StringVariableLengthIsLessThan | Then the value of variable '(.\*)' is less than '(.\*)' characters long | Then step: Asserts that the length of the specified variable's string value is less than the given length.<br>*variableName*: The variable to inspect.<br>*length*: The threshold length (exclusive). |
-| StringVariableLengthIsMoreThan | Then the value of variable '(.\*)' is more than '(.\*)' characters long | Then step: Asserts that the length of the specified variable's string value is greater than the given length.<br>*variableName*: The variable to inspect.<br>*length*: The threshold length (exclusive). |
-| StringVariableNotContains | Then the value of variable '(.\*)' does not contain '(.\*)' | Then step: Asserts that the specified variable's string value does not contain the given substring.<br>*variableName*: The variable to inspect.<br>*substring*: The substring that must not be present. |
-| StringVariableNotEndsWith | Then the value of variable '(.\*)' does not end with '(.\*)' | Then step: Asserts that the specified variable's string value does not end with the given suffix.<br>*variableName*: The variable to inspect.<br>*suffix*: The suffix that must not match. |
-| StringVariableNotEquals | Then the value of variable '(.\*)' does not equal '(.\*)' | Then step: Asserts that the specified variable's string value does not equal the given comparison string.<br>*variableName*: The variable to inspect.<br>*comparison*: The value that must not match. |
-| StringVariableNotStartsWith | Then the value of variable '(.\*)' does not start with '(.\*)' | Then step: Asserts that the specified variable's string value does not start with the given prefix.<br>*variableName*: The variable to inspect.<br>*prefix*: The prefix that must not match. |
-| StringVariableStartsWith | Then the value of variable '(.\*)' starts with '(.\*)' | Then step: Asserts that the specified variable's string value starts with the given prefix.<br>*variableName*: The variable to inspect.<br>*prefix*: The expected prefix. |
-
-<a id="namespace-natlaresttestbindingsbindingsassertionsjsonpath"></a>
-# Namespace: NatLaRestTest.Bindings.Bindings.Assertions.JsonPath
-
-<a id="class-basicvariablejsonpathassertions"></a>
-## Class: BasicVariableJsonPathAssertions
-<br>            Step bindings providing basic string equality/inequality assertions against values resolved via JSONPath from a JSON variable.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| AssertJsonPathReturnsAnyValue | Then the value of JSONPath '(.\*)' in variable '(.\*)' returns any value | Then step: Asserts that the provided JSONPath in the specified variable returns any value.<br>*jsonPath*: The JSONPath expression used to select a value.<br>*variable*: The name of the variable containing a JSON string to evaluate. |
-| AssertValueEquals | Then the value of JSONPath '(.\*)' in variable '(.\*)' equals '(.\*)' | Then step: Asserts that the value selected by the provided JSONPath from the specified variable equals the given comparison string.<br>*jsonPath*: The JSONPath expression used to select a value.<br>*variable*: The name of the variable containing a JSON string to evaluate.<br>*comparison*: The expected string value to compare against the selected value. |
-| AssertValueNotEquals | Then the value of JSONPath '(.\*)' in variable '(.\*)' does not equal '(.\*)' | Then step: Asserts that the value selected by the provided JSONPath from the specified variable does not equal the given comparison string.<br>*jsonPath*: The JSONPath expression used to select a value.<br>*variable*: The name of the variable containing a JSON string to evaluate.<br>*comparison*: The string value that must not match the selected value. |
-
-
-<a id="class-collectionvariablejsonpathassertions"></a>
-## Class: CollectionVariableJsonPathAssertions
-<br>            Step bindings providing assertions for JSON arrays resolved via JSONPath from JSON variables (element count checks).<br>            <br>
+<a id="class-componentgeneratoractions"></a>
+## Class: ComponentGeneratorActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AssertCollectionHasExactCount | Then the value of JSONPath '(.\*)' in variable '(.\*)' has '(.\*)' elements | Then step: Asserts that the JSON array selected by the given JSONPath in the specified variable has exactly the provided number of elements.<br>*jsonPath*: The JSONPath expression selecting the array.<br>*variableName*: The variable name containing a JSON value.<br>*count*: The expected number of elements. |
-| AssertCollectionHasLessThanNElements | Then the value of JSONPath '(.\*)' in variable '(.\*)' has less than '(.\*)' elements | Then step: Asserts that the JSON array selected by the given JSONPath in the specified variable has less than the provided number of elements.<br>*jsonPath*: The JSONPath expression selecting the array.<br>*variableName*: The variable name containing a JSON value.<br>*count*: The exclusive upper bound for the number of elements. |
-| AssertCollectionHasMoreThanNElements | Then the value of JSONPath '(.\*)' in variable '(.\*)' has more than '(.\*)' elements | Then step: Asserts that the JSON array selected by the given JSONPath in the specified variable has more than the provided number of elements.<br>*jsonPath*: The JSONPath expression selecting the array.<br>*variableName*: The variable name containing a JSON value.<br>*count*: The exclusive lower bound for the number of elements. |
-| AssertCollectionIsEmpty | Then the value of JSONPath '(.\*)' in variable '(.\*)' has no elements | Then step: Asserts that the value at the given JSONPath in the specified variable is a JSON array with no elements.<br>*jsonPath*: The JSONPath expression selecting the array.<br>*variableName*: The variable name containing a JSON value. |
-| AssertCollectionIsNotEmpty | Then the value of JSONPath '(.\*)' in variable '(.\*)' has any elements | Then step: Asserts that the value at the given JSONPath in the specified variable is a JSON array with at least one element.<br>*jsonPath*: The JSONPath expression selecting the array.<br>*variableName*: The variable name containing a JSON value. |
+| GivenDataFromFolderIsLoadedIntoEris | Given ^the data from folder '([^']\*)' is loaded into ERIS\\$ |  |
+| GivenDataFromFolderIsLoadedIntoErisUntilStep | Given ^the data from folder '([^']\*)' is loaded into ERIS until step '([^']\*)'\\$ |  |
+| GivenDataFromFolderIsLoadedIntoErisUntilStepWithoutCommit | Given ^the data from folder '([^']\*)' is loaded into ERIS until step '([^']\*)' without committing the transaction\\$ |  |
+| GivenDataFromFolderIsLoadedIntoErisWithoutCommit | Given ^the data from folder '([^']\*)' is loaded into ERIS without committing the transaction\\$ |  |
+| GivenSuffix | Given ^the suffix '([^']\*)' for the ComponentGenerator\\$ |  |
+| GivenSuffixGenerated | Given ^a suffix is generated for the ComponentGenerator\\$ |  |
+| GivenSuffixIsGeneratedFromRegex | Given ^a suffix is generated from regex '(.\*)' for the ComponentGenerator\\$ |  |
 
 
-<a id="class-numericvariablejsonpathassertions"></a>
-## Class: NumericVariableJsonPathAssertions
-<br>            Step bindings providing numeric comparison assertions for values resolved by JSONPath from JSON variables.<br>            <br>
-
-| MethodName | BindingValue | Comments |
-|------------|--------------|----------|
-| NumericVariableIsGreaterThan | Then the value of JSONPath '(.\*)' in variable '(.\*)' is greater than '(.\*)' | Then step: Asserts that the numeric value extracted by JSONPath from the specified variable is greater than the given value.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*value*: The threshold value (exclusive). |
-| NumericVariableIsLessThan | Then the value of JSONPath '(.\*)' in variable '(.\*)' is less than '(.\*)' | Then step: Asserts that the numeric value extracted by JSONPath from the specified variable is less than the given value.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*value*: The threshold value (exclusive). |
-
-
-<a id="class-stringvariablejsonpathassertions"></a>
-## Class: StringVariableJsonPathAssertions
-<br>            Step bindings providing string-based assertions on values resolved by JSONPath from JSON variables.<br>            <br>
+<a id="class-customdialogactions"></a>
+## Class: CustomDialogActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| StringVariableContains | Then the value of JSONPath '(.\*)' in variable '(.\*)' contains '(.\*)' | Then step: Asserts that the value extracted by JSONPath from the specified variable contains the given substring.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*comparison*: The substring expected to be contained. |
-| StringVariableEndsWith | Then the value of JSONPath '(.\*)' in variable '(.\*)' ends with '(.\*)' | Then step: Asserts that the extracted value ends with the specified suffix.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*comparison*: The expected suffix. |
-| StringVariableIsEmpty | Then the value of JSONPath '(.\*)' in variable '(.\*)' is empty | Then step: Asserts that the extracted value is empty.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON. |
-| StringVariableIsLength | Then the value of JSONPath '(.\*)' in variable '(.\*)' is '(.\*)' characters long | Then step: Asserts that the extracted value length equals the specified number of characters.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*length*: The expected length in characters. |
-| StringVariableIsLessThanLength | Then the value of JSONPath '(.\*)' in variable '(.\*)' is less than '(.\*)' characters long | Then step: Asserts that the extracted value length is less than the specified number of characters.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*length*: The threshold length (exclusive). |
-| StringVariableIsMoreThanLength | Then the value of JSONPath '(.\*)' in variable '(.\*)' is more than '(.\*)' characters long | Then step: Asserts that the extracted value length is greater than the specified number of characters.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*length*: The threshold length (exclusive). |
-| StringVariableIsNotEmpty | Then the value of JSONPath '(.\*)' in variable '(.\*)' is not empty | Then step: Asserts that the extracted value is not empty.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON. |
-| StringVariableNotContains | Then the value of JSONPath '(.\*)' in variable '(.\*)' does not contain '(.\*)' | Then step: Asserts that the value extracted by JSONPath from the specified variable does not contain the given substring.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*comparison*: The substring that must not be contained. |
-| StringVariableNotEndsWith | Then the value of JSONPath '(.\*)' in variable '(.\*)' does not end with '(.\*)' | Then step: Asserts that the extracted value does not end with the specified suffix.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*comparison*: The suffix that must not match. |
-| StringVariableNotStartsWith | Then the value of JSONPath '(.\*)' in variable '(.\*)' does not start with '(.\*)' | Then step: Asserts that the extracted value does not start with the specified prefix.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*comparison*: The prefix that must not match. |
-| StringVariableStartsWith | Then the value of JSONPath '(.\*)' in variable '(.\*)' starts with '(.\*)' | Then step: Asserts that the extracted value starts with the specified prefix.<br>*jsonPath*: The JSONPath expression.<br>*variableName*: The variable name containing JSON.<br>*comparison*: The expected prefix. |
+| ClickOnButtonWithTextInOpenDialog | When ^the user clicks on button with text '([^']\*)' in the custom dialog\\$ |  |
+| WhenCloseDialog | When ^the user closes the (custom dialog) '([^']\*)'\\$ |  |
+| WhenCloseModalDialog | When ^the user closes the opened custom dialog\\$ |  |
+| WhenOpenDialog | When ^the user opens a (custom dialog) by clicking on '([^']\*)'\\$ |  |
 
-<a id="namespace-natlaresttestbindingsbindingssetup"></a>
-# Namespace: NatLaRestTest.Bindings.Bindings.Setup
 
-<a id="class-httpclientconfigurationbindings"></a>
-## Class: HttpClientConfigurationBindings
-<br>            Step bindings to configure the shared HTTP client used across scenarios (base URL, timeout, headers).<br>            <br>
+<a id="class-fileactions"></a>
+## Class: FileActions
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| DisableSslCertificateValidation | Given SSL certificate validation is disabled | Given step: Disables SSL certificate validation for outgoing requests. |
-| SetBaseUrl | Given the base URL '(.\*)' | Given step: Configures the base address used by the shared HTTP client.<br>*baseUrl*: The absolute base URL (e.g., https://api.example.com). |
-| SetDefaultHeader | Given the default header '(.\*)' with value '(.\*)' | Given step: Adds a default request header to the shared HTTP client.<br>*headerName*: The name of the header to add.<br>*headerValue*: The value of the header. |
-| SetDefaultTimeout | Given the default timeout of '(.\*)' seconds | Given step: Sets the default timeout for HTTP requests executed by the shared HTTP client.<br>*seconds*: The timeout value in seconds. |
+| GivenTheDataIsStored | Given ^the data '([^']\*)' is stored\\$ |  |
+| GivenTheDataIsStoredWithIdentifier | Given ^the data '([^']\*)' is stored with identifier '([^']\*)'\\$ |  |
+| GivenTheFileIsStored | Given ^the data from file '([^']\*)' is stored\\$ |  |
+| GivenTheFileIsStoredWithIdentifier | Given ^the data from file '([^']\*)' is stored with identifier '([^']\*)'\\$ |  |
+| ThenFileContainsContent | Then ^the data in file '([^']\*)' contains content '([^']\*)'\\$ |  |
+| ThenFileContainsContentInFile | Then ^the data in file '([^']\*)' contains content defined in '([^']\*)'\\$ |  |
+| ThenTextboxContainsValueFromStorage | Then ^TextBox '([^']\*)' contains the value of variable '([^']\*)' in test data storage\\$ |  |
+| WhenCopyFileToDestination | When ^the user copies file '([^']\*)' to folder '([^']\*)'\\$ |  |
+| WhenDeleteFile | When ^the user deletes file '([^']\*)'\\$ |  |
+| WhenTextEnteredFromStorage | When ^the user enters text from test data storage into TextBox '([^']\*)'\\$ |  |
+| WhenTextEnteredFromStorageNamedElement | When ^the user enters text from identifier '([^']\*)' in test data storage into TextBox '([^']\*)'\\$ |  |
+
+
+<a id="class-generalactions"></a>
+## Class: GeneralActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| GivenTheFileLogLevelIsSetTo | Given ^the file log level is set to '(.\*)'\\$ |  |
+| GivenTheLogLevelIsSetTo | Given ^the log level is set to '(.\*)'\\$ |  |
+| GivenTheTimeoutIsReverted | Given ^the timeout for actions is reverted to the global configuration\\$ |  |
+| GivenTheTimeoutIsSetTo | Given ^the timeout for actions is set to '(.\*)' seconds?\\$ |  |
+| ThenTheCurrentfileLogLevelIs | Then ^the current file log level is '(.\*)'\\$ |  |
+| ThenTheCurrentLogLevelIs | Then ^the current log level is '(.\*)'\\$ |  |
+| WhenCaptureScreenshot | When ^the user captures screenshot as '(.\*)'\\$ |  |
+| WhenRemoveFocus | When ^the test removes focus from element that was previously in focus\\$ |  |
+| WhenSetFocusTo | When ^the test puts the element '(.\*)' in focus\\$ |  |
+
+
+<a id="class-listactions"></a>
+## Class: ListActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ThenItemSelectedInList | Then ^ListBoxItem with text '([^']\*)' from List '([^']\*)' is selected\\$ |  |
+| ThenListIsLoaded | Then ^List '([^']\*)' is (loaded)\\$ |  |
+| ThenListsAreLoaded | Then ^the following Lists are (loaded):\\$ |  |
+| WhenSelectItemFromTheList | When ^the user selects item '([^']\*)' from the List '([^']\*)'\\$ |  |
+
+
+<a id="class-masifsimulatoractions"></a>
+## Class: MasifSimulatorActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| GivenTheSimulatorIsStartedAndReady | Given ^the Simulator is started and ready\\$ |  |
+| GivenTheSimulatorIsStartedAndReadyWithSnapshotFile | Given ^the Simulator is started and ready with Snapshot file '(.\*)'\\$ |  |
+| WhenActivatingSimulatorFaultCategory | When ^the user activates FaultCategory '(.\*)' on Simulator '(.\*)'\\$ |  |
+| WhenRestoringTheSimulatorDataModelFromSnapshot | When ^the user restores the Simulator DataModel from Snapshot file '(.\*)'\\$ |  |
+| WhenSavingTheSimulatorDataModelSnapshotToFile | When ^the user saves the Simulator DataModel Snapshot to file '(.\*)'\\$ |  |
+| WhenStoppingAllActiveSimulatorFaults | When ^the user stops all active Simulator Faults\\$ |  |
+| WhenUserUpdatesTheSimulatorDataModelWithFile | When ^the user updates the Simulator DataModel '(.\*)' with file '(.\*)'\\$ |  |
+
+
+<a id="class-messageboxactions"></a>
+## Class: MessageBoxActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ClickOnButtonInDialog | When ^the user clicks on '(Yes\\|No\\|Ja\\|Nein\\|OK\\|Cancel\\|Abbrechen)' button in the (message box)\\$ |  |
+| ClickOnButtonWithTextInDialog | When ^the user clicks on button with text '([^']\*)' in the message box\\$ |  |
+| VerifyMessageBoxText | Then ^the (message box) text is (equal to '([^']\*)')\\$ |  |
+| VerifyMessageBoxTextContains | Then ^the (message box) text (contains '([^']\*)')\\$ |  |
+| WhenCloseDialog | When ^the user closes the (message box) '([^']\*)'\\$ |  |
+| WhenCloseModalDialog | When ^the user closes the opened message box\\$ |  |
+| WhenCloseModalDialogByEnter | When ^the user closes the message box by pressing ENTER\\$ |  |
+| WhenCloseModalDialogByEscape | When ^the user closes the message box by pressing Escape\\$ |  |
+| WhenOpenDialog | When ^the user opens a (message box) by clicking on '([^']\*)'\\$ |  |
+| WhenOpenDialog | When ^the user opens a (message box) by pressing ENTER\\$ |  |
+
+
+<a id="class-progressbaractions"></a>
+## Class: ProgressBarActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ThenProgressBarIsDisabled | Then ^the progress bar '([^']\*)' is disabled\\$ |  |
+| ThenProgressBarIsNotAvailable | Then ^the progress bar '([^']\*)' is not available\\$ |  |
+| ThenProgressBarIsVisible | Then ^the progress bar '([^']\*)' is visible\\$ |  |
+
+
+<a id="class-tableactions"></a>
+## Class: TableActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ThenCellByColumnContainsMultilineValueInTable | Then ^the cell in column '([^']\*)' contains the following multiline text in the identified row:\\$ |  |
+| ThenCellByColumnContainsValueInTable | Then ^the cell in column '([^']\*)' (contains '([^']\*)') in the identified row\\$ |  |
+| ThenCellByColumnContainsValueInTableOld | Then ^the cell in column '([^']\*)' contains the value '([^']\*)' in the identified row\\$ |  |
+| ThenCellByColumnHasMultilineValueInTable | Then ^the cell in column '([^']\*)' is equal to the following multiline text in the identified row:\\$ |  |
+| ThenCellByColumnHasValueInTable | Then ^the cell in column '([^']\*)' has the value '([^']\*)' in the identified row\\$ |  |
+| ThenCellByColumnIsEqualToInTable | Then ^the cell in column '([^']\*)' is (equal to '([^']\*)') in the identified row\\$ |  |
+| ThenCellByIndexContainsValueInTable | Then ^the cell in the '([^']\*)'. column (contains '([^']\*)') in the identified row\\$ |  |
+| ThenCellByIndexContainsValueInTableOld | Then ^the cell in the '([^']\*)'. column contains the value '([^']\*)' in the identified row\\$ |  |
+| ThenCellByIndexHasValueInTable | Then ^the cell in the '([^']\*)'. column has the value '([^']\*)' in the identified row\\$ |  |
+| ThenCellByIndexIsEqualToInTable | Then ^the cell in the '([^']\*)'. column is (equal to '([^']\*)') in the identified row\\$ |  |
+| ThenVerifyRowsByIndexes | Then ^the rows with the following indexes are selected in table '([^']\*)':\\$ |  |
+| ThenVerifyRowsByValues | Then ^the rows with the following values are selected in table '([^']\*)':\\$ |  |
+| WhenClickOnColumnInIdentifierRow | When ^the user clicks in the cell in '([^']\*)' column in the identified row\\$ |  |
+| WhenClickOnIdentifiedRow | When ^the user clicks on the identified row\\$ |  |
+| WhenEditCellByColumnNameAndType | When ^the user edits the cell in column '([^']\*)' in the identified row with (datetime\\|editable combobox\\|combobox\\|numeric text\\|multiline text\\|text\\|file selector\\|folder selector) value '([^']\*)'\\$ |  |
+| WhenEditMultilineCellByColumnName | When ^the user edits the cell in column '([^']\*)' in the identified row with the following multiline text value:\\$ |  |
+| WhenEditMultipleCellsByTableColumnNameAndType | When ^the user edits the cells in column '([^']\*)' in table '([^']\*)' with the following values:\\$ |  |
+| WhenEditMultipleCellsInRowsByTableName | When ^the user edits the cells in column '([^']\*)' in table '([^']\*)' at the specified row indices with the following values:\\$ |  |
+| WhenIdentifyRowInTableByRowNumber | When ^the user identifies the '([^']\*)'. row in table '([^']\*)'\\$ |  |
+| WhenIdentifyRowInTableByValuesInColumns | When ^the user identifies the row in table '([^']\*)' with the following values:\\$ |  |
+| WhenSelectEveryRowBetweenRowNumbers | When ^the user selects every row in table '([^']\*)' between rows with row numbers '([^']\*)' and '([^']\*)'\\$ |  |
+| WhenSelectEveryRowBetweenRowNumbersAndColumn | When ^the user selects every row by clicking on column '([^']\*)' in table '([^']\*)' between rows with row numbers '([^']\*)' and '([^']\*)'\\$ |  |
+| WhenSelectEveryRowBetweenValues | When ^the user selects every row in table '([^']\*)' between rows with the following values:\\$ |  |
+| WhenSelectEveryRowBetweenValuesAndColumn | When ^the user selects every row by clicking on column '([^']\*)' in table '([^']\*)' between rows with the following values:\\$ |  |
+| WhenSelectMultipleRowsByRowNumbers | When ^the user selects the rows in table '([^']\*)' with the following row numbers:\\$ |  |
+| WhenSelectMultipleRowsByRowNumbersWithColumn | When ^the user selects the rows by clicking on column '([^']\*)' in table '([^']\*)' with the following row numbers:\\$ |  |
+| WhenSelectMultipleRowsByValues | When ^the user selects the rows in table '([^']\*)' with the following values:\\$ |  |
+| WhenSelectMultipleRowsByValuesAndColumn | When ^the user selects the rows by clicking on column '([^']\*)' in table '([^']\*)' with the following values:\\$ |  |
+
+
+<a id="class-textblockactions"></a>
+## Class: TextBlockActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ThenTextBlockEndsWith | Then ^TextBlock '([^']\*)' (ends with '([^']\*)')\\$ |  |
+| ThenTextBlockIsEmpty | Then ^TextBlock '([^']\*)' is (empty\\|not empty)\\$ |  |
+| ThenTextBlockMustContain | Then ^TextBlock '([^']\*)' (contains '([^']\*)')\\$ |  |
+| ThenTextBlockMustEqualTo | Then ^TextBlock '([^']\*)' is (equal to '([^']\*)')\\$ |  |
+| ThenTextBlockStartsWith | Then ^TextBlock '([^']\*)' (starts with '([^']\*)')\\$ |  |
+
+
+<a id="class-textboxactions"></a>
+## Class: TextBoxActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ThenTextBoxEndsWith | Then ^TextBox '([^']\*)' (ends with '([^']\*)')\\$ |  |
+| ThenTextBoxIsEmpty | Then ^TextBox '([^']\*)' is (empty\\|not empty)\\$ |  |
+| ThenTextBoxMustBeEqualTo | Then ^TextBox '([^']\*)' is (equal to '([^']\*)')\\$ |  |
+| ThenTextBoxMustContain | Then ^TextBox '([^']\*)' (contains '([^']\*)')\\$ |  |
+| ThenTextBoxStartsWith | Then ^TextBox '([^']\*)' (starts with '([^']\*)')\\$ |  |
+| WhenClearTextbox | When ^the user clears TextBox '(.\*)'\\$ |  |
+| WhenEnterIntoTextboxViaKeyboard | When ^the user enters '([^']\*)' in the TextBox '([^']\*)' via keyboard\\$ |  |
+| WhenSetTextBox | When ^the user sets the value to '([^']\*)' in the TextBox '([^']\*)'\\$ |  |
+| WhenTextBoxAppendText | When ^the user appends text '([^']\*)' to TextBox '([^']\*)'\\$ |  |
+| WhenTextBoxAppendTextViaKeyboard | When ^the user appends text '([^']\*)' to TextBox '([^']\*)' via keyboard\\$ |  |
+| WhenYouTypeInTheTextBox | When ^the user types '([^']\*)' in the TextBox '([^']\*)'\\$ |  |
+
+
+<a id="class-timeractions"></a>
+## Class: TimerActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| ThenTheTestExecutionIsCompletedWithinSeconds | Then the test execution is completed within '([^']\*)' seconds? |  |
+| ThenTheTimerWithNameIsCompletedWithinSeconds | Then the timer with name '([^']\*)' is completed within '([^']\*)' seconds? |  |
+| WhenATimerIsStartedWithName | When a timer is started with name '([^']\*)' |  |
+
+
+<a id="class-waitactions"></a>
+## Class: WaitActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| WhenWaitForSeconds | When ^the user waits for '(.\*)' seconds?\\$ |  |
+| WhenWaitToAppear | When ^the user waits for '(.\*)' to appear?\\$ |  |
+| WhenWaitToDisappear | When ^the user waits for '(.\*)' to disappear?\\$ |  |
+
+
+<a id="class-windowactions"></a>
+## Class: WindowActions
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| GivenTheApplicationIsStarted | Given ^the UI is started\\$ |  |
+| GivenTheApplicationIsStarted | Given ^the UI is started and active\\$ |  |
+| GivenTheApplicationIsStartedInSeconds | Given ^the UI is started in '(\d+)' seconds?\\$ |  |
+| GivenTheElementIsActive | Given ^'(.\*)' is active in the current window\\$ |  |
+| GivenTheWindowWithAutomationIdContainingIsActive | Given ^the window with automation ID containing '([^']\*)' is active\\$ |  |
+| GivenTheWindowWithAutomationIdEqualToIsActive | Given ^the window with automation ID equal to '([^']\*)' is active\\$ |  |
+| GivenTheWindowWithNameContainingIsActive | Given ^the window with name containing '([^']\*)' is active\\$ |  |
+| GivenTheWindowWithNameEqualToIsActive | Given ^the window with name equal to '([^']\*)' is active\\$ |  |
+| GivenTheWindowWithProcessNameContainingIsActive | Given ^the window with process name containing '([^']\*)' is active\\$ |  |
+| GivenTheWindowWithProcessNameEqualToIsActive | Given ^the window with process name equal to '([^']\*)' is active\\$ |  |
+| SetMainToForeground | When ^the user sets the main window to foreground\\$ |  |
+| ThenInformationPopupIsVisibleWithText | Then ^the information popup with identifier '(.\*)' has text '(.\*)'\\$ |  |
+| ThenTheWindowWithAutomationIdContainingIsActive | Then ^the window with automation ID containing '([^']\*)' is active\\$ |  |
+| ThenTheWindowWithAutomationIdEqualToIsActive | Then ^the window with automation ID equal to '([^']\*)' is active\\$ |  |
+| ThenTheWindowWithNameContainingIsActive | Then ^the window with name containing '([^']\*)' is active\\$ |  |
+| ThenTheWindowWithNameEqualToIsActive | Then ^the window with name equal to '([^']\*)' is active\\$ |  |
+| ThenTheWindowWithProcessNameContainingIsActive | Then ^the window with process name containing '([^']\*)' is active\\$ |  |
+| ThenTheWindowWithProcessNameEqualToIsActive | Then ^the window with process name equal to '([^']\*)' is active\\$ |  |
 

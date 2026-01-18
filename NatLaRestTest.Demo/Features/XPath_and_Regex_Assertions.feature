@@ -1,15 +1,17 @@
 Feature: XPath and regex assertions
 
 # Small demo of XPath extraction into a variable using XML stored in 'xml'
-Scenario: XPath extraction demo
-	When the following value is stored in variable 'xml':
+Scenario: XPath Assertion
+	When the following value is stored in variable 'sampleXml':
 		"""
 		<root>
-		  <item id="123">value</item>
+			<item>Value1</item>
+			<item>Value2</item>
 		</root>
 		"""
-	And when the value of XPath '/root/item/@id' is stored in variable 'xmlId'
-	Then the value of variable 'xmlId' equals '123'
+	
+	And the result of XPath '/root/item[1]/text()' in the value of variable 'sampleXml' is stored in variable 'xPathResult'
+	Then the value of variable 'xPathResult' equals 'Value1'
 
 # Covers regex assertions on variables
 Scenario: Regex assertion demo

@@ -1,7 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 
-int entityIdCounter = 0;
+var entityIdCounter = 0;
 List<Dictionary<string, object>> entityStore = new();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +18,7 @@ app.MapGet("/cat", () =>
 {
     var resourceName = "NatLaRestTest.DemoWebApi.cat.jpg";
     var img = typeof(Program).Assembly.GetManifestResourceStream(resourceName);
-    return Results.File(img, MediaTypeNames.Image.Jpeg);
+    return Results.File(img!, MediaTypeNames.Image.Jpeg);
 });
 
 app.MapGet("/products", () =>
@@ -27,8 +27,8 @@ app.MapGet("/products", () =>
     {
         products = new[]
         {
-            new { id=1, name = "Banana", self_link="/shop/v2/products/1", price = 0.99 },
-            new { id=2, name = "Apple", self_link="/shop/v2/products/2", price = 1.99 }
+            new { id = 1, name = "Banana", self_link = "/shop/v2/products/1", price = 0.99 },
+            new { id = 2, name = "Apple", self_link = "/shop/v2/products/2", price = 1.99 }
         }
     };
 });

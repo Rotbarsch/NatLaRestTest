@@ -44,10 +44,13 @@ Assuming you prepared a Reqnroll project (see the [Quickstart](https://docs.reqn
   ]
 }
 ```
-4. Add the NatLaRestTest binding assembly to the `bindingAssemblies` section:
+4. Add the NatLaRestTest assemblies to the `bindingAssemblies` section:
 ```
 ...
 "bindingAssemblies": [
+    {
+      "assembly": "NatLaRestTest.Core"
+    },
     {
       "assembly": "NatLaRestTest.Bindings"
     }
@@ -127,6 +130,13 @@ And the value '42' is stored in variable 'variableValue'
 And the value '$($(varName))' is stored in variable 'result'
 Then the value of variable 'result' equals '42'
 ```
+
+## Translating into other languages
+NatLaRestTest currently supports only English (en-US) as the language for writing test cases. However, since Reqnroll supports multiple languages, it is possible to translate the bindings into other languages.
+
+NatLaRestTest was designed with localization in mind. To translate the bindings into another language, you would need to create a new set of bindings with the same functionality but with step definitions in the desired language.
+
+See [a Proof of Concept for a German translation](./NatLaRestTest.Demo.de) (only translated a few basic bindings to demonstrate the idea) and its [underlying german bindings](./NatLaRestTest.Demo.de).
 
 ## Recommended workflow
 

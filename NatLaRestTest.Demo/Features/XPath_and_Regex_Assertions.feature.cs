@@ -109,13 +109,13 @@ namespace NatLaRestTest.Demo.Features
         }
         
         [global::NUnit.Framework.TestAttribute()]
-        [global::NUnit.Framework.DescriptionAttribute("XPath extraction demo")]
-        public async global::System.Threading.Tasks.Task XPathExtractionDemo()
+        [global::NUnit.Framework.DescriptionAttribute("XPath Assertion")]
+        public async global::System.Threading.Tasks.Task XPathAssertion()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("XPath extraction demo", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("XPath Assertion", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
 #line 4
@@ -129,13 +129,14 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             {
                 await this.ScenarioStartAsync();
 #line 5
- await testRunner.WhenAsync("the following value is stored in variable \'xml\':", "<root>\r\n  <item id=\"123\">value</item>\r\n</root>", ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("the following value is stored in variable \'sampleXml\':", "<root>\r\n\t<item>Value1</item>\r\n\t<item>Value2</item>\r\n</root>", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 11
- await testRunner.AndAsync("when the value of XPath \'/root/item/@id\' is stored in variable \'xmlId\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 13
+ await testRunner.AndAsync("the result of XPath \'/root/item[1]/text()\' in the value of variable \'sampleXml\' i" +
+                        "s stored in variable \'xPathResult\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 12
- await testRunner.ThenAsync("the value of variable \'xmlId\' equals \'123\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 14
+ await testRunner.ThenAsync("the value of variable \'xPathResult\' equals \'Value1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -151,7 +152,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Regex assertion demo", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 15
+#line 17
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -161,10 +162,10 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 16
+#line 18
  await testRunner.WhenAsync("the value \'user.name+test@example.com\' is stored in variable \'email\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 17
+#line 19
  await testRunner.ThenAsync("the value of variable \'email\' matches the regex pattern \'^[^@\\s]+@[^@\\s]+\\.[^@\\s]" +
                         "+$\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
