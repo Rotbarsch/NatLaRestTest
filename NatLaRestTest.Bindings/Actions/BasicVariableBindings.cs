@@ -23,6 +23,7 @@ public class BasicVariableBindings : IBasicVariableBindings
 
     /// <summary>
     /// When step: Sets the specified scenario variable to the provided string value.
+    /// Set variables can be resolved in every binding parameter (multi-line or enclosed in single quotes) using the syntax: $(variableName).
     /// </summary>
     /// <param name="value">The value to assign to the variable.</param>
     /// <param name="variableName">The name of the variable to set.</param>
@@ -32,6 +33,7 @@ public class BasicVariableBindings : IBasicVariableBindings
 
     /// <summary>
     /// When step: Sets the specified scenario variable to the provided multiline string value.
+    /// Set variables can be resolved in every binding parameter (multi-line or enclosed in single quotes) using the syntax: $(variableName).
     /// </summary>
     /// <param name="variableName">The name of the variable to set.</param>
     /// <param name="value">The value to assign to the variable.</param>

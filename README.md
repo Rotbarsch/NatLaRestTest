@@ -146,6 +146,8 @@ For an optimal experience when working with NatLaRestTest, it is recommended to 
 ### Using AI agents to generate tests
 Given the natural language basis of NatLaRestTest, it is well-suited for usage with AI agents like GitHub Copilot or others. It has proven effective to "feed" either the [Bindings.md](./Bindings.md) or the `NatLaRestTest.Bindings.xml` to the agent, to familiarize it with the available step bindings. Alternatively, check out this repository and ask GitHub Copilot to create your tests using the bindings in this repository.
 
+*Also check out another of my projects, the [ReqnRoll MCP Server](https://github.com/Rotbarsch/ReqnRoll-MCP-Server).*
+
 ## License
 See the [MIT License](./LICENSE) for more information.
 
