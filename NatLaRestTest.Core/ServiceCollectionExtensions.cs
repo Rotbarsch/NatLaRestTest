@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IHttpClientLogic, HttpClientLogic>()
             .AddScoped<IJsonPathLogic, JsonPathLogic>()
             .AddScoped<IJsonSchemaLogic, JsonSchemaLogic>()
-            .AddScoped<INumericLogic, NumericLogic>()
+            .AddScoped<INumericDriver, NumericDriver>()
             .AddScoped<IRandomizerLogic, RandomizerLogic>()
             .AddScoped<IRegExLogic, RegExLogic>()
             .AddScoped<IStringLogic, StringLogic>()

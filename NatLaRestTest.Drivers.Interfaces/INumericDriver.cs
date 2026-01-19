@@ -1,9 +1,9 @@
-﻿namespace NatLaRestTest.Logic.Interfaces;
+﻿namespace NatLaRestTest.Drivers.Interfaces;
 
 /// <summary>
 /// Provides numeric operations and assertions on variables storing numeric values.
 /// </summary>
-public interface INumericLogic
+public interface INumericDriver
 {
     /// <summary>
     /// Adds a number to the numeric value stored in the variable.

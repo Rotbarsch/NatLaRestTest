@@ -5,33 +5,25 @@ using NatLaRestTest.Logic.Interfaces;
 
 namespace NatLaRestTest.Logic;
 
-public class RandomizerLogic : IRandomizerLogic
+public class RandomizerLogic(IVariableDriver variableDriver, IRandomDataDriver randomDataDriver)
+    : IRandomizerLogic
 {
-    private readonly IRandomDataDriver _randomDataDriver;
-    private readonly IVariableDriver _variableDriver;
-
-    public RandomizerLogic(IVariableDriver variableDriver, IRandomDataDriver randomDataDriver)
-    {
-        _variableDriver = variableDriver;
-        _randomDataDriver = randomDataDriver;
-    }
-
     public void SetRandomNumberInRange(int minValue, int maxValue, string variableName)
     {
-        _variableDriver.SetVariable(variableName, _randomDataDriver.GetIntegerInRange(minValue, maxValue).ToString());
+        variableDriver.SetVariable(variableName, randomDataDriver.GetIntegerInRange(minValue, maxValue).ToString());
     }
 
     public void SetRandomDoubleInRange(double minValue, double maxValue, string variableName)
     {
-        var randomDouble = _randomDataDriver.GetDoubleInRange(minValue, maxValue)
+        var randomDouble = randomDataDriver.GetDoubleInRange(minValue, maxValue)
             .ToString(CultureInfo.InvariantCulture);
-        _variableDriver.SetVariable(variableName, randomDouble);
+        variableDriver.SetVariable(variableName, randomDouble);
     }
 
     public void SetRandomString(FakerStringType stringType, string variableName)
     {
-        var randomString = _randomDataDriver.GetRandomString(stringType);
+        var randomString = randomDataDriver.GetRandomString(stringType);
 
-        _variableDriver.SetVariable(variableName, randomString);
+        variableDriver.SetVariable(variableName, randomString);
     }
 }

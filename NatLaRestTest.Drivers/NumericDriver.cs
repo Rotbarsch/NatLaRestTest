@@ -1,22 +1,21 @@
 ﻿using System.Globalization;
 using NatLaRestTest.Drivers.Interfaces;
-using NatLaRestTest.Logic.Interfaces;
 using NUnit.Framework;
 
-namespace NatLaRestTest.Logic;
+namespace NatLaRestTest.Drivers;
 
 /// <summary>
 /// Provides numeric operations and assertions on values stored in scenario variables.
 /// </summary>
-public class NumericLogic : INumericLogic
+public class NumericDriver : INumericDriver
 {
     private readonly IVariableDriver _variableDriver;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NumericLogic"/> class.
+    /// Initializes a new instance of the <see cref="NumericDriver"/> class.
     /// </summary>
     /// <param name="variableDriver">Driver used to access scenario variables.</param>
-    public NumericLogic(IVariableDriver variableDriver)
+    public NumericDriver(IVariableDriver variableDriver)
     {
         _variableDriver = variableDriver;
     }

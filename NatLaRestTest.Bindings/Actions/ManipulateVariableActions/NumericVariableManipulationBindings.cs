@@ -1,4 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.ManipulateVariableActions;
+using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Logic.Interfaces;
 using Reqnroll;
 
@@ -10,15 +11,15 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 [Binding]
 public class NumericVariableManipulationBindings : INumericVariableManipulationBindings
 {
-    private readonly INumericLogic _numericLogic;
+    private readonly INumericDriver _numericDriver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="NumericVariableManipulationBindings" /> class.
     /// </summary>
-    /// <param name="numericLogic">Logic component used to perform numeric operations.</param>
-    public NumericVariableManipulationBindings(INumericLogic numericLogic)
+    /// <param name="numericDriver">Logic component used to perform numeric operations.</param>
+    public NumericVariableManipulationBindings(INumericDriver numericDriver)
     {
-        _numericLogic = numericLogic;
+        _numericDriver = numericDriver;
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the number '(.*)' is added to the value of variable '(.*)'")]
     public void AddNumberToVariable(double number, string variableName)
     {
-        _numericLogic.AddNumberToVariable(number, variableName);
+        _numericDriver.AddNumberToVariable(number, variableName);
     }
 
     /// <summary>
@@ -40,7 +41,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the number '(.*)' is multiplied with the value of variable '(.*)'")]
     public void MultiplyNumberWithVariable(double number, string variableName)
     {
-        _numericLogic.MultiplyNumberWithVariable(number, variableName);
+        _numericDriver.MultiplyNumberWithVariable(number, variableName);
     }
 
     /// <summary>
@@ -52,7 +53,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the number '(.*)' is divided by the value of variable '(.*)'")]
     public void DivideNumberByVariable(double number, string variableName)
     {
-        _numericLogic.DivideNumberByVariable(number, variableName);
+        _numericDriver.DivideNumberByVariable(number, variableName);
     }
 
     /// <summary>
@@ -64,7 +65,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the value of variable '(.*)' is divided by the number '(.*)'")]
     public void DivideVariableByNumber(string variableName, double number)
     {
-        _numericLogic.DivideVariableByNumber(variableName, number);
+        _numericDriver.DivideVariableByNumber(variableName, number);
     }
 
     /// <summary>
@@ -76,7 +77,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the number '(.*)' is subtracted from the value of variable '(.*)'")]
     public void SubtractNumberFromVariable(double number, string variableName)
     {
-        _numericLogic.SubtractNumberFromVariable(number, variableName);
+        _numericDriver.SubtractNumberFromVariable(number, variableName);
     }
 
     /// <summary>
@@ -88,6 +89,6 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the value of variable '(.*)' is subtracted from the number '(.*)'")]
     public void SubtractVariableFromNumber(string variableName, double number)
     {
-        _numericLogic.SubtractVariableFromNumber(variableName, number);
+        _numericDriver.SubtractVariableFromNumber(variableName, number);
     }
 }
