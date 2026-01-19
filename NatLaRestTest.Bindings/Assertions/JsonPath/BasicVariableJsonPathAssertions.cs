@@ -29,6 +29,7 @@ public class BasicVariableJsonPathAssertions : IBasicVariableJsonPathAssertions
     /// <param name="jsonPath">The JSONPath expression used to select a value.</param>
     /// <param name="variable">The name of the variable containing a JSON string to evaluate.</param>
     /// <param name="comparison">The expected string value to compare against the selected value.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' equals:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' equals '(.*)'")]
     public void AssertValueEquals(string jsonPath, string variable, string comparison)
     {
@@ -42,6 +43,7 @@ public class BasicVariableJsonPathAssertions : IBasicVariableJsonPathAssertions
     /// <param name="jsonPath">The JSONPath expression used to select a value.</param>
     /// <param name="variable">The name of the variable containing a JSON string to evaluate.</param>
     /// <param name="comparison">The string value that must not match the selected value.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' does not equal:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not equal '(.*)'")]
     public void AssertValueNotEquals(string jsonPath, string variable, string comparison)
     {

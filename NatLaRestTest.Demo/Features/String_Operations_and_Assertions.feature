@@ -33,3 +33,40 @@ Scenario: String operations and assertions
 	When the value '' is stored in variable 'emptyVar'
 	Then the value of variable 'emptyVar' is empty
 	And the value of variable 'nullExample' is null
+
+# Demonstrate multiline comparison parameters for string variable assertions
+Scenario: String variable assertions with multiline comparison
+	When the following value is stored in variable 'multiLine':
+		"""
+		Line 1
+		Line 2
+		Line 3
+		"""
+	Then the value of variable 'multiLine' equals:
+		"""
+		Line 1
+		Line 2
+		Line 3
+		"""
+	And the value of variable 'multiLine' does not equal:
+		"""
+		Line 1
+		Line X
+		Line 3
+		"""
+	And the value of variable 'multiLine' contains:
+		"""
+		Line 2
+		"""
+	And the value of variable 'multiLine' does not contain:
+		"""
+		Line 4
+		"""
+	And the value of variable 'multiLine' starts with:
+		"""
+		Line 1
+		"""
+	And the value of variable 'multiLine' does not end with:
+		"""
+		Line 4
+		"""

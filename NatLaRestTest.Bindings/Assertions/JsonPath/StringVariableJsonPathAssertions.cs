@@ -16,6 +16,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     /// <param name="jsonPath">The JSONPath expression.</param>
     /// <param name="variableName">The variable name containing JSON.</param>
     /// <param name="comparison">The substring expected to be contained.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' contains:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' contains '(.*)'")]
     public void StringVariableContains(string jsonPath, string variableName, string comparison)
     {
@@ -29,6 +30,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     /// <param name="jsonPath">The JSONPath expression.</param>
     /// <param name="variableName">The variable name containing JSON.</param>
     /// <param name="comparison">The substring that must not be contained.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' does not contain:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not contain '(.*)'")]
     public void StringVariableNotContains(string jsonPath, string variableName, string comparison)
     {
@@ -41,6 +43,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     /// <param name="jsonPath">The JSONPath expression.</param>
     /// <param name="variableName">The variable name containing JSON.</param>
     /// <param name="comparison">The expected prefix.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' starts with:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' starts with '(.*)'")]
     public void StringVariableStartsWith(string jsonPath, string variableName, string comparison)
     {
@@ -53,6 +56,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     /// <param name="jsonPath">The JSONPath expression.</param>
     /// <param name="variableName">The variable name containing JSON.</param>
     /// <param name="comparison">The prefix that must not match.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' does not start with:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not start with '(.*)'")]
     public void StringVariableNotStartsWith(string jsonPath, string variableName, string comparison)
     {
@@ -65,6 +69,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     /// <param name="jsonPath">The JSONPath expression.</param>
     /// <param name="variableName">The variable name containing JSON.</param>
     /// <param name="comparison">The expected suffix.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' ends with:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' ends with '(.*)'")]
     public void StringVariableEndsWith(string jsonPath, string variableName, string comparison)
     {
@@ -77,6 +82,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     /// <param name="jsonPath">The JSONPath expression.</param>
     /// <param name="variableName">The variable name containing JSON.</param>
     /// <param name="comparison">The suffix that must not match.</param>
+    [Then("the value of JSONPath '(.*)' in variable '(.*)' does not end with:")]
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not end with '(.*)'")]
     public void StringVariableNotEndsWith(string jsonPath, string variableName, string comparison)
     {
