@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Logic.Interfaces;
 using Newtonsoft.Json.Linq;
@@ -14,16 +15,18 @@ public class JsonPathLogic : IJsonPathLogic
 {
     private readonly IJsonPathDriver _jsonPathDriver;
     private readonly IVariableDriver _variableDriver;
+    private readonly IComparisonLogic _comparisonLogic;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsonPathLogic"/> class.
     /// </summary>
     /// <param name="jsonPathDriver">Driver used to evaluate JSONPath expressions.</param>
     /// <param name="variableDriver">Driver used to access scenario variables.</param>
-    public JsonPathLogic(IJsonPathDriver jsonPathDriver, IVariableDriver variableDriver)
+    public JsonPathLogic(IJsonPathDriver jsonPathDriver, IVariableDriver variableDriver, IComparisonLogic comparisonLogic)
     {
         _jsonPathDriver = jsonPathDriver;
         _variableDriver = variableDriver;
+        _comparisonLogic = comparisonLogic;
     }
 
     /// <summary>
@@ -256,6 +259,29 @@ public class JsonPathLogic : IJsonPathLogic
         var value = GetSelectionString(jsonPath, variableName);
         Assert.Less(value.Length, length,
             $"The value at JSONPath '{jsonPath}' in variable '{variableName}' is not less than {length} characters long.");
+    }
+
+    public void FilterCollectionByJPath(string sourceVariableName, string jPath, string targetVariableName,
+        ComparisonOperation comparisonOperation, string? comparisonValue=null)
+    {
+        var selection = _variableDriver.GetVariable(sourceVariableName);
+        Assert.NotNull(selection,$"Value of variable '{sourceVariableName}' is null and cannot be parsed as collection.");
+        var jArray = JArray.Parse(selection!);
+        var result = new JArray();
+
+        foreach (var item in jArray)
+        {
+            var jsonPathOnItem = _jsonPathDriver.GetValueFromJsonPath(item.ToString(), jPath);
+
+            var fitsCriteria = _comparisonLogic.Compare(jsonPathOnItem, comparisonOperation, comparisonValue);
+
+            if (fitsCriteria)
+            {
+                result.Add(item);
+            }
+        }
+
+        _variableDriver.SetVariable(targetVariableName,result.ToString());
     }
 
     private string GetSelectionString(string jsonPath, string variableName)

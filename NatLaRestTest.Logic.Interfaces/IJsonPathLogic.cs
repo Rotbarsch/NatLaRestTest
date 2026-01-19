@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Logic.Interfaces;
+﻿using NatLaRestTest.Core.Contracts;
+
+namespace NatLaRestTest.Logic.Interfaces;
 
 /// <summary>
 /// Provides JSONPath-based operations and assertions on values stored in variables.
@@ -75,4 +77,6 @@ public interface IJsonPathLogic
 
     /// <summary>Asserts the string result length is less than the specified length.</summary>
     void StringVariableIsLessThanLength(string jsonPath, string variableName, int length);
+
+    void FilterCollectionByJPath(string sourceVariableName, string jPath, string targetVariableName, ComparisonOperation comparisonOperation, string? comparisonValue = null);
 }
