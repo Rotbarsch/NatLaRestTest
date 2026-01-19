@@ -5,15 +5,8 @@ using Reqnroll;
 namespace NatLaRestTest.Bindings.de;
 
 [Binding]
-public class StringVariableAssertions : IStringVariableAssertions
+public class StringVariableAssertions(IStringLogic stringLogic) : IStringVariableAssertions
 {
-    private readonly IStringLogic _stringLogic;
-
-    public StringVariableAssertions(IStringLogic stringLogic)
-    {
-        _stringLogic = stringLogic;
-    }
-
     public void StringVariableLengthIsMoreThan(string variableName, int length)
     {
         throw new NotImplementedException();
@@ -72,7 +65,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     [Then("ist der Wert der Variable '(.*)' gleich '(.*)'")]
     public void StringVariableEquals(string variableName, string comparison)
     {
-        _stringLogic.StringVariableEquals(variableName, comparison);
+        stringLogic.StringVariableEquals(variableName, comparison);
     }
 
     public void StringVariableNotEquals(string variableName, string comparison)

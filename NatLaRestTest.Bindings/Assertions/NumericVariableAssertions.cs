@@ -1,4 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
+using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Logic.Interfaces;
 using Reqnroll;
 
@@ -10,14 +11,14 @@ namespace NatLaRestTest.Bindings.Assertions;
 [Binding]
 public class NumericVariableAssertions : INumericVariableAssertions
 {
-    private readonly INumericLogic _numericLogic;
+    private readonly INumericDriver _numericDriver;
 
     /// <summary>
     ///     Step bindings providing numeric assertions on variables that store numeric values.
     /// </summary>
-    public NumericVariableAssertions(INumericLogic numericLogic)
+    public NumericVariableAssertions(INumericDriver numericDriver)
     {
-        _numericLogic = numericLogic;
+        _numericDriver = numericDriver;
     }
 
     /// <summary>
@@ -28,7 +29,7 @@ public class NumericVariableAssertions : INumericVariableAssertions
     [Then("the value of variable '(.*)' is greater than '(.*)'")]
     public void NumericVariableIsGreaterThan(string variableName, int value)
     {
-        _numericLogic.NumericVariableIsGreaterThan(variableName, value);
+        _numericDriver.NumericVariableIsGreaterThan(variableName, value);
     }
 
     /// <summary>
@@ -40,6 +41,6 @@ public class NumericVariableAssertions : INumericVariableAssertions
     [Then("the value of variable '(.*)' is less than '(.*)'")]
     public void NumericVariableIsLessThan(string variableName, int value)
     {
-        _numericLogic.NumericVariableIsLessThan(variableName, value);
+        _numericDriver.NumericVariableIsLessThan(variableName, value);
     }
 }

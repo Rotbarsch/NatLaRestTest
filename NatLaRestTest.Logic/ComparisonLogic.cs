@@ -1,19 +1,13 @@
 ﻿using NatLaRestTest.Core.Contracts;
+using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Logic.Interfaces;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace NatLaRestTest.Logic;
 
-public class ComparisonLogic : IComparisonLogic
+public class ComparisonLogic(INumericDriver numericDriver) : IComparisonLogic
 {
-    private readonly INumericLogic _numericLogic;
-    
-    public ComparisonLogic(INumericLogic numericLogic)
-    {
-        _numericLogic = numericLogic;
-    }
-
     public bool Compare(string? value, ComparisonOperation comparisonOperation, string? comparisonValue = null)
     {
         switch (comparisonOperation)
@@ -54,9 +48,9 @@ public class ComparisonLogic : IComparisonLogic
 
     private bool CompareNumeric(string? value, string? compareValue, ComparisonOperation comparisonOperation)
     {
-        if (!_numericLogic.ParseNumber(value, out var parsedValue))
+        if (!numericDriver.ParseNumber(value, out var parsedValue))
             Assert.Fail($"'{value}' is not parsable as a number.");
-        if (!_numericLogic.ParseNumber(compareValue, out var compareParsedValue))
+        if (!numericDriver.ParseNumber(compareValue, out var compareParsedValue))
             Assert.Fail($"'{compareValue}' is not parsable as a number.");
 
         // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
