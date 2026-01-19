@@ -105,7 +105,7 @@ namespace NatLaRestTest.Demo.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/JsonPath_String_Assertions.feature.ndjson", 3);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/JsonPath_String_Assertions.feature.ndjson", 4);
         }
         
         [global::NUnit.Framework.TestAttribute()]
@@ -170,6 +170,51 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
 #line 21
  await testRunner.AndAsync("the value of JSONPath \'$.empty\' in variable \'sampleJson\' is empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::NUnit.Framework.TestAttribute()]
+        [global::NUnit.Framework.DescriptionAttribute("JSONPath string assertions with multiline comparison")]
+        public async global::System.Threading.Tasks.Task JSONPathStringAssertionsWithMultilineComparison()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "1";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("JSONPath string assertions with multiline comparison", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 24
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 25
+ await testRunner.WhenAsync("the following value is stored in variable \'jsonMultiline\':", "{ \"message\": \"Line 1\\nLine 2\\nLine 3\" }", ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 29
+ await testRunner.ThenAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' equals:", "Line 1\r\nLine 2\r\nLine 3", ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 35
+ await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' does not equal:", "Line 1\r\nLine X\r\nLine 3", ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 41
+ await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' contains:", "Line 2", ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 45
+ await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' does not contain:", "Line 4", ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 49
+ await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' starts with:", "Line 1", ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 53
+ await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' does not end with:", "Line 4", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

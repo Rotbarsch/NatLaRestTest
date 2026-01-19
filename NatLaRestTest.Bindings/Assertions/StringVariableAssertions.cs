@@ -70,6 +70,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="prefix">The expected prefix.</param>
+    [Then("the value of variable '(.*)' starts with:")]
     [Then("the value of variable '(.*)' starts with '(.*)'")]
     public void StringVariableStartsWith(string variableName, string prefix) =>
         _stringLogic.StringVariableStartsWith(variableName, prefix);
@@ -79,6 +80,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="suffix">The expected suffix.</param>
+    [Then("the value of variable '(.*)' ends with:")]
     [Then("the value of variable '(.*)' ends with '(.*)'")]
     public void StringVariableEndsWith(string variableName, string suffix) =>
         _stringLogic.StringVariableEndsWith(variableName, suffix);
@@ -88,6 +90,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="prefix">The prefix that must not match.</param>
+    [Then("the value of variable '(.*)' does not start with:")]
     [Then("the value of variable '(.*)' does not start with '(.*)'")]
     public void StringVariableNotStartsWith(string variableName, string prefix) =>
         _stringLogic.StringVariableNotStartsWith(variableName, prefix);
@@ -97,6 +100,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="suffix">The suffix that must not match.</param>
+    [Then("the value of variable '(.*)' does not end with:")]
     [Then("the value of variable '(.*)' does not end with '(.*)'")]
     public void StringVariableNotEndsWith(string variableName, string suffix) =>
         _stringLogic.StringVariableNotEndsWith(variableName, suffix);
@@ -106,6 +110,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="substring">The expected substring.</param>
+    [Then("the value of variable '(.*)' contains:")]
     [Then("the value of variable '(.*)' contains '(.*)'")]
     public void StringVariableContains(string variableName, string substring) =>
         _stringLogic.StringVariableContains(variableName, substring);
@@ -115,6 +120,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="substring">The substring that must not be present.</param>
+    [Then("the value of variable '(.*)' does not contain:")]
     [Then("the value of variable '(.*)' does not contain '(.*)'")]
     public void StringVariableNotContains(string variableName, string substring) =>
         _stringLogic.StringVariableNotContains(variableName, substring);
@@ -124,6 +130,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="comparison">The expected value.</param>
+    [Then("the value of variable '(.*)' equals:")]
     [Then("the value of variable '(.*)' equals '(.*)'")]
     public void StringVariableEquals(string variableName, string comparison) =>
         _stringLogic.StringVariableEquals(variableName, comparison);
@@ -133,6 +140,7 @@ public class StringVariableAssertions : IStringVariableAssertions
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>
     /// <param name="comparison">The value that must not match.</param>
+    [Then("the value of variable '(.*)' does not equal:")]
     [Then("the value of variable '(.*)' does not equal '(.*)'")]
     public void StringVariableNotEquals(string variableName, string comparison) =>
         _stringLogic.StringVariableNotEquals(variableName, comparison);
