@@ -6,7 +6,7 @@
 public interface INumericLogic
 {
     /// <summary>
-    /// Adds the specified number to the numeric variable value.
+    /// Adds a number to the numeric value stored in the variable.
     /// </summary>
     /// <param name="number">The number to be added.</param>
     /// <param name="variableName">The name of the variable to which the number will be added.</param>
@@ -27,37 +27,37 @@ public interface INumericLogic
     void DivideNumberByVariable(double number, string variableName);
 
     /// <summary>
-    /// Divides the numeric variable value by the specified number.
+    /// Divides the numeric value stored in the variable by the specified number.
     /// </summary>
     /// <param name="variableName">The name of the variable whose value will be divided.</param>
     /// <param name="number">The number by which the variable value will be divided.</param>
     void DivideVariableByNumber(string variableName, double number);
 
     /// <summary>
-    /// Subtracts the specified number from the numeric variable value.
+    /// Subtracts a number from the numeric value stored in the variable.
     /// </summary>
     /// <param name="number">The number to be subtracted.</param>
     /// <param name="variableName">The name of the variable from which the number will be subtracted.</param>
     void SubtractNumberFromVariable(double number, string variableName);
 
     /// <summary>
-    /// Subtracts the numeric variable value from the specified number.
+    /// Subtracts the numeric value stored in the variable from the provided number.
     /// </summary>
     /// <param name="variableName">The name of the variable whose value will be subtracted.</param>
     /// <param name="number">The number from which the variable value will be subtracted.</param>
     void SubtractVariableFromNumber(string variableName, double number);
 
     /// <summary>
-    /// Asserts the numeric variable value is greater than the specified value.
+    /// Asserts that the numeric value stored in the variable is greater than the provided value.
     /// </summary>
     /// <param name="variableName">The name of the variable whose value will be compared.</param>
     /// <param name="value">The value to compare against.</param>
     void NumericVariableIsGreaterThan(string variableName, int value);
 
     /// <summary>
-    /// Asserts the numeric variable value is less than the specified value.
+    /// Asserts that the numeric value stored in the variable is less than the provided value.
     /// </summary>
-    /// <param name="variableName">The name of the variable whose value will be compared.</param>
-    /// <param name="value">The value to compare against.</param>
     void NumericVariableIsLessThan(string variableName, int value);
+
+    bool ParseNumber(string? input, out double parsed);
 }

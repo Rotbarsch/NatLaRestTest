@@ -10,18 +10,15 @@ namespace NatLaRestTest.Logic;
 /// </summary>
 public class NumericLogic : INumericLogic
 {
-    private readonly INumericManipulationDriver _numericManipulationDriver;
     private readonly IVariableDriver _variableDriver;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="NumericLogic"/> class.
     /// </summary>
     /// <param name="variableDriver">Driver used to access scenario variables.</param>
-    /// <param name="numericManipulationDriver">Driver used to parse and manipulate numeric values.</param>
-    public NumericLogic(IVariableDriver variableDriver, INumericManipulationDriver numericManipulationDriver)
+    public NumericLogic(IVariableDriver variableDriver)
     {
         _variableDriver = variableDriver;
-        _numericManipulationDriver = numericManipulationDriver;
     }
 
     /// <summary>
@@ -31,7 +28,7 @@ public class NumericLogic : INumericLogic
     {
         var current = _variableDriver.GetVariable(variableName);
 
-        var currentValue = _numericManipulationDriver.Parse(current);
+        Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
 
         var result = currentValue + number;
         _variableDriver.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
@@ -43,7 +40,7 @@ public class NumericLogic : INumericLogic
     public void MultiplyNumberWithVariable(double number, string variableName)
     {
         var current = _variableDriver.GetVariable(variableName);
-        var currentValue = _numericManipulationDriver.Parse(current);
+        Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
 
         var result = currentValue * number;
         _variableDriver.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
@@ -55,7 +52,7 @@ public class NumericLogic : INumericLogic
     public void DivideNumberByVariable(double number, string variableName)
     {
         var current = _variableDriver.GetVariable(variableName);
-        var divisor = _numericManipulationDriver.Parse(current);
+        Assert.IsTrue(ParseNumber(current, out var divisor), $"Value '{current}' of variable {variableName} is not a parsable number.");
         Assert.AreNotEqual(0d, divisor, $"Division by zero for variable '{variableName}'.");
         var result = number / divisor;
         _variableDriver.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
@@ -67,7 +64,7 @@ public class NumericLogic : INumericLogic
     public void DivideVariableByNumber(string variableName, double number)
     {
         var current = _variableDriver.GetVariable(variableName);
-        var dividend = _numericManipulationDriver.Parse(current);
+        Assert.IsTrue(ParseNumber(current, out var dividend), $"Value '{current}' of variable {variableName} is not a parsable number.");
         Assert.AreNotEqual(0d, number, "Division by zero.");
         var result = dividend / number;
         _variableDriver.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
@@ -79,7 +76,7 @@ public class NumericLogic : INumericLogic
     public void SubtractNumberFromVariable(double number, string variableName)
     {
         var current = _variableDriver.GetVariable(variableName);
-        var currentValue = _numericManipulationDriver.Parse(current);
+        Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
         var result = currentValue - number;
         _variableDriver.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
@@ -90,7 +87,7 @@ public class NumericLogic : INumericLogic
     public void SubtractVariableFromNumber(string variableName, double number)
     {
         var current = _variableDriver.GetVariable(variableName);
-        var subtrahend = _numericManipulationDriver.Parse(current);
+        Assert.IsTrue(ParseNumber(current, out var subtrahend), $"Value '{current}' of variable {variableName} is not a parsable number.");
         var result = number - subtrahend;
         _variableDriver.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
@@ -125,5 +122,11 @@ public class NumericLogic : INumericLogic
             $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
 
         Assert.Less(parsed, value, $"The value in variable '{variableName}' is not less than {value}.");
+    }
+
+    public bool ParseNumber(string? input, out double parsed)
+    {
+        Assert.NotNull(input, "Cannot parse null.");
+        return double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed);
     }
 }

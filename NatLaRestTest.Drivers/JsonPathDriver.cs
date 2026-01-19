@@ -30,7 +30,8 @@ public class JsonPathDriver : IJsonPathDriver
 
         _loggingDriver.WriteLine($"JSONPath '{jsonPathExpression}' on '{inputJson}' returned: '{token}'");
 
-        return token?.ToString();
+        if (token is null) return null;
+        return token.Type is JTokenType.Array or JTokenType.Object ? token.ToString() : token.Value<string>();
     }
 
     /// <inheritdoc />

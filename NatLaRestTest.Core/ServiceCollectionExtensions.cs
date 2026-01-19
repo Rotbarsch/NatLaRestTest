@@ -23,7 +23,8 @@ public static class ServiceCollectionExtensions
             .AddScoped<IHttpClientDriver, HttpClientDriver>()
             .AddScoped<IJsonPathDriver, JsonPathDriver>()
             .AddScoped<IDateTimeManipulationDriver, DateTimeManipulationDriver>()
-            .AddScoped<INumericManipulationDriver, NumericManipulationDriver>()
+            .AddScoped<IComparisonLogic, ComparisonLogic>()
+            .AddScoped<ICollectionVariableLogic, CollectionVariableLogic>()
             .AddScoped<IRandomDataDriver, RandomDataDriver>()
             .AddScoped<IXPathDriver, XPathDriver>()
             .AddScoped<ITestOutputLoggingDriver, TestOutputLoggingDriver>();
