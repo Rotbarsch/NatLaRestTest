@@ -162,4 +162,14 @@ public class HttpClientLogic : IHttpClientLogic
         Assert.AreNotEqual(code, _httpClientDriver.GetCurrentResponseStatusCode(),
             $"Expected response code to not be equal {code}.");
     }
+
+    /// <summary>
+    /// Stores the response time (in milliseconds) of the current HTTP response into a variable.
+    /// </summary>
+    /// <param name="variableName"></param>
+    /// <exception cref="System.NotImplementedException"></exception>
+    public void StoreResponseTimeInVariable(string variableName)
+    {
+        _httpClientDriver.StoreResponseTimeInVariable(variableName);
+    }
 }
