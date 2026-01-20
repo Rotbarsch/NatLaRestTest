@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
+﻿using System;
+using NatLaRestTest.Bindings.Interfaces.Assertions;
 using NatLaRestTest.Logic.Interfaces;
 using Reqnroll;
 

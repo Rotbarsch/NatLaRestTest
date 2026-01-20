@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Core.Contracts;
+﻿using System;
+using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Logic.Interfaces;
 using Newtonsoft.Json.Linq;

@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace NatLaRestTest.Drivers.Interfaces;
 
 /// <summary>

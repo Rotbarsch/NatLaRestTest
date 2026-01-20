@@ -1,5 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using NatLaRestTest.Drivers.Interfaces;
 using NUnit.Framework;
 
@@ -265,6 +270,11 @@ public class HttpClientDriver : IHttpClientDriver, IDisposable
         foreach (var header in currentResponse.Headers)
         {
             sb.AppendLine($"{header.Key} = {string.Join(",", header.Value)}");
+        }
+
+        if (!currentResponse.IsSuccessStatusCode)
+        {
+            sb.AppendLine(await currentResponse.Content.ReadAsStringAsync());
         }
 
         _loggingDriver.WriteLine(sb.ToString());

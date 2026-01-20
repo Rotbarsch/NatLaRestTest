@@ -17,18 +17,20 @@ public class JsonPathLogic : IJsonPathLogic
     private readonly IVariableDriver _variableDriver;
     private readonly IComparisonLogic _comparisonLogic;
     private readonly IBoolDriver _boolDriver;
+    private readonly INumericDriver _numericDriver;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsonPathLogic"/> class.
     /// </summary>
     /// <param name="jsonPathDriver">Driver used to evaluate JSONPath expressions.</param>
     /// <param name="variableDriver">Driver used to access scenario variables.</param>
-    public JsonPathLogic(IJsonPathDriver jsonPathDriver, IVariableDriver variableDriver, IComparisonLogic comparisonLogic, IBoolDriver boolDriver)
+    public JsonPathLogic(IJsonPathDriver jsonPathDriver, IVariableDriver variableDriver, IComparisonLogic comparisonLogic, IBoolDriver boolDriver, INumericDriver numericDriver)
     {
         _jsonPathDriver = jsonPathDriver;
         _variableDriver = variableDriver;
         _comparisonLogic = comparisonLogic;
         _boolDriver = boolDriver;
+        _numericDriver = numericDriver;
     }
 
     /// <summary>
@@ -128,9 +130,7 @@ public class JsonPathLogic : IJsonPathLogic
         Assert.NotNull(actualValue, $"JSONPath '{jsonPath}' on variable '{variableName}' returned null.");
 
         var str = actualValue!;
-        Assert.IsTrue(
-            double.TryParse(str, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture,
-                out var parsed),
+        Assert.IsTrue(_numericDriver.ParseNumber(actualValue,out var parsed),
             $"The value at JSONPath '{jsonPath}' in variable '{variableName}' is not numeric. Actual: '{str}'.");
 
         Assert.Greater(parsed, value,
@@ -146,9 +146,7 @@ public class JsonPathLogic : IJsonPathLogic
         Assert.NotNull(actualValue, $"JSONPath '{jsonPath}' on variable '{variableName}' returned null.");
 
         var str = actualValue!;
-        Assert.IsTrue(
-            double.TryParse(str, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture,
-                out var parsed),
+        Assert.IsTrue(_numericDriver.ParseNumber(actualValue,out var parsed),
             $"The value at JSONPath '{jsonPath}' in variable '{variableName}' is not numeric. Actual: '{str}'.");
 
         Assert.Less(parsed, value,
