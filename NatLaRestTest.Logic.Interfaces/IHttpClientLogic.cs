@@ -95,6 +95,12 @@ public interface IHttpClientLogic
     /// <summary>
     /// Asserts that the current HTTP response status code does not equal the specified value.
     /// </summary>
-    /// <param name="code">Unexpected HTTP status code.</param>
+    /// <param name="code">HTTP status code.</param>
     void AssertResponseCodeIsNot(int code);
+
+    /// <summary>
+    /// Stores the response time (in milliseconds) of the current HTTP response in a variable.
+    /// </summary>
+    /// <param name="variableName">The target variable name.</param>
+    void StoreResponseTimeInVariable(string variableName);
 }

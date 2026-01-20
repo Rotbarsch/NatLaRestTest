@@ -89,6 +89,7 @@
 |------------|--------------|----------|
 | StoreResponseBody | When the response body is stored in variable '(.\*)' | When step: Stores the body of the current HTTP response as a string in the specified variable. Asserts that a<br>                response is available.<br>*variableName*: The name of the variable to store the response body. |
 | StoreResponseHeaderValue | When the value of header '(.\*)' is stored in variable '(.\*)' | When step: Stores the value of the specified response header into a scenario variable.<br>*headerName*: The response header to read.<br>*variableName*: The target variable name. |
+| StoreResponseTime | When the response time is stored in variable '(.\*)' | When step: Stores the response time (in milliseconds) of the current HTTP response into a scenario variable.<br>*variableName*: |
 
 
 <a id="class-jsonpathcollectionfilterbindings"></a>

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -20,14 +22,18 @@ public class HttpClientDriver : IHttpClientDriver, IDisposable
     private readonly HttpClientOptions _httpClientOptions;
 
     private readonly ITestOutputLoggingDriver _loggingDriver;
+    private readonly IVariableDriver _variableDriver;
+    private long? _responseTime;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="HttpClientDriver" /> class.
     /// </summary>
     /// <param name="loggingDriver">The logging driver used to write request/response traces.</param>
-    public HttpClientDriver(ITestOutputLoggingDriver loggingDriver)
+    /// <param name="variableDriver">The variable driver used to manage variables.</param>
+    public HttpClientDriver(ITestOutputLoggingDriver loggingDriver, IVariableDriver variableDriver)
     {
         _loggingDriver = loggingDriver;
+        _variableDriver = variableDriver;
         _httpClientOptions = new HttpClientOptions();
     }
 
@@ -56,6 +62,9 @@ public class HttpClientDriver : IHttpClientDriver, IDisposable
     public async Task SendRequest(string httpMethod, string relativePath, string? requestBody = null,
         string contentType = "application/json")
     {
+        CurrentResponse = null;
+        _responseTime = null;
+
         var msg = new HttpRequestMessage(
             HttpMethod.Parse(httpMethod),
             relativePath);
@@ -68,7 +77,11 @@ public class HttpClientDriver : IHttpClientDriver, IDisposable
         await LogHttpRequest(msg);
         using (var httpClient = GetConfiguredHttpClient())
         {
+            var sw = Stopwatch.StartNew();
             CurrentResponse = await httpClient.SendAsync(msg);
+            sw.Stop();
+            _loggingDriver.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
+            _responseTime = sw.ElapsedMilliseconds;
         }
 
         await LogHttpResponse(CurrentResponse);
@@ -184,6 +197,17 @@ public class HttpClientDriver : IHttpClientDriver, IDisposable
     public void DisableSslCertificateValidation()
     {
         _httpClientOptions.CheckSsl = false;
+    }
+
+    /// <summary>
+    /// Stores the response time (in milliseconds) of the current HTTP response into a scenario variable.
+    /// </summary>
+    /// <param name="variableName">Target variable name.</param>
+    public void StoreResponseTimeInVariable(string variableName)
+    {
+        Assert.NotNull(CurrentResponse);
+        Assert.NotNull(_responseTime);
+        _variableDriver.SetVariable(variableName,_responseTime!.ToString());
     }
 
     /// <summary>

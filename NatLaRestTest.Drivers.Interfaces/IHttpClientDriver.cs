@@ -89,4 +89,10 @@ public interface IHttpClientDriver
     ///     Disables SSL certificate validation for outgoing requests.
     /// </summary>
     void DisableSslCertificateValidation();
+
+    /// <summary>
+    /// Stores response time in milliseconds in a variable.
+    /// </summary>
+    /// <param name="variableName">Target variable name.</param>
+    void StoreResponseTimeInVariable(string variableName);
 }

@@ -43,4 +43,14 @@ public class HttpResponseVariableBindings : IHttpResponseVariableBindings
     {
         _httpClientLogic.StoreResponseHeaderValueInVariable(headerName, variableName);
     }
+
+    /// <summary>
+    /// When step: Stores the response time (in milliseconds) of the current HTTP response into a scenario variable.
+    /// </summary>
+    /// <param name="variableName"></param>
+    [When("the response time is stored in variable '(.*)'")]
+    public void StoreResponseTime(string variableName)
+    {
+        _httpClientLogic.StoreResponseTimeInVariable(variableName);
+    }
 }
