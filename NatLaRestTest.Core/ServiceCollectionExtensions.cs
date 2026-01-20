@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddScoped<IVariableDriver, VariableDriver>()
+            .AddScoped<IBoolDriver, BoolDriver>()
             .AddScoped<IHttpClientDriver, HttpClientDriver>()
             .AddScoped<IJsonPathDriver, JsonPathDriver>()
             .AddScoped<IDateTimeManipulationDriver, DateTimeManipulationDriver>()
@@ -40,6 +41,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddScoped<IBasicVariableLogic, BasicVariableLogic>()
+            .AddScoped<IBoolVariableLogic,BoolVariableLogic>()
             .AddScoped<ICollectionVariableLogic, CollectionVariableLogic>()
             .AddScoped<IDateTimeLogic, DateTimeLogic>()
             .AddScoped<IFileSystemLogic, FileSystemLogic>()

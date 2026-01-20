@@ -79,4 +79,6 @@ public interface IJsonPathLogic
     void StringVariableIsLessThanLength(string jsonPath, string variableName, int length);
 
     void FilterCollectionByJPath(string sourceVariableName, string jPath, string targetVariableName, ComparisonOperation comparisonOperation, string? comparisonValue = null);
+    
+    void AssertJsonPathReturnsBoolean(string variableName, string jsonPath, bool expected);
 }

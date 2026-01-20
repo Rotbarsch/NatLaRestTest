@@ -105,7 +105,7 @@ namespace NatLaRestTest.Demo.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/String_Operations_and_Assertions.feature.ndjson", 4);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/String_Operations_and_Assertions.feature.ndjson", 5);
         }
         
         [global::NUnit.Framework.TestAttribute()]
@@ -249,6 +249,42 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
 #line 69
  await testRunner.AndAsync("the value of variable \'multiLine\' does not end with:", "Line 4", ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::NUnit.Framework.TestAttribute()]
+        [global::NUnit.Framework.DescriptionAttribute("Boolean variable assertions")]
+        public async global::System.Threading.Tasks.Task BooleanVariableAssertions()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "2";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Boolean variable assertions", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 75
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 76
+ await testRunner.WhenAsync("the value \'true\' is stored in variable \'featureEnabled\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 77
+ await testRunner.AndAsync("the value \'false\' is stored in variable \'isArchived\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 78
+ await testRunner.ThenAsync("the value of variable \'featureEnabled\' is true", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 79
+ await testRunner.AndAsync("the value of variable \'isArchived\' is false", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

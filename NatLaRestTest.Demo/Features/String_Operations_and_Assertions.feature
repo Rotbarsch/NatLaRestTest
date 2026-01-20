@@ -70,3 +70,10 @@ Scenario: String variable assertions with multiline comparison
 		"""
 		Line 4
 		"""
+
+# Demonstrate boolean variable assertions
+Scenario: Boolean variable assertions
+	When the value 'true' is stored in variable 'featureEnabled'
+	And the value 'false' is stored in variable 'isArchived'
+	Then the value of variable 'featureEnabled' is true
+	And the value of variable 'isArchived' is false

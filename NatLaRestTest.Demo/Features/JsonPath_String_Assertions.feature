@@ -4,7 +4,7 @@ Feature: JSONPath string assertions
 Scenario: JSONPath string assertion variations
 	When the following value is stored in variable 'sampleJson':
 		"""
-		{ "path": "/root/item/1", "empty": "" }
+		{ "path": "/root/item/1", "empty": "", "flags": { "active": true, "archived": false } }
 		"""
 	
 	Then the value of JSONPath '$.path' in variable 'sampleJson' returns any value
@@ -19,12 +19,15 @@ Scenario: JSONPath string assertion variations
 	And the value of JSONPath '$.path' in variable 'sampleJson' is more than '5' characters long
 	And the value of JSONPath '$.path' in variable 'sampleJson' is less than '100' characters long
 	And the value of JSONPath '$.empty' in variable 'sampleJson' is empty
+	# Boolean comparisons via JSONPath
+	And the value of JSONPath '$.flags.active' in variable 'sampleJson' is true
+	And the value of JSONPath '$.flags.archived' in variable 'sampleJson' is false
 
 # Demonstrate multiline comparison parameters for JSONPath string assertions
 Scenario: JSONPath string assertions with multiline comparison
 	When the following value is stored in variable 'jsonMultiline':
 		"""
-		{ "message": "Line 1\nLine 2\nLine 3" }
+		{ "message": "Line 1\r\nLine 2\r\nLine 3" }
 		"""
 	Then the value of JSONPath '$.message' in variable 'jsonMultiline' equals:
 		"""
