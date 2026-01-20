@@ -1,6 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.ManipulateVariableActions;
 using NatLaRestTest.Drivers.Interfaces;
-using NatLaRestTest.Logic.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;

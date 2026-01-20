@@ -16,17 +16,19 @@ public class JsonPathLogic : IJsonPathLogic
     private readonly IJsonPathDriver _jsonPathDriver;
     private readonly IVariableDriver _variableDriver;
     private readonly IComparisonLogic _comparisonLogic;
+    private readonly IBoolDriver _boolDriver;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsonPathLogic"/> class.
     /// </summary>
     /// <param name="jsonPathDriver">Driver used to evaluate JSONPath expressions.</param>
     /// <param name="variableDriver">Driver used to access scenario variables.</param>
-    public JsonPathLogic(IJsonPathDriver jsonPathDriver, IVariableDriver variableDriver, IComparisonLogic comparisonLogic)
+    public JsonPathLogic(IJsonPathDriver jsonPathDriver, IVariableDriver variableDriver, IComparisonLogic comparisonLogic, IBoolDriver boolDriver)
     {
         _jsonPathDriver = jsonPathDriver;
         _variableDriver = variableDriver;
         _comparisonLogic = comparisonLogic;
+        _boolDriver = boolDriver;
     }
 
     /// <summary>
@@ -282,6 +284,11 @@ public class JsonPathLogic : IJsonPathLogic
         }
 
         _variableDriver.SetVariable(targetVariableName,result.ToString());
+    }
+
+    public void AssertJsonPathReturnsBoolean(string variableName, string jsonPath, bool expected)
+    {
+        _boolDriver.AreBooleanEqual(expected, _jsonPathDriver.GetValueFromJsonPath(_variableDriver.GetVariable(variableName), jsonPath));
     }
 
     private string GetSelectionString(string jsonPath, string variableName)

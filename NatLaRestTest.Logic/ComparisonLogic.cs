@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace NatLaRestTest.Logic;
 
-public class ComparisonLogic(INumericDriver numericDriver) : IComparisonLogic
+public class ComparisonLogic(INumericDriver numericDriver, IBoolDriver boolDriver) : IComparisonLogic
 {
     public bool Compare(string? value, ComparisonOperation comparisonOperation, string? comparisonValue = null)
     {
@@ -35,6 +35,10 @@ public class ComparisonLogic(INumericDriver numericDriver) : IComparisonLogic
             case ComparisonOperation.HasNoElements:
                 return value is not null && !JArray.Parse(value).HasValues;
 
+            // Bool only
+            case ComparisonOperation.BoolEquals:
+                return CompareBool(comparisonValue, value);
+
             // String only
             case ComparisonOperation.IsEmpty:
                 return value is not null && string.IsNullOrEmpty(value) ;
@@ -44,6 +48,14 @@ public class ComparisonLogic(INumericDriver numericDriver) : IComparisonLogic
                 throw new InvalidOperationException(
                     $"Unsupported comparison operation '{comparisonOperation}'.");
         }
+    }
+
+    private bool CompareBool(string? expectedBooleanString, string? actualBooleanString)
+    {
+        if(!boolDriver.ParseBool(expectedBooleanString, out var expected)) Assert.Fail($"Cannot parse '{expectedBooleanString}' as bool");
+        if(!boolDriver.ParseBool(actualBooleanString, out var actual)) Assert.Fail($"Cannot parse '{actualBooleanString}' as bool");
+
+        return expected == actual;
     }
 
     private bool CompareNumeric(string? value, string? compareValue, ComparisonOperation comparisonOperation)

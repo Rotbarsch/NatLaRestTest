@@ -70,5 +70,11 @@ public enum ComparisonOperation
     /// <summary>
     /// Collection has no elements and is not null.
     /// </summary>
-    HasNoElements
+    HasNoElements,
+    
+    /// <summary>
+    /// Offer a comparison of boolean values.
+    /// </summary>
+    BoolEquals,
+    
 }

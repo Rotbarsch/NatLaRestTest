@@ -129,7 +129,8 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             {
                 await this.ScenarioStartAsync();
 #line 5
- await testRunner.WhenAsync("the following value is stored in variable \'sampleJson\':", "{ \"path\": \"/root/item/1\", \"empty\": \"\" }", ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("the following value is stored in variable \'sampleJson\':", "{ \"path\": \"/root/item/1\", \"empty\": \"\", \"flags\": { \"active\": true, \"archived\": fal" +
+                        "se } }", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
  await testRunner.ThenAsync("the value of JSONPath \'$.path\' in variable \'sampleJson\' returns any value", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -171,6 +172,12 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 21
  await testRunner.AndAsync("the value of JSONPath \'$.empty\' in variable \'sampleJson\' is empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
+#line 23
+ await testRunner.AndAsync("the value of JSONPath \'$.flags.active\' in variable \'sampleJson\' is true", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 24
+ await testRunner.AndAsync("the value of JSONPath \'$.flags.archived\' in variable \'sampleJson\' is false", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
@@ -185,7 +192,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("JSONPath string assertions with multiline comparison", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 24
+#line 27
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -195,25 +202,25 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 25
- await testRunner.WhenAsync("the following value is stored in variable \'jsonMultiline\':", "{ \"message\": \"Line 1\\nLine 2\\nLine 3\" }", ((global::Reqnroll.Table)(null)), "When ");
+#line 28
+ await testRunner.WhenAsync("the following value is stored in variable \'jsonMultiline\':", "{ \"message\": \"Line 1\\r\\nLine 2\\r\\nLine 3\" }", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 29
+#line 32
  await testRunner.ThenAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' equals:", "Line 1\r\nLine 2\r\nLine 3", ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 35
+#line 38
  await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' does not equal:", "Line 1\r\nLine X\r\nLine 3", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 44
  await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' contains:", "Line 2", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 45
+#line 48
  await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' does not contain:", "Line 4", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 49
+#line 52
  await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' starts with:", "Line 1", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 53
+#line 56
  await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'jsonMultiline\' does not end with:", "Line 4", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
