@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Logic.Interfaces;
+﻿using System.Threading.Tasks;
+
+namespace NatLaRestTest.Logic.Interfaces;
 
 /// <summary>
 /// Defines high-level HTTP client operations and assertions used by logic components.

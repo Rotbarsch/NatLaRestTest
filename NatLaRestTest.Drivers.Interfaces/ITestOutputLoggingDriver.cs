@@ -10,4 +10,6 @@ public interface ITestOutputLoggingDriver
     /// </summary>
     /// <param name="logMessage">The message to write.</param>
     void WriteLine(string logMessage);
+
+    void WriteLine(string logMessage, params object[] messageParameters);
 }

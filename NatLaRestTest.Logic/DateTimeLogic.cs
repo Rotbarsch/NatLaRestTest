@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Drivers.Interfaces;
+﻿using System;
+using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Logic.Interfaces;
 using NUnit.Framework;
 

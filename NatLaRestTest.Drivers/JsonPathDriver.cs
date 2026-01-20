@@ -28,7 +28,7 @@ public class JsonPathDriver : IJsonPathDriver
         var jToken = JToken.Parse(inputJson!);
         var token = jToken.SelectToken(jsonPathExpression);
 
-        _loggingDriver.WriteLine($"JSONPath '{jsonPathExpression}' on '{inputJson}' returned: '{token}'");
+        _loggingDriver.WriteLine("JSONPath '{jsonPathExpression}' on '{inputJson}' returned: '{token}'",jsonPathExpression,inputJson,token);
 
         if (token is null) return null;
         return token.Type is JTokenType.Array or JTokenType.Object ? token.ToString() : token.Value<string>();

@@ -33,7 +33,7 @@ public class XPathDriver : IXPathDriver
             _ => node.InnerText
         };
 
-        _loggingDriver.WriteLine($"XPath '{xPath}' on XML '{xml}' returned: '{value}'");
+        _loggingDriver.WriteLine("XPath '{xPath}' on XML '{xml}' returned: '{value}'",xPath,xml,value);
 
         return value;
     }

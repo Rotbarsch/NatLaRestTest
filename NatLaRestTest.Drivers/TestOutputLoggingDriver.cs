@@ -1,4 +1,7 @@
-﻿using NatLaRestTest.Drivers.Interfaces;
+﻿using System.Collections.Generic;
+using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Drivers;
@@ -22,6 +25,35 @@ public class TestOutputLoggingDriver : ITestOutputLoggingDriver
     /// <inheritdoc />
     public void WriteLine(string logMessage)
     {
-        _outputHelper.WriteLine(logMessage);
+        _outputHelper.WriteLine("[NatLaRestTest]" + logMessage);
+    }
+
+    public void WriteLine(string logMessage, params object[] messageParameters)
+    {
+        var updatedParamArray = new List<object?>();
+
+        foreach (var mp in messageParameters)
+        {
+            var s = mp?.ToString();
+            if (string.IsNullOrEmpty(s))
+            {
+                updatedParamArray.Add(s);
+                continue;
+            }
+
+            if (s.Length > 50)
+            {
+                updatedParamArray.Add(s.Substring(0, 50) + "...");
+                continue;
+            }
+
+            updatedParamArray.Add(s);
+        }
+
+        int i = 0;
+        var numeric = Regex.Replace(logMessage, @"{[^}]+}", _ => $"{{{i++}}}");
+        var result = string.Format(numeric, updatedParamArray.ToArray());
+
+        WriteLine(result);
     }
 }

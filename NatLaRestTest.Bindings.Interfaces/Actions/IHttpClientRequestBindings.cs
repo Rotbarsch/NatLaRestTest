@@ -1,4 +1,5 @@
-﻿using Reqnroll;
+﻿using System.Threading.Tasks;
+using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Interfaces.Actions;
 

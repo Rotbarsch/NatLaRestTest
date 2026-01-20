@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Drivers.Interfaces;
+﻿using System;
+
+namespace NatLaRestTest.Drivers.Interfaces;
 
 /// <summary>
 ///     Provides operations to parse and manipulate <see cref="DateTime" /> and <see cref="TimeSpan" /> values.
