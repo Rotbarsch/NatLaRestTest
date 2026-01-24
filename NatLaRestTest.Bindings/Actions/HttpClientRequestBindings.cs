@@ -22,14 +22,6 @@ public class HttpClientRequestBindings : IHttpClientRequestBindings
     }
 
     /// <summary>
-    ///     When step: Sends an HTTP GET request to the specified relative path using the shared HTTP client.
-    /// </summary>
-    /// <param name="relativePath">The relative path for the request (e.g., "products/1").</param>
-    [When("a request to '(.*)' is made")]
-    public async Task GetRequest(string relativePath) =>
-        await _httpClientDriver.SendRequest(HttpMethod.Get.Method, relativePath);
-
-    /// <summary>
     ///     When step: Sends an HTTP request with the specified method to the relative path without a request body.
     /// </summary>
     /// <param name="httpMethod">The HTTP method (e.g., GET, POST, PUT, DELETE).</param>

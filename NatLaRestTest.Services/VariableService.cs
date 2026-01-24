@@ -25,7 +25,11 @@ public class VariableService : IVariableService
     /// <inheritdoc />
     public string? GetVariable(string variableName)
     {
-        Assert.IsTrue(_variableStorage.ContainsKey(variableName), $"No variable named '{variableName}' found.");
+        if (!_variableStorage.ContainsKey(variableName))
+        {
+            Assert.Fail($"No variable named '{variableName}' found.");
+        }
+
         return _variableStorage[variableName];
     }
 

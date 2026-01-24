@@ -3,27 +3,6 @@
 public interface IStringVariableAssertions
 {
     /// <summary>
-    ///     Then step: Asserts that the length of the specified variable's string value is greater than the given length.
-    /// </summary>
-    /// <param name="variableName">The variable to inspect.</param>
-    /// <param name="length">The threshold length (exclusive).</param>
-    void StringVariableLengthIsMoreThan(string variableName, int length);
-
-    /// <summary>
-    ///     Then step: Asserts that the length of the specified variable's string value is less than the given length.
-    /// </summary>
-    /// <param name="variableName">The variable to inspect.</param>
-    /// <param name="length">The threshold length (exclusive).</param>
-    void StringVariableLengthIsLessThan(string variableName, int length);
-
-    /// <summary>
-    ///     Then step: Asserts that the length of the specified variable's string value equals the given length.
-    /// </summary>
-    /// <param name="variableName">The variable to inspect.</param>
-    /// <param name="length">The expected length.</param>
-    void StringVariableLengthIs(string variableName, int length);
-
-    /// <summary>
     ///     Then step: Asserts that the specified variable's string value is not empty.
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>

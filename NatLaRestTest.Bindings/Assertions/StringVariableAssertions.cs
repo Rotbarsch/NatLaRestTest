@@ -22,34 +22,6 @@ public class StringVariableAssertions : IStringVariableAssertions
     }
 
     /// <summary>
-    ///     Then step: Asserts that the length of the specified variable's string value is greater than the given length.
-    /// </summary>
-    /// <param name="variableName">The variable to inspect.</param>
-    /// <param name="length">The threshold length (exclusive).</param>
-    [Then("the value of variable '(.*)' is more than '(.*)' characters long")]
-    public void StringVariableLengthIsMoreThan(string variableName, int length) =>
-        _stringDriver.StringVariableLengthIsMoreThan(variableName, length);
-
-    /// <summary>
-    ///     Then step: Asserts that the length of the specified variable's string value is less than the given length.
-    /// </summary>
-    /// <param name="variableName">The variable to inspect.</param>
-    /// <param name="length">The threshold length (exclusive).
-    /// </param>
-    [Then("the value of variable '(.*)' is less than '(.*)' characters long")]
-    public void StringVariableLengthIsLessThan(string variableName, int length) =>
-        _stringDriver.StringVariableLengthIsLessThan(variableName, length);
-
-    /// <summary>
-    ///     Then step: Asserts that the length of the specified variable's string value equals the given length.
-    /// </summary>
-    /// <param name="variableName">The variable to inspect.</param>
-    /// <param name="length">The expected length.</param>
-    [Then("the value of variable '(.*)' is '(.*)' characters long")]
-    public void StringVariableLengthIs(string variableName, int length) =>
-        _stringDriver.StringVariableLengthIs(variableName, length);
-
-    /// <summary>
     ///     Then step: Asserts that the specified variable's string value is not empty.
     /// </summary>
     /// <param name="variableName">The variable to inspect.</param>

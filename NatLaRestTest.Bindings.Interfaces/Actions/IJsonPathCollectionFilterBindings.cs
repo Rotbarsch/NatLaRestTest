@@ -15,15 +15,6 @@ public interface IJsonPathCollectionFilterBindings
     void FilterCollectionByJPathGreaterThan(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName);
 
     /// <summary>
-    /// Filters the collection where the JSONPath value is greater than or equal to the comparison value.
-    /// </summary>
-    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
-    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
-    /// <param name="comparisonValue">The value to compare against (as string).</param>
-    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
-    void FilterCollectionByJPathGreaterThanOrEqual(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName);
-
-    /// <summary>
     /// Filters the collection where the JSONPath value equals the comparison value.
     /// </summary>
     /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
@@ -65,15 +56,6 @@ public interface IJsonPathCollectionFilterBindings
     /// <param name="comparisonValue">The value to compare against (as string).</param>
     /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
     void FilterCollectionByJPathLessThan(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName);
-
-    /// <summary>
-    /// Filters the collection where the JSONPath value is less than or equal to the comparison value.
-    /// </summary>
-    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
-    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
-    /// <param name="comparisonValue">The value to compare against (as string).</param>
-    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
-    void FilterCollectionByJPathLessThanOrEqual(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName);
 
     /// <summary>
     /// Filters the collection where the JSONPath value is null.

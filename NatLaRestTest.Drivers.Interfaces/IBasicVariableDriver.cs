@@ -10,7 +10,7 @@ public interface IBasicVariableDriver
     /// </summary>
     /// <param name="variableName">The variable name.</param>
     /// <param name="variableValue">The value to set.</param>
-    void SetVariable(string variableName, string variableValue);
+    void SetVariable(string variableName, string? variableValue);
 
     /// <summary>
     /// Asserts that the specified variable value is null.

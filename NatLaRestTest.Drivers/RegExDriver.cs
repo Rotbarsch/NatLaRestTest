@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
+using NUnit.Framework;
 
 namespace NatLaRestTest.Drivers;
 
@@ -28,16 +29,30 @@ public class RegExDriver : IRegExDriver
     /// <exception cref="Exception">Thrown when the variable is null or does not match the pattern.</exception>
     public void AssertVariableMatchesRegex(string variableName, string pattern)
     {
+        if (!IsRegexMatch(variableName,pattern))
+        {
+            Assert.Fail(
+                $"Variable '{variableName}' does not match the regex pattern '{pattern}'.");
+        }
+    }
+
+    public void AssertVariableDoesNotMatchRegex(string variableName, string pattern)
+    {
+        if(IsRegexMatch(variableName, pattern))
+        {
+            Assert.Fail(
+                $"Variable '{variableName}' does not match the regex pattern '{pattern}'.");
+        }
+    }
+
+    private bool IsRegexMatch(string variableName, string pattern)
+    {
         var value = _variableService.GetVariable(variableName);
         if (value == null)
         {
-            throw new Exception($"Variable '{variableName}' is null.");
+            Assert.Fail($"Variable '{variableName}' is null.");
         }
 
-        if (!Regex.IsMatch(value, pattern))
-        {
-            throw new Exception(
-                $"Variable '{variableName}' with value '{value}' does not match the regex pattern '{pattern}'.");
-        }
+        return Regex.IsMatch(value!, pattern);
     }
 }

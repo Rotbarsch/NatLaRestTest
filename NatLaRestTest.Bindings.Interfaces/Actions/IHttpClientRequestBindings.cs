@@ -8,13 +8,6 @@ namespace NatLaRestTest.Bindings.Interfaces.Actions;
 public interface IHttpClientRequestBindings
 {
     /// <summary>
-    ///     When step: Sends an HTTP GET request to the specified relative path using the shared HTTP client.
-    /// </summary>
-    /// <param name="relativePath">The relative path for the request (e.g., "products/1").</param>
-    [When("an? GET request to '(.*)' is sent")]
-    Task GetRequest(string relativePath);
-
-    /// <summary>
     ///     When step: Sends an HTTP request with the specified method to the relative path without a request body.
     /// </summary>
     /// <param name="httpMethod">The HTTP method (e.g., GET, POST, PUT, DELETE).</param>
@@ -29,7 +22,7 @@ public interface IHttpClientRequestBindings
     /// <param name="httpMethod">The HTTP method (e.g., POST or PUT).</param>
     /// <param name="relativePath">The relative path for the request.</param>
     /// <param name="requestBody">The raw request body payload.</param>
-    [When("an? (POST|PUT|PATCH) request to '(.*)' with body is sent:")]
+    [When("a (POST|PUT|PATCH) request to '(.*)' with body is sent:")]
     Task SendRequestWithBodyWithoutContentType(string httpMethod, string relativePath, string requestBody);
 
     /// <summary>
@@ -39,7 +32,7 @@ public interface IHttpClientRequestBindings
     /// <param name="relativePath">The relative path for the request.</param>
     /// <param name="contentType">The content type to set (e.g., "application/json").</param>
     /// <param name="requestBody">The raw request body payload.</param>
-    [When("an? (POST|PUT|PATCH) request to '(.*)' with content type '(.*)' and body is sent:")]
+    [When("a (POST|PUT|PATCH) request to '(.*)' with content type '(.*)' and body is sent:")]
     Task SendRequestWithBodyWithContentType(string httpMethod, string relativePath, string contentType,
         string requestBody);
 }
