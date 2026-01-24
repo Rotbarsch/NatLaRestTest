@@ -11,4 +11,6 @@ public interface IRegExDriver
     /// <param name="variableName">The variable name.</param>
     /// <param name="pattern">The regular expression pattern.</param>
     void AssertVariableMatchesRegex(string variableName, string pattern);
+
+    void AssertVariableDoesNotMatchRegex(string variableName, string pattern);
 }

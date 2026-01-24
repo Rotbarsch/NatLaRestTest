@@ -23,17 +23,6 @@ public class JsonPathCollectionFilterBindings(IJsonPathDriver jsonPathDriver) : 
         jsonPathDriver.FilterCollectionByJPath(sourceVariableName, jPath, targetVariableName, ComparisonOperation.GreaterThan, comparisonValue);
 
     /// <summary>
-    /// Filters the collection where the JSONPath value is greater than or equal to the comparison value.
-    /// </summary>
-    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
-    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
-    /// <param name="comparisonValue">The value to compare against (as string).</param>
-    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
-    [When("each element of collection in variable '(.*)' where the value of JSONPath '(.*)' is greater than or equal '(.*)' is stored in variable '(.*)'")]
-    public void FilterCollectionByJPathGreaterThanOrEqual(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName) =>
-        jsonPathDriver.FilterCollectionByJPath(sourceVariableName, jPath, targetVariableName, ComparisonOperation.GreaterThanOrEqual, comparisonValue);
-
-    /// <summary>
     /// Filters the collection where the JSONPath value equals the comparison value.
     /// </summary>
     /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
@@ -90,17 +79,6 @@ public class JsonPathCollectionFilterBindings(IJsonPathDriver jsonPathDriver) : 
     [When("each element of collection in variable '(.*)' where the value of JSONPath '(.*)' is less than '(.*)' is stored in variable '(.*)'")]
     public void FilterCollectionByJPathLessThan(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName) =>
         jsonPathDriver.FilterCollectionByJPath(sourceVariableName, jPath, targetVariableName, ComparisonOperation.LessThan, comparisonValue);
-
-    /// <summary>
-    /// Filters the collection where the JSONPath value is less than or equal to the comparison value.
-    /// </summary>
-    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
-    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
-    /// <param name="comparisonValue">The value to compare against (as string).</param>
-    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
-    [When("each element of collection in variable '(.*)' where the value of JSONPath '(.*)' is less than or equal '(.*)' is stored in variable '(.*)'")]
-    public void FilterCollectionByJPathLessThanOrEqual(string sourceVariableName, string jPath, string comparisonValue, string targetVariableName) =>
-        jsonPathDriver.FilterCollectionByJPath(sourceVariableName, jPath, targetVariableName, ComparisonOperation.LessThanOrEqual, comparisonValue);
 
     /// <summary>
     /// Filters the collection where the JSONPath value is null.

@@ -40,4 +40,11 @@ public class BasicVariableBindings : IBasicVariableBindings
     [When("the following value is stored in variable '(.*)':")]
     public void SetVariableManuallyMultiline(string variableName, string value) =>
         _basicVariableDriver.SetVariable(variableName, value);
+
+    /// <summary>
+    /// When step: Sets the specified scenario variable to null.
+    /// </summary>
+    /// <param name="variableName">The name of the variable to set.</param>
+    [When("the value of variable '(.*)' is set to null")]
+    public void SetVariableNull(string variableName)=> _basicVariableDriver.SetVariable(variableName, null);
 }

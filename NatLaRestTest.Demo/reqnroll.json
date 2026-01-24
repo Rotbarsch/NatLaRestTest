@@ -18,10 +18,6 @@
     {
       "name": "demoApiBaseUrl",
       "value": "https://localhost:7031"
-    },
-    {
-      "name": "nullExample",
-      "value": null
     }
   ]
 }

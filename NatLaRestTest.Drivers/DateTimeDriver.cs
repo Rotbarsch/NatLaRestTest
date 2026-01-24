@@ -32,9 +32,9 @@ public class DateTimeDriver : IDateTimeDriver
     {
         var variableValue = _variableService.GetVariable(variableName);
         Assert.NotNull(variableValue, $"Variable '{variableName}' returned null.");
-        var currentDate = _dateTimeManipulationService.ParseDate(variableValue!);
+        var date = _dateTimeManipulationService.ParseDate(variableValue!);
         var delta = _dateTimeManipulationService.ParseTimeSpan(timeSpan);
-        var result = _dateTimeManipulationService.AddTimeSpanToDateTime(currentDate, delta);
+        var result = _dateTimeManipulationService.AddTimeSpanToDateTime(date, delta);
         _variableService.SetVariable(variableName, result);
     }
 
@@ -47,9 +47,9 @@ public class DateTimeDriver : IDateTimeDriver
     {
         var variableValue = _variableService.GetVariable(variableName);
         Assert.NotNull(variableValue, $"Variable '{variableName}' returned null.");
-        var currentDate = _dateTimeManipulationService.ParseDate(variableValue!);
+        var date = _dateTimeManipulationService.ParseDate(variableValue!);
         var delta = _dateTimeManipulationService.ParseTimeSpan(timeSpan);
-        var result = _dateTimeManipulationService.SubtractTimeSpanFromDateTime(currentDate, delta);
+        var result = _dateTimeManipulationService.SubtractTimeSpanFromDateTime(date, delta);
         _variableService.SetVariable(variableName, result);
     }
 
@@ -62,9 +62,9 @@ public class DateTimeDriver : IDateTimeDriver
     {
         var variableValue = _variableService.GetVariable(variableName);
         Assert.NotNull(variableValue);
-        var currentDate = _dateTimeManipulationService.ParseDate(variableValue!);
+        var date = _dateTimeManipulationService.ParseDate(variableValue!);
         var dateToSubtract = _dateTimeManipulationService.ParseDate(dateToSubstract);
-        var result = _dateTimeManipulationService.SubtractDateTimeFromDateTime(currentDate, dateToSubtract);
+        var result = _dateTimeManipulationService.SubtractDateTimeFromDateTime(date, dateToSubtract);
         _variableService.SetVariable(variableName, result);
     }
 
@@ -74,7 +74,7 @@ public class DateTimeDriver : IDateTimeDriver
     /// <param name="variableName">Target variable name.</param>
     public void SetCurrentDate(string variableName)
     {
-        _variableService.SetVariable(variableName, DateTime.Now.ToString());
+        _variableService.SetVariable(variableName, DateTime.Now.ToString("O"));
     }
 
     /// <summary>
@@ -85,5 +85,11 @@ public class DateTimeDriver : IDateTimeDriver
     public void SetCurrentDateFormatted(string variableName, string dateFormat)
     {
         _variableService.SetVariable(variableName, DateTime.Now.ToString(dateFormat));
+    }
+
+    public void SaveDateTimeFormatted(string dateTime, string format, string targetVariableName)
+    {
+        var date = _dateTimeManipulationService.ParseDate(dateTime);
+        _variableService.SetVariable(targetVariableName,date.ToString(format));
     }
 }

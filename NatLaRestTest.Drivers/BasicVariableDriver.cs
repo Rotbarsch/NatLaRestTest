@@ -25,7 +25,7 @@ public class BasicVariableDriver : IBasicVariableDriver
     /// </summary>
     /// <param name="variableName">The variable name.</param>
     /// <param name="variableValue">The value to store.</param>
-    public void SetVariable(string variableName, string variableValue)
+    public void SetVariable(string variableName, string? variableValue)
     {
         _variableService.SetVariable(variableName, variableValue);
     }

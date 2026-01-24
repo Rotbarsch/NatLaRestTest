@@ -29,4 +29,13 @@ public class RegExAssertions : IRegExAssertions
     [Then("the value of variable '(.*)' matches the regex pattern '(.*)'")]
     public void AssertVariableMatchesRegex(string variableName, string pattern) =>
         _regExDriver.AssertVariableMatchesRegex(variableName, pattern);
+
+    /// <summary>
+    /// Then step: Asserts that the value of the specified variable does not match the provided regular expression pattern.
+    /// </summary>
+    /// <param name="variableName">The name of the variable whose value will be tested.</param>
+    /// <param name="pattern">The regular expression pattern to match against.</param>
+    [Then("the value of variable '(.*)' does not match the regex pattern '(.*)'")]
+    public void AssertVariableDoesNotMatchRegex(string variableName, string pattern) =>
+        _regExDriver.AssertVariableDoesNotMatchRegex(variableName, pattern);
 }

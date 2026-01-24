@@ -8,15 +8,15 @@ namespace NatLaRestTest.Bindings.Actions;
 ///     Step bindings for extracting values from JSON variables using JSONPath and storing them in scenario variables.
 /// </summary>
 [Binding]
-public class VariableJsonBindings : IVariableJsonBindings
+public class JsonPathBindings : IJsonPathBindings
 {
     private readonly IJsonPathDriver _jsonPathDriver;
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="VariableJsonBindings" /> class.
+    ///     Initializes a new instance of the <see cref="JsonPathBindings" /> class.
     /// </summary>
     /// <param name="jsonPathDriver">Driver component used to evaluate JSONPath and set variables.</param>
-    public VariableJsonBindings(IJsonPathDriver jsonPathDriver)
+    public JsonPathBindings(IJsonPathDriver jsonPathDriver)
     {
         _jsonPathDriver = jsonPathDriver;
     }
@@ -28,7 +28,7 @@ public class VariableJsonBindings : IVariableJsonBindings
     /// <param name="sourceVariableName">The name of the source variable containing JSON.</param>
     /// <param name="targetVariableName">The name of the variable to set with the extracted value.</param>
     [When("the value of JSONPath '(.*)' in variable '(.*)' is stored in variable '(.*)'")]
-    public void SetVariableFromJPath(string jPath, string sourceVariableName, string targetVariableName)
+    public void SetVariableFromJsonPath(string jPath, string sourceVariableName, string targetVariableName)
     {
         _jsonPathDriver.SetVariableFromJPath(jPath, sourceVariableName, targetVariableName);
     }

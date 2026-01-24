@@ -37,22 +37,10 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     /// </summary>
     /// <param name="number">The number to multiply with.</param>
     /// <param name="variableName">The target variable name.</param>
-    [When("the number '(.*)' is multiplied with the value of variable '(.*)'")]
-    public void MultiplyNumberWithVariable(double number, string variableName)
+    [When("the value of variable '(.*)' is multiplied with the number '(.*)'")]
+    public void MultiplyNumberWithVariable(string variableName, double number)
     {
         _numericService.MultiplyNumberWithVariable(number, variableName);
-    }
-
-    /// <summary>
-    ///     When step: Divides the provided number by the current numeric value stored in the specified variable (number /
-    ///     variable).
-    /// </summary>
-    /// <param name="number">The dividend.</param>
-    /// <param name="variableName">The variable containing the divisor.</param>
-    [When("the number '(.*)' is divided by the value of variable '(.*)'")]
-    public void DivideNumberByVariable(double number, string variableName)
-    {
-        _numericService.DivideNumberByVariable(number, variableName);
     }
 
     /// <summary>
@@ -77,17 +65,5 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     public void SubtractNumberFromVariable(double number, string variableName)
     {
         _numericService.SubtractNumberFromVariable(number, variableName);
-    }
-
-    /// <summary>
-    ///     When step (inverse of above): Subtracts the current numeric value stored in the specified variable from the
-    ///     provided number (number - variable).
-    /// </summary>
-    /// <param name="variableName">The variable containing the subtrahend.</param>
-    /// <param name="number">The minuend.</param>
-    [When("the value of variable '(.*)' is subtracted from the number '(.*)'")]
-    public void SubtractVariableFromNumber(string variableName, double number)
-    {
-        _numericService.SubtractVariableFromNumber(variableName, number);
     }
 }

@@ -38,4 +38,6 @@ public interface IDateTimeDriver
     /// <param name="variableName">Target variable name.</param>
     /// <param name="dateFormat">Date/time format string.</param>
     void SetCurrentDateFormatted(string variableName, string dateFormat);
+
+    void SaveDateTimeFormatted(string dateTime, string format, string targetVariableName);
 }
