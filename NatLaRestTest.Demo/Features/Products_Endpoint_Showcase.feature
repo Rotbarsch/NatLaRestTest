@@ -1,5 +1,8 @@
 Feature: Products endpoint showcase
 
+Background: 
+	Given SSL certificate validation is disabled
+
 Scenario: Showcase on /products endpoint
 	Given the base URL '$(demoApiBaseUrl)'
 

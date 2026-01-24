@@ -103,6 +103,15 @@ namespace NatLaRestTest.Demo.Features
             await testRunner.CollectScenarioErrorsAsync();
         }
         
+        public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
+        {
+#line 3
+#line hidden
+#line 4
+ await testRunner.GivenAsync("SSL certificate validation is disabled", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+        }
+        
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
             return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Products_Endpoint_Showcase.feature.ndjson", 3);
@@ -118,7 +127,7 @@ namespace NatLaRestTest.Demo.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Showcase on /products endpoint", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 3
+#line 6
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -128,176 +137,179 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 4
- await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 3
+await this.FeatureBackgroundAsync();
 #line hidden
 #line 7
- await testRunner.WhenAsync("a request to \'products\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 8
- await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 9
- await testRunner.AndAsync("the response code does not equal \'404\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 10
- await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.WhenAsync("a request to \'products\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 11
+ await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 12
+ await testRunner.AndAsync("the response code does not equal \'404\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 13
+ await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 16
  await testRunner.WhenAsync("the response body is stored in variable \'listResponseBody\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 17
  await testRunner.AndAsync("the value of JSONPath \'$.products\' in variable \'listResponseBody\' is stored in va" +
                         "riable \'productsList\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 17
+#line 20
  await testRunner.ThenAsync("the value of variable \'productsList\' has any elements", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 18
+#line 21
  await testRunner.AndAsync("the value of variable \'productsList\' is not null", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 19
+#line 22
  await testRunner.AndAsync("the value of variable \'productsList\' has more than \'0\' elements", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 20
+#line 23
  await testRunner.AndAsync("the value of variable \'productsList\' has less than \'1000\' elements", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 24
  await testRunner.AndAsync("the value of variable \'productsList\' has \'2\' elements", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 24
+#line 27
  await testRunner.WhenAsync("the value of JSONPath \'$.[0]\' in variable \'productsList\' is stored in variable \'f" +
                         "irstProduct\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 27
+#line 30
  await testRunner.ThenAsync("the value of JSONPath \'$.name\' in variable \'firstProduct\' equals \'Banana\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 28
+#line 31
  await testRunner.AndAsync("the value of JSONPath \'$.name\' in variable \'firstProduct\' does not equal \'Apple\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 29
+#line 32
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' contains \'products" +
                         "/1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 30
+#line 33
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' does not contain \'" +
                         "products/2\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 31
+#line 34
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' starts with \'/shop" +
                         "\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 32
+#line 35
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' does not start wit" +
                         "h \'http\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 36
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' ends with \'/1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 34
+#line 37
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' does not end with " +
                         "\'/2\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 35
+#line 38
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' is \'19\' characters" +
                         " long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 36
+#line 39
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' is not empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 37
+#line 40
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' is more than \'1\' c" +
                         "haracters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 38
+#line 41
  await testRunner.AndAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' is less than \'100\'" +
                         " characters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 44
  await testRunner.AndAsync("the value of JSONPath \'$.id\' in variable \'firstProduct\' equals \'1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 45
  await testRunner.AndAsync("the value of JSONPath \'$.id\' in variable \'firstProduct\' is greater than \'0\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 43
+#line 46
  await testRunner.AndAsync("the value of JSONPath \'$.id\' in variable \'firstProduct\' is less than \'100\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 46
+#line 49
  await testRunner.WhenAsync("the value of JSONPath \'$.self_link\' in variable \'firstProduct\' is stored in varia" +
                         "ble \'firstProductLink\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 47
+#line 50
  await testRunner.ThenAsync("the value of variable \'firstProductLink\' is more than \'0\' characters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 48
+#line 51
  await testRunner.AndAsync("the value of variable \'firstProductLink\' is less than \'100\' characters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 49
+#line 52
  await testRunner.AndAsync("the value of variable \'firstProductLink\' is \'19\' characters long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 50
+#line 53
  await testRunner.AndAsync("the value of variable \'firstProductLink\' is not empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 51
+#line 54
  await testRunner.AndAsync("the value of variable \'firstProductLink\' starts with \'/shop\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 52
+#line 55
  await testRunner.AndAsync("the value of variable \'firstProductLink\' ends with \'/1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 53
+#line 56
  await testRunner.AndAsync("the value of variable \'firstProductLink\' does not start with \'http\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 54
+#line 57
  await testRunner.AndAsync("the value of variable \'firstProductLink\' does not end with \'.de\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 55
+#line 58
  await testRunner.AndAsync("the value of variable \'firstProductLink\' contains \'products\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 56
+#line 59
  await testRunner.AndAsync("the value of variable \'firstProductLink\' does not contain \'categories\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 57
+#line 60
  await testRunner.AndAsync("the value of variable \'firstProductLink\' equals \'/shop/v2/products/1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 58
+#line 61
  await testRunner.AndAsync("the value of variable \'firstProductLink\' does not equal \'/shop/products/2\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 61
+#line 64
  await testRunner.WhenAsync("the value of JSONPath \'$.id\' in variable \'firstProduct\' is stored in variable \'fi" +
                         "rstProductId\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 62
+#line 65
  await testRunner.AndAsync("a request to \'products/$(firstProductId)\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 64
+#line 67
  await testRunner.ThenAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 65
+#line 68
  await testRunner.WhenAsync("the response body is stored in variable \'singleProduct\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 66
+#line 69
  await testRunner.ThenAsync("the value of JSONPath \'$.name\' in variable \'singleProduct\' equals \'Banana\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 69
+#line 72
  await testRunner.AndAsync("the value of JSONPath \'$.price\' in variable \'singleProduct\' equals \'0.99\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 70
+#line 73
  await testRunner.AndAsync("the value of JSONPath \'$.price\' in variable \'singleProduct\' is greater than \'0\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 71
+#line 74
  await testRunner.AndAsync("the value of JSONPath \'$.price\' in variable \'singleProduct\' is less than \'1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 73
+#line 76
  await testRunner.WhenAsync("the value of JSONPath \'$.price\' in variable \'singleProduct\' is stored in variable" +
                         " \'singleProductPrice\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 76
+#line 79
  await testRunner.ThenAsync("the value of variable \'singleProductPrice\' equals \'0.99\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 77
+#line 80
  await testRunner.AndAsync("the value of variable \'singleProductPrice\' is greater than \'0\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 78
+#line 81
  await testRunner.AndAsync("the value of variable \'singleProductPrice\' is less than \'1\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

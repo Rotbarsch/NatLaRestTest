@@ -1,6 +1,7 @@
 ﻿Feature: Upload Stream
 
-A short summary of the feature
+Background: 
+	Given SSL certificate validation is disabled
 
 Scenario: Uploading a stream
 	Given the base URL '$(demoApiBaseUrl)'

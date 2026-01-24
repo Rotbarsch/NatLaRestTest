@@ -26,7 +26,7 @@ public class NumericVariableAssertions : INumericVariableAssertions
     /// <param name="variableName">The variable name containing a numeric value.</param>
     /// <param name="value">The threshold value (exclusive).</param>
     [Then("the value of variable '(.*)' is greater than '(.*)'")]
-    public void NumericVariableIsGreaterThan(string variableName, int value)
+    public void NumericVariableIsGreaterThan(string variableName, double value)
     {
         _numericService.NumericVariableIsGreaterThan(variableName, value);
     }
@@ -38,7 +38,7 @@ public class NumericVariableAssertions : INumericVariableAssertions
     /// <param name="value">The threshold value (exclusive).
     /// </param>
     [Then("the value of variable '(.*)' is less than '(.*)'")]
-    public void NumericVariableIsLessThan(string variableName, int value)
+    public void NumericVariableIsLessThan(string variableName, double value)
     {
         _numericService.NumericVariableIsLessThan(variableName, value);
     }

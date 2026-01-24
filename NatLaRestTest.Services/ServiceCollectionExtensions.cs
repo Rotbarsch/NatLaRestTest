@@ -15,8 +15,10 @@ public static class ServiceCollectionExtensions
             .AddScoped<IJsonPathService, JsonPathService>()
             .AddScoped<INumericService, NumericService>()
             .AddScoped<IRandomDataService, RandomDataService>()
+            .AddScoped<IStopwatchService, StopwatchService>()
             .AddScoped<ITestOutputLoggingService, TestOutputLoggingService>()
             .AddScoped<IVariableService, VariableService>()
+            .AddScoped<IWaitService, WaitService>()
             .AddScoped<IXPathService, XPathService>();
 
         return serviceCollection;

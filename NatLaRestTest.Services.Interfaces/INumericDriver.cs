@@ -52,12 +52,12 @@ public interface INumericService
     /// </summary>
     /// <param name="variableName">The name of the variable whose value will be compared.</param>
     /// <param name="value">The value to compare against.</param>
-    void NumericVariableIsGreaterThan(string variableName, int value);
+    void NumericVariableIsGreaterThan(string variableName, double value);
 
     /// <summary>
     /// Asserts that the numeric value stored in the variable is less than the provided value.
     /// </summary>
-    void NumericVariableIsLessThan(string variableName, int value);
+    void NumericVariableIsLessThan(string variableName, double value);
 
     bool ParseNumber(string? input, out double parsed);
 }

@@ -18,7 +18,9 @@ public static class ServiceCollectionExtensions
             .AddScoped<IJsonSchemaDriver, JsonSchemaDriver>()
             .AddScoped<IRandomizerDriver, RandomizerDriver>()
             .AddScoped<IRegExDriver, RegExDriver>()
+            .AddScoped<IStopwatchDriver, StopwatchDriver>()
             .AddScoped<IStringDriver, StringDriver>()
+            .AddScoped<IWaitDriver, WaitDriver>()
             .AddScoped<IXmlDriver, XmlDriver>();
 
         return serviceCollection;
