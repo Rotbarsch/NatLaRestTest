@@ -27,7 +27,7 @@ namespace NatLaRestTest.Demo.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "HTTP operations and assertions", "", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "HTTP operations and assertions", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "Http_Operations_and_Assertions.feature"
 #line hidden
@@ -103,6 +103,15 @@ namespace NatLaRestTest.Demo.Features
             await testRunner.CollectScenarioErrorsAsync();
         }
         
+        public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
+        {
+#line 3
+#line hidden
+#line 4
+ await testRunner.GivenAsync("SSL certificate validation is disabled", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+        }
+        
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
             return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Http_Operations_and_Assertions.feature.ndjson", 9);
@@ -118,7 +127,7 @@ namespace NatLaRestTest.Demo.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("HTTP create and fetch with JSONPath assertions", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 5
+#line 8
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -128,77 +137,80 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 6
- await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 8
- await testRunner.WhenAsync("a random \'Word\' string is stored in variable \'newName\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 3
+await this.FeatureBackgroundAsync();
 #line hidden
 #line 9
+ await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 11
+ await testRunner.WhenAsync("a random \'Word\' string is stored in variable \'newName\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 12
  await testRunner.AndAsync("a \'POST\' request to \'/objects\' is made with content type \'application/json\' and t" +
                         "he following request body:", "{\r\n\t\"name\": \"$(newName)\",\r\n\t\"data\": {\r\n\t\t\"year\": 2020,\r\n\t\t\"price\": 9.99,\r\n\t\t\"CPU " +
                         "model\": \"Z80\",\r\n\t\t\"Hard disk size\": \"1kB\"\r\n\t}\r\n}", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 24
  await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 22
+#line 25
  await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 24
+#line 27
  await testRunner.WhenAsync("the response body is stored in variable \'created\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 28
  await testRunner.ThenAsync("the value of JSONPath \'$.name\' in variable \'created\' equals \'$(newName)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 26
+#line 29
  await testRunner.WhenAsync("the value of JSONPath \'$.id\' in variable \'created\' is stored in variable \'created" +
                         "Id\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 27
+#line 30
  await testRunner.ThenAsync("the value of variable \'createdId\' is not null", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 29
+#line 32
  await testRunner.WhenAsync("a request to \'/objects/$(createdId)\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 30
+#line 33
  await testRunner.AndAsync("a \'GET\' request to \'/objects/$(createdId)\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 31
+#line 34
  await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 32
+#line 35
  await testRunner.AndAsync("the response code does not equal \'404\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 36
  await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 35
+#line 38
  await testRunner.WhenAsync("the response body is stored in variable \'fetched\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 36
+#line 39
  await testRunner.ThenAsync("the value of JSONPath \'$.id\' in variable \'fetched\' equals \'$(createdId)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 37
+#line 40
  await testRunner.AndAsync("the value of JSONPath \'$.name\' in variable \'fetched\' contains \'$(newName)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 38
+#line 41
  await testRunner.AndAsync("the value of JSONPath \'$.name\' in variable \'fetched\' does not equal \'Wrong Name\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 39
+#line 42
  await testRunner.AndAsync("the value of JSONPath \'$.name\' in variable \'fetched\' is more than \'1\' characters " +
                         "long", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 40
+#line 43
  await testRunner.AndAsync("the value of JSONPath \'$.name\' in variable \'fetched\' is not empty", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 44
  await testRunner.AndAsync("the value of JSONPath \'$.data\' in variable \'fetched\' contains \'CPU model\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 45
  await testRunner.AndAsync("the value of JSONPath \'$.data.year\' in variable \'fetched\' is greater than \'2000\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 43
+#line 46
  await testRunner.AndAsync("the value of JSONPath \'$.data.price\' in variable \'fetched\' is less than \'100\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -215,7 +227,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("HTTP create without explicit content type", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 46
+#line 49
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -225,22 +237,25 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 47
+#line 3
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 50
  await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 48
+#line 51
  await testRunner.WhenAsync("a random \'Word\' string is stored in variable \'newName2\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 49
+#line 52
  await testRunner.AndAsync("a \'POST\' request to \'/objects\' is made with the following request body:", "{\r\n\t\"name\": \"$(newName2)\",\r\n\t\"data\": {\r\n\t\t\"year\": 2021,\r\n\t\t\"price\": 19.99\r\n\t}\r\n}", ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 59
+#line 62
  await testRunner.ThenAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 60
+#line 63
  await testRunner.WhenAsync("the response body is stored in variable \'created2\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 61
+#line 64
  await testRunner.ThenAsync("the value of JSONPath \'$.name\' in variable \'created2\' equals \'$(newName2)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -257,7 +272,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Showcase on POST /objects endpoint", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 64
+#line 67
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -267,27 +282,30 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 65
+#line 3
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 68
  await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 67
+#line 70
  await testRunner.WhenAsync("the value \'Apple MacBook Pro 16 (which was thrown out of a window)\' is stored in " +
                         "variable \'newName\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 68
+#line 71
  await testRunner.WhenAsync("a \'POST\' request to \'/objects\' is made with the following request body:", "{\r\n\t\"name\": \"$(newName)\",\r\n\t\"data\": {\r\n\t\t\"year\":2019,\r\n\t\t\"price\": 4999.99,\r\n\t\t\"CP" +
                         "U model\": \"Z80\",\r\n\t\t\"Hard disk size\": \"1kB\"\r\n\t}\r\n}", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 80
+#line 83
  await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 81
+#line 84
  await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 83
+#line 86
  await testRunner.WhenAsync("the response body is stored in variable \'updatedEntity\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 84
+#line 87
  await testRunner.ThenAsync("the value of JSONPath \'$.name\' in variable \'updatedEntity\' equals \'$(newName)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -304,7 +322,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Showcase on POST /objects endpoint (copy to show variable thing)", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 87
+#line 90
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -314,26 +332,29 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 88
- await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 90
- await testRunner.WhenAsync("the value \'NEW_NAME\' is stored in variable \'newName\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 3
+await this.FeatureBackgroundAsync();
 #line hidden
 #line 91
+ await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 93
+ await testRunner.WhenAsync("the value \'NEW_NAME\' is stored in variable \'newName\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 94
  await testRunner.WhenAsync("a \'POST\' request to \'/objects\' is made with the following request body:", "{\r\n\t\"name\": \"$(newName)\",\r\n\t\"data\": {\r\n\t\t\"year\":2019,\r\n\t\t\"price\": 4999.99,\r\n\t\t\"CP" +
                         "U model\": \"Z80\",\r\n\t\t\"Hard disk size\": \"1kB\"\r\n\t}\r\n}", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 103
+#line 106
  await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 104
+#line 107
  await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 106
+#line 109
  await testRunner.WhenAsync("the response body is stored in variable \'updatedEntity\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 107
+#line 110
  await testRunner.ThenAsync("the value of JSONPath \'$.name\' in variable \'updatedEntity\' equals \'NEW_NAME\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -350,7 +371,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Showcase on DELETE /objects endpoint", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 110
+#line 113
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -360,43 +381,46 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 111
+#line 3
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 114
  await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 112
+#line 115
  await testRunner.WhenAsync("a random \'Word\' string is stored in variable \'newName\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 113
+#line 116
  await testRunner.WhenAsync("a \'POST\' request to \'/objects\' is made with the following request body:", "{\r\n\t\"name\": \"$(newName)\",\r\n\t\"data\": {\r\n\t\t\"year\":2019,\r\n\t\t\"price\": 4999.99,\r\n\t\t\"CP" +
                         "U model\": \"Z80\",\r\n\t\t\"Hard disk size\": \"1kB\"\r\n\t}\r\n}", ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 125
+#line 128
  await testRunner.ThenAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 126
+#line 129
  await testRunner.WhenAsync("the response body is stored in variable \'createResult\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 127
+#line 130
  await testRunner.WhenAsync("the value of JSONPath \'$.id\' in variable \'createResult\' is stored in variable \'cr" +
                         "eatedId\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 129
+#line 132
  await testRunner.WhenAsync("a \'DELETE\' request to \'/objects/$(createdId)\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 130
+#line 133
  await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 131
+#line 134
  await testRunner.AndAsync("the response indicates success", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 133
+#line 136
  await testRunner.WhenAsync("the response body is stored in variable \'deleteResult\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 134
+#line 137
  await testRunner.ThenAsync("the value of JSONPath \'$.message\' in variable \'deleteResult\' contains \'has been d" +
                         "eleted\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 135
+#line 138
  await testRunner.AndAsync("the value of JSONPath \'$.message\' in variable \'deleteResult\' contains \'id = $(cre" +
                         "atedId)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
@@ -414,7 +438,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Non-success response", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 138
+#line 141
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -424,16 +448,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 139
- await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 141
- await testRunner.WhenAsync("a \'GET\' request to \'/objects/99999999\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 3
+await this.FeatureBackgroundAsync();
 #line hidden
 #line 142
+ await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 144
+ await testRunner.WhenAsync("a \'GET\' request to \'/objects/99999999\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 145
  await testRunner.ThenAsync("the response does not indicate success", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 143
+#line 146
  await testRunner.AndAsync("the response code does not equal \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -450,7 +477,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Downloading a stream", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 146
+#line 149
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -460,28 +487,31 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 147
- await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 149
- await testRunner.WhenAsync("a request to \'/cat\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 3
+await this.FeatureBackgroundAsync();
 #line hidden
 #line 150
- await testRunner.AndAsync("the length of the response stream is stored in variable \'streamLength\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 151
- await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.GivenAsync("the base URL \'$(demoApiBaseUrl)\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 152
- await testRunner.AndAsync("the value of variable \'streamLength\' is greater than \'0\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.WhenAsync("a request to \'/cat\' is made", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 153
+ await testRunner.AndAsync("the length of the response stream is stored in variable \'streamLength\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 154
- await testRunner.WhenAsync("the response stream is saved to file \'cat.jpg\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.ThenAsync("the response code equals \'200\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 155
+ await testRunner.AndAsync("the value of variable \'streamLength\' is greater than \'0\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 157
+ await testRunner.WhenAsync("the response stream is saved to file \'cat.jpg\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 158
  await testRunner.AndAsync("the value of header \'Server\' is stored in variable \'serverHeader\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 156
+#line 159
  await testRunner.ThenAsync("the value of variable \'serverHeader\' equals \'Kestrel\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

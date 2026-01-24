@@ -94,7 +94,7 @@ public class NumericService : INumericService
     /// <summary>
     /// Asserts that the numeric value stored in the variable is greater than the provided value.
     /// </summary>
-    public void NumericVariableIsGreaterThan(string variableName, int value)
+    public void NumericVariableIsGreaterThan(string variableName, double value)
     {
         var actualValue = _variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
@@ -107,7 +107,7 @@ public class NumericService : INumericService
     /// <summary>
     /// Asserts that the numeric value stored in the variable is less than the provided value.
     /// </summary>
-    public void NumericVariableIsLessThan(string variableName, int value)
+    public void NumericVariableIsLessThan(string variableName, double value)
     {
         var actualValue = _variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");

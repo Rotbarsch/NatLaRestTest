@@ -1,5 +1,8 @@
 Feature: HTTP operations and assertions
 
+Background: 
+	Given SSL certificate validation is disabled
+
 # Covers HTTP requests with explicit content type, response assertions, response body storage,
 # JSONPath value extraction and string/length/numeric assertions on JSONPath selections
 Scenario: HTTP create and fetch with JSONPath assertions
