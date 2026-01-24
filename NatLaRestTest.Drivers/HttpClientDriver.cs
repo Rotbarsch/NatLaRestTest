@@ -1,324 +1,174 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
+using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 
 namespace NatLaRestTest.Drivers;
 
 /// <summary>
-///     Provides a shared <see cref="HttpClient" /> and tracks the current <see cref="HttpResponseMessage" /> for a
-///     scenario.
-///     Supports configuring base address, default timeout, request headers and SSL certificate validation.
+/// Provides high-level HTTP operations using an underlying Service and stores results in scenario variables.
 /// </summary>
-public class HttpClientDriver : IHttpClientDriver, IDisposable
+public class HttpClientDriver : IHttpClientDriver
 {
-    private readonly HttpClientOptions _httpClientOptions;
-
-    private readonly ITestOutputLoggingDriver _loggingDriver;
-    private readonly IVariableDriver _variableDriver;
-    private long? _responseTime;
+    private readonly IHttpClientService _httpClientService;
+    private readonly IVariableService _variableService;
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="HttpClientDriver" /> class.
+    /// Initializes a new instance of the <see cref="HttpClientDriver"/> class.
     /// </summary>
-    /// <param name="loggingDriver">The logging driver used to write request/response traces.</param>
-    /// <param name="variableDriver">The variable driver used to manage variables.</param>
-    public HttpClientDriver(ITestOutputLoggingDriver loggingDriver, IVariableDriver variableDriver)
+    /// <param name="httpClientService">Service used to send HTTP requests and access responses.</param>
+    /// <param name="variableService">Service used to store values in scenario variables.</param>
+    public HttpClientDriver(IHttpClientService httpClientService, IVariableService variableService)
     {
-        _loggingDriver = loggingDriver;
-        _variableDriver = variableDriver;
-        _httpClientOptions = new HttpClientOptions();
+        _httpClientService = httpClientService;
+        _variableService = variableService;
     }
 
     /// <summary>
-    ///     Gets or sets the current HTTP response captured by the driver.
-    /// </summary>
-    public HttpResponseMessage? CurrentResponse { get; set; }
-
-    /// <summary>
-    ///     Releases resources held by the current response.
-    /// </summary>
-    public void Dispose()
-    {
-        CurrentResponse?.Dispose();
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    ///     Sends an HTTP request with the specified method, relative path, optional request body and content type.
-    ///     The request and response are written to the debug output for traceability.
+    /// Sends an HTTP request with optional body and content type.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., GET, POST, PUT, DELETE).</param>
-    /// <param name="relativePath">The relative URL path to request.</param>
-    /// <param name="requestBody">Optional request payload as string.</param>
-    /// <param name="contentType">The request content type. Defaults to <c>application/json</c>.</param>
+    /// <param name="relativePath">Relative URL path to request.</param>
+    /// <param name="requestBody">Optional request body as string.</param>
+    /// <param name="contentType">Content type of the request body. Defaults to application/json.</param>
     public async Task SendRequest(string httpMethod, string relativePath, string? requestBody = null,
         string contentType = "application/json")
     {
-        CurrentResponse = null;
-        _responseTime = null;
-
-        var msg = new HttpRequestMessage(
-            HttpMethod.Parse(httpMethod),
-            relativePath);
-        if (requestBody != null)
-        {
-            msg.Content = new StringContent(requestBody, new MediaTypeHeaderValue(contentType));
-        }
-
-
-        await LogHttpRequest(msg);
-        using (var httpClient = GetConfiguredHttpClient())
-        {
-            var sw = Stopwatch.StartNew();
-            CurrentResponse = await httpClient.SendAsync(msg);
-            sw.Stop();
-            _loggingDriver.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
-            _responseTime = sw.ElapsedMilliseconds;
-        }
-
-        await LogHttpResponse(CurrentResponse);
+        await _httpClientService.SendRequest(httpMethod, relativePath, requestBody, contentType);
     }
 
     /// <summary>
-    ///     Sends an HTTP request with the specified method and uploads the contents of a file as multipart stream content.
+    /// Sends an HTTP request and uploads the contents of a file as multipart form data.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., POST, PUT).</param>
-    /// <param name="url">The absolute or relative URL to request.</param>
-    /// <param name="fileName">Path to the file to be uploaded.</param>
+    /// <param name="url">Absolute or relative URL.</param>
+    /// <param name="fileName">Path to the file to upload.</param>
     /// <param name="contentType">Optional content type of the stream part.</param>
     public async Task SendRequestWithStreamBody(string httpMethod, string url, string fileName,
         string? contentType = null)
     {
-        Assert.IsTrue(File.Exists(fileName), $"File '{fileName} does not exist.");
-
-        await using var fileStream = File.OpenRead(fileName);
-        var msg = new HttpRequestMessage(
-            HttpMethod.Parse(httpMethod),
-            url);
-
-        msg.Content = new MultipartFormDataContent
-        {
-            new StreamContent(fileStream)
-        };
-
-        await LogHttpRequest(msg);
-        using (var httpClient = GetConfiguredHttpClient())
-        {
-            CurrentResponse = await httpClient.SendAsync(msg);
-        }
-
-        await LogHttpResponse(CurrentResponse);
+        await _httpClientService.SendRequestWithStreamBody(httpMethod, url, fileName, contentType);
     }
 
-    /// <inheritdoc />
-    public bool CurrentResponseIsSuccessful()
-    {
-        AssertResponseAvailable();
-        return CurrentResponse!.IsSuccessStatusCode;
-    }
-
-    /// <inheritdoc />
-    public int GetCurrentResponseStatusCode()
-    {
-        AssertResponseAvailable();
-        return (int)CurrentResponse!.StatusCode;
-    }
-
-    /// <inheritdoc />
-    public async Task<string> GetCurrentResponseAsString()
-    {
-        AssertResponseAvailable();
-        return await CurrentResponse!.Content.ReadAsStringAsync();
-    }
-
-    /// <inheritdoc />
-    public void SetBaseAddress(string baseUrl)
-    {
-        _httpClientOptions.BaseUrl = new Uri(baseUrl);
-    }
-
-    /// <inheritdoc />
-    public void SetDefaultTimeout(int seconds)
-    {
-        _httpClientOptions.DefaultTimeout = TimeSpan.FromSeconds(seconds);
-    }
-
-    /// <inheritdoc />
-    public void SetDefaultHeader(string headerName, string headerValue)
-    {
-        _httpClientOptions.DefaultRequestHeaders.Add(headerName, headerValue);
-    }
-
-    /// <inheritdoc />
+    /// <summary>
+    /// Saves the current response stream to a file.
+    /// </summary>
+    /// <param name="filePath">Path to the destination file.</param>
     public async Task SaveResponseStreamToFile(string filePath)
     {
-        AssertResponseAvailable();
-        var respStream = await CurrentResponse!.Content.ReadAsStreamAsync();
-
-        // Ensure directory exists
-        var dir = Path.GetDirectoryName(filePath);
-        if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
-        {
-            Assert.Fail($"Path not found: {filePath}");
-        }
-
-        // Write stream to file
-        await using var fileStream = File.Create(filePath);
-        await respStream.CopyToAsync(fileStream);
-        await fileStream.FlushAsync();
-        _loggingDriver.WriteLine($"Wrote '{fileStream.Length}' bytes to '{Path.GetFullPath(filePath)}'.");
+        await _httpClientService.SaveResponseStreamToFile(filePath);
     }
 
-    /// <inheritdoc />
-    public async Task<long> GetResponseStreamLength()
+    /// <summary>
+    /// Retrieves the current response stream length and stores it in a scenario variable.
+    /// </summary>
+    /// <param name="variableName">Name of the scenario variable to store the length value.</param>
+    public async Task StoreResponseStreamLengthInVariable(string variableName)
     {
-        AssertResponseAvailable();
-        return (await CurrentResponse!.Content.ReadAsStreamAsync()).Length;
+        var length = await _httpClientService.GetResponseStreamLength();
+        _variableService.SetVariable(variableName, length.ToString());
     }
 
-    /// <inheritdoc />
-    public string GetCurrentResponseHeaderValue(string headerName)
+    /// <summary>
+    /// Retrieves the current response body and stores it in a scenario variable.
+    /// </summary>
+    /// <param name="variableName">Name of the scenario variable to store the body.</param>
+    public async Task StoreResponseBodyInVariable(string variableName)
     {
-        AssertResponseAvailable();
-        Assert.IsTrue(CurrentResponse!.Headers.TryGetValues(headerName, out var headerValues),
-            $"No header with key '{headerName}' in current response.");
-        return string.Join(",", headerValues!);
+        _variableService.SetVariable(variableName, await _httpClientService.GetCurrentResponseAsString());
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Retrieves a header value from the current response and stores it in a scenario variable.
+    /// </summary>
+    /// <param name="headerName">Name of the header.</param>
+    /// <param name="variableName">Name of the scenario variable to store the value.</param>
+    public void StoreResponseHeaderValueInVariable(string headerName, string variableName)
+    {
+        var headerValue = _httpClientService.GetCurrentResponseHeaderValue(headerName);
+        _variableService.SetVariable(variableName, headerValue);
+    }
+
+    /// <summary>
+    /// Sets the base URL used by the HTTP client.
+    /// </summary>
+    /// <param name="baseUrl">Base URL.</param>
+    public void SetBaseUrl(string baseUrl)
+    {
+        _httpClientService.SetBaseAddress(baseUrl);
+    }
+
+    /// <summary>
+    /// Sets the default timeout used by the HTTP client.
+    /// </summary>
+    /// <param name="seconds">Timeout in seconds.</param>
+    public void SetDefaultTimeout(int seconds)
+    {
+        _httpClientService.SetDefaultTimeout(seconds);
+    }
+
+    /// <summary>
+    /// Adds a default header to all outgoing requests.
+    /// </summary>
+    /// <param name="headerName">Header name.</param>
+    /// <param name="headerValue">Header value.</param>
+    public void SetDefaultHeader(string headerName, string headerValue)
+    {
+        _httpClientService.SetDefaultHeader(headerName, headerValue);
+    }
+
+    /// <summary>
+    /// Disables SSL certificate validation on the HTTP client.
+    /// </summary>
     public void DisableSslCertificateValidation()
     {
-        _httpClientOptions.CheckSsl = false;
+        _httpClientService.DisableSslCertificateValidation();
     }
 
     /// <summary>
-    /// Stores the response time (in milliseconds) of the current HTTP response into a scenario variable.
+    /// Asserts that the current response indicates success (HTTP 2xx).
     /// </summary>
-    /// <param name="variableName">Target variable name.</param>
+    public void ResponseIsSuccess()
+    {
+        Assert.IsTrue(_httpClientService.CurrentResponseIsSuccessful(),
+            $"Response status code {_httpClientService.GetCurrentResponseStatusCode()} does not indicate success.");
+    }
+
+    /// <summary>
+    /// Asserts that the current response does not indicate success.
+    /// </summary>
+    public void ResponseIsNotSuccess()
+    {
+        Assert.IsFalse(_httpClientService.CurrentResponseIsSuccessful(),
+            $"Response status code {_httpClientService.GetCurrentResponseStatusCode()} does indicate success.");
+    }
+
+    /// <summary>
+    /// Asserts that the current response status code equals the expected value.
+    /// </summary>
+    /// <param name="code">Expected HTTP status code (e.g., 200).</param>
+    public void AssertResponseCode(int code)
+    {
+        Assert.AreEqual(code, _httpClientService.GetCurrentResponseStatusCode(),
+            $"Expected response code {code} but got {_httpClientService.GetCurrentResponseStatusCode()}");
+    }
+
+    /// <summary>
+    /// Asserts that the current response status code does not equal the specified value.
+    /// </summary>
+    /// <param name="code">HTTP status code that must not match.</param>
+    public void AssertResponseCodeIsNot(int code)
+    {
+        Assert.AreNotEqual(code, _httpClientService.GetCurrentResponseStatusCode(),
+            $"Expected response code to not be equal {code}.");
+    }
+
+    /// <summary>
+    /// Stores the response time (in milliseconds) of the current HTTP response into a variable.
+    /// </summary>
+    /// <param name="variableName"></param>
+    /// <exception cref="System.NotImplementedException"></exception>
     public void StoreResponseTimeInVariable(string variableName)
     {
-        Assert.NotNull(CurrentResponse);
-        Assert.NotNull(_responseTime);
-        _variableDriver.SetVariable(variableName,_responseTime!.ToString());
-    }
-
-    /// <summary>
-    ///     Creates a configured <see cref="HttpClient" /> based on current options.
-    /// </summary>
-    /// <returns>A new configured <see cref="HttpClient" /> instance.</returns>
-    private HttpClient GetConfiguredHttpClient()
-    {
-        HttpClient httpClient;
-        if (_httpClientOptions.CheckSsl)
-        {
-            httpClient = new HttpClient();
-        }
-        else
-        {
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            httpClientHandler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
-            httpClient = new HttpClient(httpClientHandler);
-        }
-
-        if (_httpClientOptions.BaseUrl is not null)
-        {
-            httpClient.BaseAddress = _httpClientOptions.BaseUrl;
-        }
-
-        if (_httpClientOptions.DefaultTimeout is not null)
-        {
-            httpClient.Timeout = _httpClientOptions.DefaultTimeout.Value;
-        }
-
-        foreach (var header in _httpClientOptions.DefaultRequestHeaders)
-        {
-            httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
-        }
-
-        return httpClient;
-    }
-
-    /// <summary>
-    ///     Asserts that a current response is available.
-    /// </summary>
-    private void AssertResponseAvailable()
-    {
-        Assert.NotNull(CurrentResponse, "No current response available.");
-    }
-
-    /// <summary>
-    ///     Logs details of the outgoing HTTP request.
-    /// </summary>
-    /// <param name="msg">The HTTP request message.</param>
-    private async Task LogHttpRequest(HttpRequestMessage msg)
-    {
-        var bodyLength = 0;
-        if (msg.Content != null)
-        {
-            var contentBytes = await msg.Content.ReadAsByteArrayAsync();
-            bodyLength = contentBytes.Length;
-        }
-
-        var sb = new StringBuilder();
-
-        sb.AppendLine($"Request to {msg.Method} {msg.RequestUri} with body size of {bodyLength} bytes with Headers:");
-        foreach (var header in msg.Headers)
-        {
-            sb.AppendLine($"{header.Key} = {string.Join(",", header.Value)}");
-        }
-
-        _loggingDriver.WriteLine(sb.ToString());
-    }
-
-    /// <summary>
-    ///     Logs summary details of the received HTTP response.
-    /// </summary>
-    /// <param name="currentResponse">The HTTP response message.</param>
-    private async Task LogHttpResponse(HttpResponseMessage currentResponse)
-    {
-        var bodyLength = (await currentResponse.Content.ReadAsByteArrayAsync()).Length;
-
-        var sb = new StringBuilder();
-
-        sb.AppendLine(
-            $"Received response {currentResponse.StatusCode} with body size of {bodyLength} bytes with headers:");
-        foreach (var header in currentResponse.Headers)
-        {
-            sb.AppendLine($"{header.Key} = {string.Join(",", header.Value)}");
-        }
-
-        if (!currentResponse.IsSuccessStatusCode)
-        {
-            sb.AppendLine(await currentResponse.Content.ReadAsStringAsync());
-        }
-
-        _loggingDriver.WriteLine(sb.ToString());
-    }
-
-    /// <summary>
-    ///     Options for configuring the internal <see cref="HttpClient" />.
-    /// </summary>
-    private record HttpClientOptions
-    {
-        /// <summary>Default timeout applied to requests.</summary>
-        public TimeSpan? DefaultTimeout { get; set; }
-
-        /// <summary>Base URL used as <see cref="HttpClient.BaseAddress" />.</summary>
-        public Uri? BaseUrl { get; set; }
-
-        /// <summary>Default request headers added to each request.</summary>
-        public Dictionary<string, string> DefaultRequestHeaders { get; } = new();
-
-        /// <summary>Whether to check SSL certificates. Set false to bypass validation.</summary>
-        public bool CheckSsl { get; set; } = true;
+        _httpClientService.StoreResponseTimeInVariable(variableName);
     }
 }

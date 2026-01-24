@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.ManipulateVariableActions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
@@ -10,15 +10,15 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 [Binding]
 public class StringVariableManipulationBindings : IStringVariableManipulationBindings
 {
-    private readonly IStringLogic _stringLogic;
+    private readonly IStringDriver _stringDriver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="StringVariableManipulationBindings" /> class.
     /// </summary>
-    /// <param name="stringLogic">Logic component used to perform string manipulations.</param>
-    public StringVariableManipulationBindings(IStringLogic stringLogic)
+    /// <param name="stringDriver">Driver component used to perform string manipulations.</param>
+    public StringVariableManipulationBindings(IStringDriver stringDriver)
     {
-        _stringLogic = stringLogic;
+        _stringDriver = stringDriver;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class StringVariableManipulationBindings : IStringVariableManipulationBin
     [When("the string '(.*)' is appended to the value of variable '(.*)'")]
     public void AppendStringToVariable(string valueToAppend, string variableName)
     {
-        _stringLogic.AppendStringToVariable(valueToAppend, variableName);
+        _stringDriver.AppendStringToVariable(valueToAppend, variableName);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class StringVariableManipulationBindings : IStringVariableManipulationBin
     [When("the string '(.*)' is prepended to the value of variable '(.*)'")]
     public void PrependStringToVariable(string valueToPrepend, string variableName)
     {
-        _stringLogic.PrependStringToVariable(valueToPrepend, variableName);
+        _stringDriver.PrependStringToVariable(valueToPrepend, variableName);
     }
 
     /// <summary>
@@ -52,6 +52,6 @@ public class StringVariableManipulationBindings : IStringVariableManipulationBin
     [When("the string '(.*)' is replaced with '(.*)' in the value of variable '(.*)'")]
     public void ReplaceStringInVariable(string oldValue, string newValue, string variableName)
     {
-        _stringLogic.ReplaceStringInVariable(oldValue, newValue, variableName);
+        _stringDriver.ReplaceStringInVariable(oldValue, newValue, variableName);
     }
 }

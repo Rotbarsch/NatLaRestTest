@@ -1,98 +1,104 @@
-using System.Threading.Tasks;
-
-namespace NatLaRestTest.Drivers.Interfaces;
+﻿namespace NatLaRestTest.Drivers.Interfaces;
 
 /// <summary>
-///     Abstraction over HTTP request/response handling for tests, providing methods to send requests,
-///     access the current response, configure client defaults, and work with response content and headers.
+/// Defines high-level HTTP client operations and assertions used by Driver components.
+/// Provides methods to send requests, persist response data to variables, configure defaults, and assert outcomes.
 /// </summary>
 public interface IHttpClientDriver
 {
     /// <summary>
-    ///     Sends an HTTP request with the specified method, relative path, optional request body and content type.
-    ///     The request and response are written to the debug output for traceability.
+    /// Sends an HTTP request with the specified method, path, optional body and content type.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., GET, POST, PUT, DELETE).</param>
-    /// <param name="relativePath">The relative URL path to request.</param>
-    /// <param name="requestBody">Optional request payload as string.</param>
-    /// <param name="contentType">The request content type. Defaults to <c>application/json</c>.</param>
+    /// <param name="relativePath">Relative path appended to the configured base URL.</param>
+    /// <param name="requestBody">Optional request payload.</param>
+    /// <param name="contentType">Request content type. Defaults to <c>application/json</c>.</param>
     Task SendRequest(string httpMethod, string relativePath, string? requestBody = null,
         string contentType = "application/json");
 
     /// <summary>
-    ///     Sends an HTTP request with the specified method and uploads the contents of a file as stream content.
+    /// Sends an HTTP request and uploads a file as the request body using stream/multipart content.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., POST, PUT).</param>
-    /// <param name="url">The absolute or relative URL to request.</param>
-    /// <param name="fileName">Path to the file to be uploaded.</param>
-    /// <param name="contentType">Optional content type of the stream part.</param>
+    /// <param name="url">Absolute or relative URL.</param>
+    /// <param name="fileName">Path to the file to upload.</param>
+    /// <param name="contentType">Optional content type for the uploaded content.</param>
     Task SendRequestWithStreamBody(string httpMethod, string url, string fileName, string? contentType = null);
 
     /// <summary>
-    ///     Determines whether the last HTTP response indicates success.
+    /// Saves the current HTTP response content stream to a file.
     /// </summary>
-    /// <returns><c>true</c> if the response status code is in the 2xx range; otherwise, <c>false</c>.</returns>
-    bool CurrentResponseIsSuccessful();
+    /// <param name="filePath">Destination file path.</param>
+    Task SaveResponseStreamToFile(string filePath);
 
     /// <summary>
-    ///     Gets the status code of the last HTTP response.
+    /// Stores the length of the current HTTP response stream (in bytes) in a variable.
     /// </summary>
-    /// <returns>The numeric HTTP status code.</returns>
-    int GetCurrentResponseStatusCode();
+    /// <param name="variableName">The target variable name.</param>
+    Task StoreResponseStreamLengthInVariable(string variableName);
 
     /// <summary>
-    ///     Reads the content of the last HTTP response as a string.
+    /// Stores the current HTTP response body (as string) in a variable.
     /// </summary>
-    /// <returns>A task that resolves to the response body as string.</returns>
-    Task<string> GetCurrentResponseAsString();
+    /// <param name="variableName">The target variable name.</param>
+    Task StoreResponseBodyInVariable(string variableName);
 
     /// <summary>
-    ///     Sets the base address for outgoing HTTP requests.
+    /// Stores the value of a response header in a variable.
     /// </summary>
-    /// <param name="baseUrl">The absolute base URL.</param>
-    void SetBaseAddress(string baseUrl);
+    /// <param name="headerName">The response header name.</param>
+    /// <param name="variableName">The target variable name.</param>
+    void StoreResponseHeaderValueInVariable(string headerName, string variableName);
 
     /// <summary>
-    ///     Sets the default timeout applied to HTTP requests.
+    /// Sets the base URL used for outgoing requests.
+    /// </summary>
+    /// <param name="baseUrl">Absolute base URL.</param>
+    void SetBaseUrl(string baseUrl);
+
+    /// <summary>
+    /// Sets the default timeout for outgoing requests.
     /// </summary>
     /// <param name="seconds">Timeout in seconds.</param>
     void SetDefaultTimeout(int seconds);
 
     /// <summary>
-    ///     Adds a default header to all outgoing HTTP requests.
+    /// Adds a default header that will be included with each request.
     /// </summary>
-    /// <param name="headerName">The header name.</param>
-    /// <param name="headerValue">The header value.</param>
+    /// <param name="headerName">Header name.</param>
+    /// <param name="headerValue">Header value.</param>
     void SetDefaultHeader(string headerName, string headerValue);
 
     /// <summary>
-    ///     Saves the response content stream to a file.
-    /// </summary>
-    /// <param name="filePath">Target file path.</param>
-    /// <returns>A task representing the asynchronous save operation.</returns>
-    Task SaveResponseStreamToFile(string filePath);
-
-    /// <summary>
-    ///     Gets the length of the response content stream in bytes.
-    /// </summary>
-    /// <returns>A task that resolves to the stream length in bytes.</returns>
-    Task<long> GetResponseStreamLength();
-
-    /// <summary>
-    ///     Gets the value of a header from the last HTTP response.
-    /// </summary>
-    /// <param name="headerName">The response header name.</param>
-    /// <returns>The header value concatenated if multiple values exist.</returns>
-    string GetCurrentResponseHeaderValue(string headerName);
-
-    /// <summary>
-    ///     Disables SSL certificate validation for outgoing requests.
+    /// Disables SSL certificate validation for outgoing requests.
     /// </summary>
     void DisableSslCertificateValidation();
 
     /// <summary>
-    /// Stores response time in milliseconds in a variable.
+    /// Asserts that the current HTTP response indicates success (status code 2xx).
     /// </summary>
-    /// <param name="variableName">Target variable name.</param>
+    void ResponseIsSuccess();
+
+    /// <summary>
+    /// Asserts that the current HTTP response does not indicate success (non-2xx).
+    /// </summary>
+    void ResponseIsNotSuccess();
+
+    /// <summary>
+    /// Asserts that the current HTTP response status code equals the specified value.
+    /// </summary>
+    /// <param name="code">Expected HTTP status code.</param>
+    void AssertResponseCode(int code);
+
+    /// <summary>
+    /// Asserts that the current HTTP response status code does not equal the specified value.
+    /// </summary>
+    /// <param name="code">HTTP status code.</param>
+    void AssertResponseCodeIsNot(int code);
+
+    /// <summary>
+    /// Stores the response time (in milliseconds) of the current HTTP response in a variable.
+    /// </summary>
+    /// <param name="variableName">The target variable name.</param>
     void StoreResponseTimeInVariable(string variableName);
 }

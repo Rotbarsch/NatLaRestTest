@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.SetVariableActions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions.SetVariableActions;
@@ -8,7 +8,7 @@ namespace NatLaRestTest.Bindings.Actions.SetVariableActions;
 ///     Step bindings that perform string operations and store results in scenario variables.
 /// </summary>
 [Binding]
-public class StringOperationBindings(IStringLogic stringLogic) : IStringOperationBindings
+public class StringOperationBindings(IStringDriver stringDriver) : IStringOperationBindings
 {
     /// <summary>
     ///     When step: Extracts a substring from the provided input string using the given start index and length,
@@ -20,7 +20,7 @@ public class StringOperationBindings(IStringLogic stringLogic) : IStringOperatio
     /// <param name="targetVariableName">The name of the variable where the substring will be stored.</param>
     [When("the substring from index '(.*)' and length '(.*)' is extracted from '(.*)' and stored in variable '(.*)'")]
     public void GetSubString(int startIndex, int length, string input, string targetVariableName) =>
-        stringLogic.GetSubString(startIndex, length, input, targetVariableName);
+        stringDriver.GetSubString(startIndex, length, input, targetVariableName);
 
     /// <summary>
     ///     When step: Stores the length of the given input string in the specified target variable.
@@ -29,5 +29,5 @@ public class StringOperationBindings(IStringLogic stringLogic) : IStringOperatio
     /// <param name="targetVariableName">The name of the variable where the length will be stored.</param>
     [When("the length of string '(.*)' is stored in variable '(.*)'")]
     public void GetStringLength(string input, string targetVariableName) =>
-        stringLogic.GetStringLength(input, targetVariableName);
+        stringDriver.GetStringLength(input, targetVariableName);
 }

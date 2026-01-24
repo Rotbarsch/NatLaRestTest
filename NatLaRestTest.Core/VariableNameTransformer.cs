@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using System.Text.RegularExpressions;
+using NatLaRestTest.Services.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Core;
@@ -11,15 +10,15 @@ namespace NatLaRestTest.Core;
 [Binding]
 public class VariableNameTransformer
 {
-    private readonly IVariableDriver _variableDriver;
+    private readonly IVariableService _variableService;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="VariableNameTransformer" /> class.
     /// </summary>
-    /// <param name="variableDriver">The variable driver used to resolve placeholder values.</param>
-    public VariableNameTransformer(IVariableDriver variableDriver)
+    /// <param name="variableService">The variable Service used to resolve placeholder values.</param>
+    public VariableNameTransformer(IVariableService variableService)
     {
-        _variableDriver = variableDriver;
+        _variableService = variableService;
     }
 
     /// <summary>
@@ -48,7 +47,7 @@ public class VariableNameTransformer
             updated = Regex.Replace(updated, pattern, match =>
             {
                 var variableName = match.Groups[1].Value;
-                var value = _variableDriver.GetVariable(variableName);
+                var value = _variableService.GetVariable(variableName);
                 return value ?? string.Empty;
             });
 

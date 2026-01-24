@@ -1,12 +1,11 @@
-﻿using System;
-using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.de;
 
 [Binding]
-public class StringVariableAssertions(IStringLogic stringLogic) : IStringVariableAssertions
+public class StringVariableAssertions(IStringDriver stringDriver) : IStringVariableAssertions
 {
     public void StringVariableLengthIsMoreThan(string variableName, int length)
     {
@@ -66,7 +65,7 @@ public class StringVariableAssertions(IStringLogic stringLogic) : IStringVariabl
     [Then("ist der Wert der Variable '(.*)' gleich '(.*)'")]
     public void StringVariableEquals(string variableName, string comparison)
     {
-        stringLogic.StringVariableEquals(variableName, comparison);
+        stringDriver.StringVariableEquals(variableName, comparison);
     }
 
     public void StringVariableNotEquals(string variableName, string comparison)

@@ -4,7 +4,7 @@
 /// Specifies the type of comparison operation to perform when evaluating values.
 /// Operations cover equality, null checks, relational comparisons and collection/string specific checks.
 /// </summary>
-/// <remarks>Use this enumeration to indicate the desired comparison logic in filtering, searching, or conditional
+/// <remarks>Use this enumeration to indicate the desired comparison Driver in filtering, searching, or conditional
 /// evaluation scenarios. The available operations include standard relational and equality comparisons, as well as null
 /// checks.</remarks>
 public enum ComparisonOperation

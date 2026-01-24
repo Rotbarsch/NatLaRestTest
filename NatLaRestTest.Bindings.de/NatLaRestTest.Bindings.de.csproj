@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NatLaRestTest.Bindings.Interfaces\NatLaRestTest.Bindings.Interfaces.csproj" />
     <ProjectReference Include="..\NatLaRestTest.Core\NatLaRestTest.Core.csproj" />
+    <ProjectReference Include="..\NatLaRestTest.Drivers.Interfaces\NatLaRestTest.Drivers.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

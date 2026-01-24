@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Logic.Interfaces;
+﻿using NatLaRestTest.Bindings.Interfaces.Actions;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -9,7 +8,7 @@ namespace NatLaRestTest.Bindings.Actions;
 ///     Step bindings for uploading files as stream content in HTTP requests.
 /// </summary>
 [Binding]
-public class HttpClientRequestStreamBindings(IHttpClientLogic httpClientLogic) : IHttpClientRequestStreamBindings
+public class HttpClientRequestStreamBindings(IHttpClientDriver httpClientDriver) : IHttpClientRequestStreamBindings
 {
     /// <summary>
     ///     When step: Sends an HTTP request and uploads the contents of a file as stream content.
@@ -20,7 +19,7 @@ public class HttpClientRequestStreamBindings(IHttpClientLogic httpClientLogic) :
     [When("a '(.*)' request is made to '(.*)' with the contents of file '(.*)' as stream content")]
     public async Task UploadFile(string httpMethod, string url, string fileName)
     {
-        await httpClientLogic.SendRequestWithStreamBody(httpMethod, url, fileName);
+        await httpClientDriver.SendRequestWithStreamBody(httpMethod, url, fileName);
     }
 
     /// <summary>
@@ -35,6 +34,6 @@ public class HttpClientRequestStreamBindings(IHttpClientLogic httpClientLogic) :
         "a '(.*)' request is made to '(.*)' with the contents of file '(.*)' as stream content with content type '(.*)'")]
     public async Task UploadFile(string httpMethod, string url, string fileName, string contentType)
     {
-        await httpClientLogic.SendRequestWithStreamBody(httpMethod, url, fileName, contentType);
+        await httpClientDriver.SendRequestWithStreamBody(httpMethod, url, fileName, contentType);
     }
 }

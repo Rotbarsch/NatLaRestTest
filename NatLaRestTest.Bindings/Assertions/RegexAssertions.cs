@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -10,15 +10,15 @@ namespace NatLaRestTest.Bindings.Assertions;
 [Binding]
 public class RegExAssertions : IRegExAssertions
 {
-    private readonly IRegExLogic _regExLogic;
+    private readonly IRegExDriver _regExDriver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="RegExAssertions" /> class.
     /// </summary>
-    /// <param name="regExLogic">Logic component used to perform regex assertions.</param>
-    public RegExAssertions(IRegExLogic regExLogic)
+    /// <param name="regExDriver">Driver component used to perform regex assertions.</param>
+    public RegExAssertions(IRegExDriver regExDriver)
     {
-        _regExLogic = regExLogic;
+        _regExDriver = regExDriver;
     }
 
     /// <summary>
@@ -28,5 +28,5 @@ public class RegExAssertions : IRegExAssertions
     /// <param name="pattern">The regular expression pattern to match against.</param>
     [Then("the value of variable '(.*)' matches the regex pattern '(.*)'")]
     public void AssertVariableMatchesRegex(string variableName, string pattern) =>
-        _regExLogic.AssertVariableMatchesRegex(variableName, pattern);
+        _regExDriver.AssertVariableMatchesRegex(variableName, pattern);
 }

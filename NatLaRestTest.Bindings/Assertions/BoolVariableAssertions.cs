@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -7,9 +7,9 @@ namespace NatLaRestTest.Bindings.Assertions;
 /// <summary>
 /// Step bindings providing assertions for boolean scenario variables.
 /// </summary>
-/// <param name="boolVariableLogic">Logic component used to perform boolean variable assertions.</param>
+/// <param name="boolVariableDriver">Driver component used to perform boolean variable assertions.</param>
 [Binding]
-public class BoolVariableAssertions(IBoolVariableLogic boolVariableLogic) : IBoolVariableAssertions
+public class BoolVariableAssertions(IBoolVariableDriver boolVariableDriver) : IBoolVariableAssertions
 {
     /// <summary>
     /// Then step: Asserts that the specified variable is true.
@@ -19,7 +19,7 @@ public class BoolVariableAssertions(IBoolVariableLogic boolVariableLogic) : IBoo
     [Then("the value of variable '(.*)' is true")]
     public void AssertVariableIsTrue(string variableName)
     {
-        boolVariableLogic.AssertVariableIs(variableName, true);
+        boolVariableDriver.AssertVariableIs(variableName, true);
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ public class BoolVariableAssertions(IBoolVariableLogic boolVariableLogic) : IBoo
     [Then("the value of variable '(.*)' is false")]
     public void AssertVariableIsFalse(string variableName)
     {
-        boolVariableLogic.AssertVariableIs(variableName, false);
+        boolVariableDriver.AssertVariableIs(variableName, false);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -8,7 +8,7 @@ namespace NatLaRestTest.Bindings.Assertions;
 ///     Step bindings providing assertions for the current HTTP response (status success, exact/not-equal status codes).
 /// </summary>
 [Binding]
-public class HttpResponseAssertionBindings(IHttpClientLogic httpClientLogic) : IHttpResponseAssertionBindings
+public class HttpResponseAssertionBindings(IHttpClientDriver httpClientDriver) : IHttpResponseAssertionBindings
 {
     /// <summary>
     ///     Then step: Asserts that the current HTTP response exists and indicates success (2xx status).
@@ -16,7 +16,7 @@ public class HttpResponseAssertionBindings(IHttpClientLogic httpClientLogic) : I
     [Then("the response indicates success")]
     public void ResponseIsSuccess()
     {
-        httpClientLogic.ResponseIsSuccess();
+        httpClientDriver.ResponseIsSuccess();
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class HttpResponseAssertionBindings(IHttpClientLogic httpClientLogic) : I
     [Then("the response does not indicate success")]
     public void ResponseIsNotSuccess()
     {
-        httpClientLogic.ResponseIsNotSuccess();
+        httpClientDriver.ResponseIsNotSuccess();
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class HttpResponseAssertionBindings(IHttpClientLogic httpClientLogic) : I
     [Then("the response code equals '(.*)'")]
     public void AssertResponseCode(int code)
     {
-        httpClientLogic.AssertResponseCode(code);
+        httpClientDriver.AssertResponseCode(code);
     }
 
     /// <summary>
@@ -45,6 +45,6 @@ public class HttpResponseAssertionBindings(IHttpClientLogic httpClientLogic) : I
     [Then("the response code does not equal '(.*)'")]
     public void AssertResponseCodeIsNot(int code)
     {
-        httpClientLogic.AssertResponseCodeIsNot(code);
+        httpClientDriver.AssertResponseCodeIsNot(code);
     }
 }

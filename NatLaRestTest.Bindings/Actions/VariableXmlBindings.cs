@@ -1,5 +1,5 @@
 using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -10,15 +10,15 @@ namespace NatLaRestTest.Bindings.Actions;
 [Binding]
 public class VariableXmlBindings : IVariableXmlBindings
 {
-    private readonly IXmlLogic _xmlLogic;
+    private readonly IXmlDriver _xmlDriver;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VariableXmlBindings"/> class.
     /// </summary>
-    /// <param name="xmlLogic">Logic component used to evaluate XPath and set variables.</param>
-    public VariableXmlBindings(IXmlLogic xmlLogic)
+    /// <param name="xmlDriver">Driver component used to evaluate XPath and set variables.</param>
+    public VariableXmlBindings(IXmlDriver xmlDriver)
     {
-        _xmlLogic = xmlLogic;
+        _xmlDriver = xmlDriver;
     }
 
     /// <summary>
@@ -31,6 +31,6 @@ public class VariableXmlBindings : IVariableXmlBindings
     [When("the result of XPath '(.*)' in the value of variable '(.*)' is stored in variable '(.*)'")]
     public void SetVariableFromXPath(string xPath, string sourceVariableName, string targetVariableName)
     {
-        _xmlLogic.SetVariableFromXPath(xPath, sourceVariableName, targetVariableName);
+        _xmlDriver.SetVariableFromXPath(xPath, sourceVariableName, targetVariableName);
     }
 }

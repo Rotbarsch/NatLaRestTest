@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Logic.Interfaces;
+﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions.JsonPath;
@@ -7,7 +8,7 @@ namespace NatLaRestTest.Bindings.Assertions.JsonPath;
 /// Step bindings providing boolean assertions on values resolved by JSONPath from JSON variables.
 /// </summary>
 [Binding]
-public class BoolVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IBoolVariableJsonPathAssertions
+public class BoolVariableJsonPathAssertions(IJsonPathDriver jsonPathDriver) : IBoolVariableJsonPathAssertions
 {
     /// <summary>
     /// Then step: Asserts that the value extracted by JSONPath from the specified variable is true.
@@ -18,7 +19,7 @@ public class BoolVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IBoo
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is true")]
     public void AssertJsonPathReturnsTrue(string jsonPath, string variableName)
     {
-        jsonPathLogic.AssertJsonPathReturnsBoolean(variableName, jsonPath, true);
+        jsonPathDriver.AssertJsonPathReturnsBoolean(variableName, jsonPath, true);
     }
 
     /// <summary>
@@ -30,6 +31,6 @@ public class BoolVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IBoo
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is false")]
     public void AssertJsonPathReturnsFalse(string jsonPath, string variableName)
     {
-        jsonPathLogic.AssertJsonPathReturnsBoolean(variableName, jsonPath, false);
+        jsonPathDriver.AssertJsonPathReturnsBoolean(variableName, jsonPath, false);
     }
 }

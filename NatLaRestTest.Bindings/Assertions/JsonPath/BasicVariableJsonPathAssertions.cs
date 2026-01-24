@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions.JsonPath;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions.JsonPath;
@@ -11,15 +11,15 @@ namespace NatLaRestTest.Bindings.Assertions.JsonPath;
 [Binding]
 public class BasicVariableJsonPathAssertions : IBasicVariableJsonPathAssertions
 {
-    private readonly IJsonPathLogic _jsonPathLogic;
+    private readonly IJsonPathDriver _jsonPathDriver;
 
     /// <summary>
     ///     Step bindings providing basic string equality/inequality assertions against values resolved via JSONPath from a
     ///     JSON variable.
     /// </summary>
-    public BasicVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic)
+    public BasicVariableJsonPathAssertions(IJsonPathDriver jsonPathDriver)
     {
-        _jsonPathLogic = jsonPathLogic;
+        _jsonPathDriver = jsonPathDriver;
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class BasicVariableJsonPathAssertions : IBasicVariableJsonPathAssertions
     [Then("the value of JSONPath '(.*)' in variable '(.*)' equals '(.*)'")]
     public void AssertValueEquals(string jsonPath, string variable, string comparison)
     {
-        _jsonPathLogic.AssertValueEquals(jsonPath, variable, comparison);
+        _jsonPathDriver.AssertValueEquals(jsonPath, variable, comparison);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class BasicVariableJsonPathAssertions : IBasicVariableJsonPathAssertions
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not equal '(.*)'")]
     public void AssertValueNotEquals(string jsonPath, string variable, string comparison)
     {
-        _jsonPathLogic.AssertValueNotEquals(jsonPath, variable, comparison);
+        _jsonPathDriver.AssertValueNotEquals(jsonPath, variable, comparison);
     }
 
     /// <summary>
@@ -58,6 +58,6 @@ public class BasicVariableJsonPathAssertions : IBasicVariableJsonPathAssertions
     [Then("the value of JSONPath '(.*)' in variable '(.*)' returns any value")]
     public void AssertJsonPathReturnsAnyValue(string jsonPath, string variable)
     {
-        _jsonPathLogic.AssertJsonPathReturnsAnyValue(jsonPath, variable);
+        _jsonPathDriver.AssertJsonPathReturnsAnyValue(jsonPath, variable);
     }
 }

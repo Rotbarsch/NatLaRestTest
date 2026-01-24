@@ -1,6 +1,6 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.SetVariableActions;
 using NatLaRestTest.Core.Contracts;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions.SetVariableActions;
@@ -11,14 +11,14 @@ namespace NatLaRestTest.Bindings.Actions.SetVariableActions;
 [Binding]
 public class RandomStringVariableBindings : IRandomStringVariableBindings
 {
-    private readonly IRandomizerLogic _randomizerLogic;
+    private readonly IRandomizerDriver _randomizerDriver;
 
     /// <summary>
     ///     Step bindings for generating and storing random strings in scenario variables.
     /// </summary>
-    public RandomStringVariableBindings(IRandomizerLogic randomizerLogic)
+    public RandomStringVariableBindings(IRandomizerDriver randomizerDriver)
     {
-        _randomizerLogic = randomizerLogic;
+        _randomizerDriver = randomizerDriver;
     }
 
     /// <summary>
@@ -49,6 +49,6 @@ public class RandomStringVariableBindings : IRandomStringVariableBindings
     [When("a random '(.*)' string is stored in variable '(.*)'")]
     public void SetRandomString(FakerStringType stringType, string variableName)
     {
-        _randomizerLogic.SetRandomString(stringType, variableName);
+        _randomizerDriver.SetRandomString(stringType, variableName);
     }
 }

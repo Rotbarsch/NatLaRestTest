@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -8,7 +8,7 @@ namespace NatLaRestTest.Bindings.Assertions;
 ///     Step bindings providing JSON Schema validation assertions for JSON stored in scenario variables.
 /// </summary>
 [Binding]
-public class JsonSchemaAssertions(IJsonSchemaLogic jsonSchemaLogic) : IJsonSchemaAssertions
+public class JsonSchemaAssertions(IJsonSchemaDriver jsonSchemaDriver) : IJsonSchemaAssertions
 {
     /// <summary>
     ///     Then step: Asserts that the JSON stored in the specified variable conforms to the provided JSON Schema.
@@ -18,6 +18,6 @@ public class JsonSchemaAssertions(IJsonSchemaLogic jsonSchemaLogic) : IJsonSchem
     [Then("the value of variable '(.*)' matches the JSON schema:")]
     public void AssertVariableConformsToJsonSchema(string variableName, string jsonSchema)
     {
-        jsonSchemaLogic.AssertVariableConformsToJsonSchema(variableName, jsonSchema);
+        jsonSchemaDriver.AssertVariableConformsToJsonSchema(variableName, jsonSchema);
     }
 }
