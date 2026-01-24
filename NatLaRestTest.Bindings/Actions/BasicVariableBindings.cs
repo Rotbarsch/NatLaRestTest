@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -10,15 +10,15 @@ namespace NatLaRestTest.Bindings.Actions;
 [Binding]
 public class BasicVariableBindings : IBasicVariableBindings
 {
-    private readonly IBasicVariableLogic _basicVariableLogic;
+    private readonly IBasicVariableDriver _basicVariableDriver;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BasicVariableBindings"/> class.
     /// </summary>
-    /// <param name="basicVariableLogic">Logic component used to set variables.</param>
-    public BasicVariableBindings(IBasicVariableLogic basicVariableLogic)
+    /// <param name="basicVariableDriver">Driver component used to set variables.</param>
+    public BasicVariableBindings(IBasicVariableDriver basicVariableDriver)
     {
-        _basicVariableLogic = basicVariableLogic;
+        _basicVariableDriver = basicVariableDriver;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class BasicVariableBindings : IBasicVariableBindings
     /// <param name="variableName">The name of the variable to set.</param>
     [When("the value '(.*)' is stored in variable '(.*)'")]
     public void SetVariableManually(string value, string variableName) =>
-        _basicVariableLogic.SetVariable(variableName, value);
+        _basicVariableDriver.SetVariable(variableName, value);
 
     /// <summary>
     /// When step: Sets the specified scenario variable to the provided multiline string value.
@@ -39,5 +39,5 @@ public class BasicVariableBindings : IBasicVariableBindings
     /// <param name="value">The value to assign to the variable.</param>
     [When("the following value is stored in variable '(.*)':")]
     public void SetVariableManuallyMultiline(string variableName, string value) =>
-        _basicVariableLogic.SetVariable(variableName, value);
+        _basicVariableDriver.SetVariable(variableName, value);
 }

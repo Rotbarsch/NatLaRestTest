@@ -13,9 +13,9 @@
     <Project Path="NatLaRestTest.Drivers.Interfaces/NatLaRestTest.Drivers.Interfaces.csproj" />
     <Project Path="NatLaRestTest.Drivers/NatLaRestTest.Drivers.csproj" />
   </Folder>
-  <Folder Name="/Logic/">
-    <Project Path="NatLaRestTest.Logic.Interfaces/NatLaRestTest.Logic.Interfaces.csproj" />
-    <Project Path="NatLaRestTest.Logic/NatLaRestTest.Logic.csproj" />
+  <Folder Name="/Services/">
+    <Project Path="NatLaRestTest.Services.Interfaces/NatLaRestTest.Services.Interfaces.csproj" />
+    <Project Path="NatLaRestTest.Services/NatLaRestTest.Services.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="Bindings.md" />

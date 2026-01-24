@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions.JsonPath;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions.JsonPath;
@@ -10,14 +10,14 @@ namespace NatLaRestTest.Bindings.Assertions.JsonPath;
 [Binding]
 public class NumericVariableJsonPathAssertions : INumericVariableJsonPathAssertions
 {
-    private readonly IJsonPathLogic _jsonPathLogic;
+    private readonly IJsonPathDriver _jsonPathDriver;
 
     /// <summary>
     ///     Step bindings providing numeric comparison assertions for values resolved by JSONPath from JSON variables.
     /// </summary>
-    public NumericVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic)
+    public NumericVariableJsonPathAssertions(IJsonPathDriver jsonPathDriver)
     {
-        _jsonPathLogic = jsonPathLogic;
+        _jsonPathDriver = jsonPathDriver;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class NumericVariableJsonPathAssertions : INumericVariableJsonPathAsserti
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is greater than '(.*)'")]
     public void NumericVariableIsGreaterThan(string jsonPath, string variableName, int value)
     {
-        _jsonPathLogic.NumericVariableIsGreaterThan(jsonPath, variableName, value);
+        _jsonPathDriver.NumericVariableIsGreaterThan(jsonPath, variableName, value);
     }
 
     /// <summary>
@@ -43,6 +43,6 @@ public class NumericVariableJsonPathAssertions : INumericVariableJsonPathAsserti
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is less than '(.*)'")]
     public void NumericVariableIsLessThan(string jsonPath, string variableName, int value)
     {
-        _jsonPathLogic.NumericVariableIsLessThan(jsonPath, variableName, value);
+        _jsonPathDriver.NumericVariableIsLessThan(jsonPath, variableName, value);
     }
 }

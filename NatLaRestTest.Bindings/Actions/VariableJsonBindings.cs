@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -10,15 +10,15 @@ namespace NatLaRestTest.Bindings.Actions;
 [Binding]
 public class VariableJsonBindings : IVariableJsonBindings
 {
-    private readonly IJsonPathLogic _jsonPathLogic;
+    private readonly IJsonPathDriver _jsonPathDriver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="VariableJsonBindings" /> class.
     /// </summary>
-    /// <param name="jsonPathLogic">Logic component used to evaluate JSONPath and set variables.</param>
-    public VariableJsonBindings(IJsonPathLogic jsonPathLogic)
+    /// <param name="jsonPathDriver">Driver component used to evaluate JSONPath and set variables.</param>
+    public VariableJsonBindings(IJsonPathDriver jsonPathDriver)
     {
-        _jsonPathLogic = jsonPathLogic;
+        _jsonPathDriver = jsonPathDriver;
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ public class VariableJsonBindings : IVariableJsonBindings
     [When("the value of JSONPath '(.*)' in variable '(.*)' is stored in variable '(.*)'")]
     public void SetVariableFromJPath(string jPath, string sourceVariableName, string targetVariableName)
     {
-        _jsonPathLogic.SetVariableFromJPath(jPath, sourceVariableName, targetVariableName);
+        _jsonPathDriver.SetVariableFromJPath(jPath, sourceVariableName, targetVariableName);
     }
 }

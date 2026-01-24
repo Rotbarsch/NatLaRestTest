@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions.JsonPath;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions.JsonPath;
@@ -11,15 +11,15 @@ namespace NatLaRestTest.Bindings.Assertions.JsonPath;
 [Binding]
 public class CollectionVariableJsonPathAssertions : ICollectionVariableJsonPathAssertions
 {
-    private readonly IJsonPathLogic _jsonPathLogic;
+    private readonly IJsonPathDriver _jsonPathDriver;
 
     /// <summary>
     ///     Step bindings providing assertions for JSON arrays resolved via JSONPath from JSON variables (element count
     ///     checks).
     /// </summary>
-    public CollectionVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic)
+    public CollectionVariableJsonPathAssertions(IJsonPathDriver jsonPathDriver)
     {
-        _jsonPathLogic = jsonPathLogic;
+        _jsonPathDriver = jsonPathDriver;
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public class CollectionVariableJsonPathAssertions : ICollectionVariableJsonPathA
     [Then("the value of JSONPath '(.*)' in variable '(.*)' has any elements")]
     public void AssertCollectionIsNotEmpty(string jsonPath, string variableName)
     {
-        _jsonPathLogic.AssertCollectionIsNotEmpty(jsonPath, variableName);
+        _jsonPathDriver.AssertCollectionIsNotEmpty(jsonPath, variableName);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class CollectionVariableJsonPathAssertions : ICollectionVariableJsonPathA
     [Then("the value of JSONPath '(.*)' in variable '(.*)' has no elements")]
     public void AssertCollectionIsEmpty(string jsonPath, string variableName)
     {
-        _jsonPathLogic.AssertCollectionIsEmpty(jsonPath, variableName);
+        _jsonPathDriver.AssertCollectionIsEmpty(jsonPath, variableName);
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class CollectionVariableJsonPathAssertions : ICollectionVariableJsonPathA
     [Then("the value of JSONPath '(.*)' in variable '(.*)' has more than '(.*)' elements")]
     public void AssertCollectionHasMoreThanNElements(string jsonPath, string variableName, int count)
     {
-        _jsonPathLogic.AssertCollectionHasMoreThanNElements(jsonPath, variableName, count);
+        _jsonPathDriver.AssertCollectionHasMoreThanNElements(jsonPath, variableName, count);
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class CollectionVariableJsonPathAssertions : ICollectionVariableJsonPathA
     [Then("the value of JSONPath '(.*)' in variable '(.*)' has less than '(.*)' elements")]
     public void AssertCollectionHasLessThanNElements(string jsonPath, string variableName, int count)
     {
-        _jsonPathLogic.AssertCollectionHasLessThanNElements(jsonPath, variableName, count);
+        _jsonPathDriver.AssertCollectionHasLessThanNElements(jsonPath, variableName, count);
     }
 
     /// <summary>
@@ -81,6 +81,6 @@ public class CollectionVariableJsonPathAssertions : ICollectionVariableJsonPathA
     [Then("the value of JSONPath '(.*)' in variable '(.*)' has '(.*)' elements")]
     public void AssertCollectionHasExactCount(string jsonPath, string variableName, int count)
     {
-        _jsonPathLogic.AssertCollectionHasExactCount(jsonPath, variableName, count);
+        _jsonPathDriver.AssertCollectionHasExactCount(jsonPath, variableName, count);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions.JsonPath;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions.JsonPath;
@@ -8,7 +8,7 @@ namespace NatLaRestTest.Bindings.Assertions.JsonPath;
 ///     Step bindings providing string-based assertions on values resolved by JSONPath from JSON variables.
 /// </summary>
 [Binding]
-public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IStringVariableJsonPathAssertions
+public class StringVariableJsonPathAssertions(IJsonPathDriver jsonPathDriver) : IStringVariableJsonPathAssertions
 {
     /// <summary>
     ///     Then step: Asserts that the value extracted by JSONPath from the specified variable contains the given substring.
@@ -20,7 +20,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' contains '(.*)'")]
     public void StringVariableContains(string jsonPath, string variableName, string comparison)
     {
-        jsonPathLogic.StringVariableContains(jsonPath, variableName, comparison);
+        jsonPathDriver.StringVariableContains(jsonPath, variableName, comparison);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not contain '(.*)'")]
     public void StringVariableNotContains(string jsonPath, string variableName, string comparison)
     {
-        jsonPathLogic.StringVariableNotContains(jsonPath, variableName, comparison);
+        jsonPathDriver.StringVariableNotContains(jsonPath, variableName, comparison);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' starts with '(.*)'")]
     public void StringVariableStartsWith(string jsonPath, string variableName, string comparison)
     {
-        jsonPathLogic.StringVariableStartsWith(jsonPath, variableName, comparison);
+        jsonPathDriver.StringVariableStartsWith(jsonPath, variableName, comparison);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not start with '(.*)'")]
     public void StringVariableNotStartsWith(string jsonPath, string variableName, string comparison)
     {
-        jsonPathLogic.StringVariableNotStartsWith(jsonPath, variableName, comparison);
+        jsonPathDriver.StringVariableNotStartsWith(jsonPath, variableName, comparison);
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' ends with '(.*)'")]
     public void StringVariableEndsWith(string jsonPath, string variableName, string comparison)
     {
-        jsonPathLogic.StringVariableEndsWith(jsonPath, variableName, comparison);
+        jsonPathDriver.StringVariableEndsWith(jsonPath, variableName, comparison);
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' does not end with '(.*)'")]
     public void StringVariableNotEndsWith(string jsonPath, string variableName, string comparison)
     {
-        jsonPathLogic.StringVariableNotEndsWith(jsonPath, variableName, comparison);
+        jsonPathDriver.StringVariableNotEndsWith(jsonPath, variableName, comparison);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is '(.*)' characters long")]
     public void StringVariableIsLength(string jsonPath, string variableName, int length)
     {
-        jsonPathLogic.StringVariableIsLength(jsonPath, variableName, length);
+        jsonPathDriver.StringVariableIsLength(jsonPath, variableName, length);
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is not empty")]
     public void StringVariableIsNotEmpty(string jsonPath, string variableName)
     {
-        jsonPathLogic.StringVariableIsNotEmpty(jsonPath, variableName);
+        jsonPathDriver.StringVariableIsNotEmpty(jsonPath, variableName);
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is empty")]
     public void StringVariableIsEmpty(string jsonPath, string variableName)
     {
-        jsonPathLogic.StringVariableIsEmpty(jsonPath, variableName);
+        jsonPathDriver.StringVariableIsEmpty(jsonPath, variableName);
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is more than '(.*)' characters long")]
     public void StringVariableIsMoreThanLength(string jsonPath, string variableName, int length)
     {
-        jsonPathLogic.StringVariableIsMoreThanLength(jsonPath, variableName, length);
+        jsonPathDriver.StringVariableIsMoreThanLength(jsonPath, variableName, length);
     }
 
     /// <summary>
@@ -144,6 +144,6 @@ public class StringVariableJsonPathAssertions(IJsonPathLogic jsonPathLogic) : IS
     [Then("the value of JSONPath '(.*)' in variable '(.*)' is less than '(.*)' characters long")]
     public void StringVariableIsLessThanLength(string jsonPath, string variableName, int length)
     {
-        jsonPathLogic.StringVariableIsLessThanLength(jsonPath, variableName, length);
+        jsonPathDriver.StringVariableIsLessThanLength(jsonPath, variableName, length);
     }
 }

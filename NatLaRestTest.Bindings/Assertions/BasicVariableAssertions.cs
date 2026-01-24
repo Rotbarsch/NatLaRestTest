@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -10,15 +10,15 @@ namespace NatLaRestTest.Bindings.Assertions;
 [Binding]
 public class BasicVariableAssertions : IBasicVariableAssertions
 {
-    private readonly IBasicVariableLogic _basicVariableLogic;
+    private readonly IBasicVariableDriver _basicVariableDriver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="BasicVariableAssertions" /> class.
     /// </summary>
-    /// <param name="basicVariableLogic">Logic component used to perform variable assertions.</param>
-    public BasicVariableAssertions(IBasicVariableLogic basicVariableLogic)
+    /// <param name="basicVariableDriver">Driver component used to perform variable assertions.</param>
+    public BasicVariableAssertions(IBasicVariableDriver basicVariableDriver)
     {
-        _basicVariableLogic = basicVariableLogic;
+        _basicVariableDriver = basicVariableDriver;
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class BasicVariableAssertions : IBasicVariableAssertions
     /// <param name="variableName">The name of the variable to check.</param>
     [Then("the value of variable '(.*)' is null")]
     public void AssertVariableIsNull(string variableName) =>
-        _basicVariableLogic.AssertVariableIsNull(variableName);
+        _basicVariableDriver.AssertVariableIsNull(variableName);
 
     /// <summary>
     ///     Then step: Asserts that the specified variable is not null.
@@ -35,5 +35,5 @@ public class BasicVariableAssertions : IBasicVariableAssertions
     /// <param name="variableName">The name of the variable to check.</param>
     [Then("the value of variable '(.*)' is not null")]
     public void AssertVariableIsNotNull(string variableName) =>
-        _basicVariableLogic.AssertVariableIsNotNull(variableName);
+        _basicVariableDriver.AssertVariableIsNotNull(variableName);
 }

@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NatLaRestTest.Drivers\NatLaRestTest.Drivers.csproj" />
-    <ProjectReference Include="..\NatLaRestTest.Logic\NatLaRestTest.Logic.csproj" />
+    <ProjectReference Include="..\NatLaRestTest.Services\NatLaRestTest.Services.csproj" />
   </ItemGroup>
 
 </Project>

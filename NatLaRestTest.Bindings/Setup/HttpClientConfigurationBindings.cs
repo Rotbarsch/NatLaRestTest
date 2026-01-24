@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Setup;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Setup;
@@ -8,7 +8,7 @@ namespace NatLaRestTest.Bindings.Setup;
 ///     Step bindings to configure the shared HTTP client used across scenarios (base URL, timeout, headers).
 /// </summary>
 [Binding]
-public class HttpClientConfigurationBindings(IHttpClientLogic httpClientLogic) : IHttpClientConfigurationBindings
+public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver) : IHttpClientConfigurationBindings
 {
     /// <summary>
     ///     Given step: Configures the base address used by the shared HTTP client.
@@ -17,7 +17,7 @@ public class HttpClientConfigurationBindings(IHttpClientLogic httpClientLogic) :
     [Given("the base URL '(.*)'")]
     public void SetBaseUrl(string baseUrl)
     {
-        httpClientLogic.SetBaseUrl(baseUrl);
+        httpClientDriver.SetBaseUrl(baseUrl);
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class HttpClientConfigurationBindings(IHttpClientLogic httpClientLogic) :
     [Given("the default timeout of '(.*)' seconds")]
     public void SetDefaultTimeout(int seconds)
     {
-        httpClientLogic.SetDefaultTimeout(seconds);
+        httpClientDriver.SetDefaultTimeout(seconds);
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public class HttpClientConfigurationBindings(IHttpClientLogic httpClientLogic) :
     [Given("the default header '(.*)' with value '(.*)'")]
     public void SetDefaultHeader(string headerName, string headerValue)
     {
-        httpClientLogic.SetDefaultHeader(headerName, headerValue);
+        httpClientDriver.SetDefaultHeader(headerName, headerValue);
     }
 
     /// <summary>
@@ -47,6 +47,6 @@ public class HttpClientConfigurationBindings(IHttpClientLogic httpClientLogic) :
     [Given("SSL certificate validation is disabled")]
     public void DisableSslCertificateValidation()
     {
-        httpClientLogic.DisableSslCertificateValidation();
+        httpClientDriver.DisableSslCertificateValidation();
     }
 }

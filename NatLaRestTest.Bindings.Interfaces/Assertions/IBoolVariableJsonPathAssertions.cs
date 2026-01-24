@@ -1,4 +1,4 @@
-﻿namespace NatLaRestTest.Bindings.Assertions.JsonPath;
+﻿namespace NatLaRestTest.Bindings.Interfaces.Assertions;
 
 /// <summary>
 /// Step bindings providing boolean assertions on values resolved by JSONPath from JSON variables.

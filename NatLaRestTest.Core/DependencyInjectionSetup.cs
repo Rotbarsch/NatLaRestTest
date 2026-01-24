@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NatLaRestTest.Drivers;
+using NatLaRestTest.Services;
 using Reqnroll.Microsoft.Extensions.DependencyInjection;
 
 namespace NatLaRestTest.Core;
@@ -11,15 +13,15 @@ public static class DependencyInjectionSetup
     private static IServiceCollection? _services;
 
     /// <summary>
-    ///     Gets the service collection with registered driver services, creating it if necessary.
+    ///     Gets the service collection with registered Service services, creating it if necessary.
     /// </summary>
     public static IServiceCollection Services
     {
         get
         {
             _services ??= new ServiceCollection()
-                .RegisterNatLaRestTestDrivers()
-                .RegisterNatLaRestTestLogics();
+                .RegisterNatLaRestTestServices()
+                .RegisterNatLaRestTestDrivers();
 
             return _services;
         }

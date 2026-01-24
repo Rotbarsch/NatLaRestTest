@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.ManipulateVariableActions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
@@ -11,15 +11,15 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 [Binding]
 public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulationBindings
 {
-    private readonly IDateTimeLogic _dateTimeLogic;
+    private readonly IDateTimeDriver _dateTimeDriver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="DateTimeVariableManipulationBindings" /> class.
     /// </summary>
-    /// <param name="dateTimeLogic">Logic component for DateTime operations.</param>
-    public DateTimeVariableManipulationBindings(IDateTimeLogic dateTimeLogic)
+    /// <param name="dateTimeDriver">Driver component for DateTime operations.</param>
+    public DateTimeVariableManipulationBindings(IDateTimeDriver dateTimeDriver)
     {
-        _dateTimeLogic = dateTimeLogic;
+        _dateTimeDriver = dateTimeDriver;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulatio
     [When("the timespan '(.*)' is added to the value of variable '(.*)'")]
     public void AddTimeSpanToVariable(string timeSpan, string variableName)
     {
-        _dateTimeLogic.AddTimeSpanToVariable(timeSpan, variableName);
+        _dateTimeDriver.AddTimeSpanToVariable(timeSpan, variableName);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulatio
     [When("the timespan '(.*)' is subtracted from the value of variable '(.*)'")]
     public void SubtractTimeSpanFromVariable(string timeSpan, string variableName)
     {
-        _dateTimeLogic.SubtractTimeSpanFromVariable(timeSpan, variableName);
+        _dateTimeDriver.SubtractTimeSpanFromVariable(timeSpan, variableName);
     }
 
     /// <summary>
@@ -53,6 +53,6 @@ public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulatio
     [When("the date '(.*)' is subtracted from the value of variable '(.*)'")]
     public void SubtractDateTimeFromDateTime(string dateToSubstract, string variableName)
     {
-        _dateTimeLogic.SubtractDateTimeFromDateTime(dateToSubstract, variableName);
+        _dateTimeDriver.SubtractDateTimeFromDateTime(dateToSubstract, variableName);
     }
 }

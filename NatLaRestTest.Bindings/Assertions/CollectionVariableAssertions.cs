@@ -1,5 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Logic.Interfaces;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -10,14 +10,14 @@ namespace NatLaRestTest.Bindings.Assertions;
 [Binding]
 public class CollectionVariableAssertions : ICollectionVariableAssertions
 {
-    private readonly ICollectionVariableLogic _collectionVariableLogic;
+    private readonly ICollectionVariableDriver _collectionVariableDriver;
 
     /// <summary>
     ///     Step bindings providing assertions for variables representing JSON arrays (element count checks).
     /// </summary>
-    public CollectionVariableAssertions(ICollectionVariableLogic collectionVariableLogic)
+    public CollectionVariableAssertions(ICollectionVariableDriver collectionVariableDriver)
     {
-        _collectionVariableLogic = collectionVariableLogic;
+        _collectionVariableDriver = collectionVariableDriver;
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class CollectionVariableAssertions : ICollectionVariableAssertions
     [Then("the value of variable '(.*)' has any elements")]
     public void AssertCollectionIsNotEmpty(string variableName)
     {
-        _collectionVariableLogic.AssertCollectionIsNotEmpty(variableName);
+        _collectionVariableDriver.AssertCollectionIsNotEmpty(variableName);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class CollectionVariableAssertions : ICollectionVariableAssertions
     [Then("the value of variable '(.*)' has no elements")]
     public void AssertCollectionIsEmpty(string variableName)
     {
-        _collectionVariableLogic.AssertCollectionIsEmpty(variableName);
+        _collectionVariableDriver.AssertCollectionIsEmpty(variableName);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class CollectionVariableAssertions : ICollectionVariableAssertions
     [Then("the value of variable '(.*)' has more than '(.*)' elements")]
     public void AssertCollectionHasMoreThanNElements(string variableName, int count)
     {
-        _collectionVariableLogic.AssertCollectionHasMoreThanNElements(variableName, count);
+        _collectionVariableDriver.AssertCollectionHasMoreThanNElements(variableName, count);
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class CollectionVariableAssertions : ICollectionVariableAssertions
     [Then("the value of variable '(.*)' has less than '(.*)' elements")]
     public void AssertCollectionHasLessThanNElements(string variableName, int count)
     {
-        _collectionVariableLogic.AssertCollectionHasLessThanNElements(variableName, count);
+        _collectionVariableDriver.AssertCollectionHasLessThanNElements(variableName, count);
     }
 
     /// <summary>
@@ -70,6 +70,6 @@ public class CollectionVariableAssertions : ICollectionVariableAssertions
     [Then("the value of variable '(.*)' has '(.*)' elements")]
     public void AssertCollectionHasExactCount(string variableName, int count)
     {
-        _collectionVariableLogic.AssertCollectionHasExactCount(variableName, count);
+        _collectionVariableDriver.AssertCollectionHasExactCount(variableName, count);
     }
 }
