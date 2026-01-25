@@ -8,18 +8,19 @@ namespace NatLaRestTest.Services;
 /// <summary>
 ///     Service providing parsing and arithmetic operations for <see cref="DateTime" /> and <see cref="TimeSpan" /> values.
 /// </summary>
-public class DateTimeManipulationService : IDateTimeManipulationService
+/// <param name="cultureInfoService">Service for getting configured CultureInfo.</param>
+public class DateTimeManipulationService(ICultureInfoService cultureInfoService) : IDateTimeManipulationService
 {
     /// <inheritdoc />
     public string AddTimeSpanToDateTime(DateTime currentDate, TimeSpan delta)
     {
-        return currentDate.Add(delta).ToInvariantDateTimeString();
+        return currentDate.Add(delta).ToInvariantDateTimeString(cultureInfoService.GetConfiguredCultureInfo());
     }
 
     /// <inheritdoc />
     public string SubtractTimeSpanFromDateTime(DateTime currentDate, TimeSpan delta)
     {
-        return currentDate.Subtract(delta).ToInvariantDateTimeString();
+        return currentDate.Subtract(delta).ToInvariantDateTimeString(cultureInfoService.GetConfiguredCultureInfo());
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ public class DateTimeManipulationService : IDateTimeManipulationService
     /// <returns>The parsed <see cref="DateTime" />.</returns>
     public DateTime ParseDate(string variableValue)
     {
-        if (DateTime.TryParse(variableValue, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dt))
+        if (DateTime.TryParse(variableValue, cultureInfoService.GetConfiguredCultureInfo(), DateTimeStyles.None, out var dt))
         {
             return dt;
         }
@@ -45,7 +46,7 @@ public class DateTimeManipulationService : IDateTimeManipulationService
     /// <returns>The parsed <see cref="TimeSpan" />.</returns>
     public TimeSpan ParseTimeSpan(string timeSpan)
     {
-        if (TimeSpan.TryParse(timeSpan, CultureInfo.InvariantCulture, out var ts))
+        if (TimeSpan.TryParse(timeSpan, cultureInfoService.GetConfiguredCultureInfo(), out var ts))
         {
             return ts;
         }

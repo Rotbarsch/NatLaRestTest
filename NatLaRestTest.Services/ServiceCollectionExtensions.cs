@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
         serviceCollection
             .AddScoped<IBoolService, BoolService>()
             .AddScoped<IComparisonService, ComparisonService>()
+            .AddScoped<ICultureInfoService, CultureInfoService>()
             .AddScoped<IDateTimeManipulationService, DateTimeManipulationService>()
             .AddScoped<IHttpClientService, HttpClientService>()
             .AddScoped<IJsonPathService, JsonPathService>()
