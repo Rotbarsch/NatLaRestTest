@@ -8,18 +8,12 @@ namespace NatLaRestTest.Drivers;
 /// <summary>
 /// Provides Driver to assert that a variable's value matches a given regular expression pattern.
 /// </summary>
-public class RegExDriver : IRegExDriver
+/// <remarks>
+/// Initializes a new instance of the <see cref="RegExDriver"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class RegExDriver(IVariableService variableService) : IRegExDriver
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RegExDriver"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public RegExDriver(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     /// <summary>
     /// Asserts that the specified variable's value matches the provided regex <paramref name="pattern"/>.
@@ -47,7 +41,7 @@ public class RegExDriver : IRegExDriver
 
     private bool IsRegexMatch(string variableName, string pattern)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         if (value == null)
         {
             Assert.Fail($"Variable '{variableName}' is null.");

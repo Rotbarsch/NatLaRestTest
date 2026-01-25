@@ -2,24 +2,19 @@
 using NatLaRestTest.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using NUnit.Framework;
 
 namespace NatLaRestTest.Drivers;
 
 /// <summary>
 /// Provides Driver to validate JSON content stored in variables against JSON Schema definitions.
 /// </summary>
-public class JsonSchemaDriver : IJsonSchemaDriver
+/// <remarks>
+/// Initializes a new instance of the <see cref="JsonSchemaDriver"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class JsonSchemaDriver(IVariableService variableService) : IJsonSchemaDriver
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="JsonSchemaDriver"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public JsonSchemaDriver(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     /// <summary>
     /// Asserts that the specified variable's JSON content conforms to the provided JSON schema.
@@ -29,18 +24,18 @@ public class JsonSchemaDriver : IJsonSchemaDriver
     /// <exception cref="Exception">Thrown when the variable is null or does not conform to the schema.</exception>
     public void AssertVariableConformsToJsonSchema(string variableName, string jsonSchema)
     {
-        var value = _variableService.GetVariable(variableName);
-        if (value == null)
+        var value = variableService.GetVariable(variableName);
+        if (value is null)
         {
-            throw new Exception($"Variable '{variableName}' is null.");
+            Assert.Fail($"Variable '{variableName}' is null.");
         }
 
         var schema = JSchema.Parse(jsonSchema);
-        var jsonObject = JObject.Parse(value);
+        var jsonObject = JObject.Parse(value!);
         if (!jsonObject.IsValid(schema, out IList<string> errorMessages))
         {
             var errors = string.Join("; ", errorMessages);
-            throw new Exception($"Variable '{variableName}' does not conform to the JSON schema. Errors: {errors}");
+            Assert.Fail($"Variable '{variableName}' does not conform to the JSON schema. Errors: {errors}");
         }
     }
 }

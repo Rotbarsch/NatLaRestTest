@@ -11,25 +11,15 @@ namespace NatLaRestTest.Services;
 ///     scenario.
 ///     Supports configuring base address, default timeout, request headers and SSL certificate validation.
 /// </summary>
-public class HttpClientService : IHttpClientService, IDisposable
+/// <remarks>
+///     Initializes a new instance of the <see cref="HttpClientService" /> class.
+/// </remarks>
+/// <param name="loggingService">The logging Service used to write request/response traces.</param>
+/// <param name="variableService">The variable Service used to manage variables.</param>
+public class HttpClientService(ITestOutputLoggingService loggingService, IVariableService variableService) : IHttpClientService, IDisposable
 {
-    private readonly HttpClientOptions _httpClientOptions;
-
-    private readonly ITestOutputLoggingService _loggingService;
-    private readonly IVariableService _variableService;
+    private readonly HttpClientOptions _httpClientOptions = new();
     private long? _responseTime;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="HttpClientService" /> class.
-    /// </summary>
-    /// <param name="loggingService">The logging Service used to write request/response traces.</param>
-    /// <param name="variableService">The variable Service used to manage variables.</param>
-    public HttpClientService(ITestOutputLoggingService loggingService, IVariableService variableService)
-    {
-        _loggingService = loggingService;
-        _variableService = variableService;
-        _httpClientOptions = new HttpClientOptions();
-    }
 
     /// <summary>
     ///     Gets or sets the current HTTP response captured by the Service.
@@ -41,7 +31,7 @@ public class HttpClientService : IHttpClientService, IDisposable
     /// </summary>
     public void Dispose()
     {
-        CurrentResponse?.Dispose();
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 
@@ -74,7 +64,7 @@ public class HttpClientService : IHttpClientService, IDisposable
             var sw = Stopwatch.StartNew();
             CurrentResponse = await httpClient.SendAsync(msg);
             sw.Stop();
-            _loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
+            loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
             _responseTime = sw.ElapsedMilliseconds;
         }
 
@@ -96,11 +86,12 @@ public class HttpClientService : IHttpClientService, IDisposable
         await using var fileStream = File.OpenRead(fileName);
         var msg = new HttpRequestMessage(
             HttpMethod.Parse(httpMethod),
-            url);
-
-        msg.Content = new MultipartFormDataContent
+            url)
         {
-            new StreamContent(fileStream)
+            Content = new MultipartFormDataContent
+            {
+                new StreamContent(fileStream)
+            }
         };
 
         await LogHttpRequest(msg);
@@ -136,7 +127,7 @@ public class HttpClientService : IHttpClientService, IDisposable
     /// <inheritdoc />
     public void SetBaseAddress(string baseUrl)
     {
-        _httpClientOptions.BaseUrl = new Uri(baseUrl);
+        _httpClientOptions.BaseUrl = new(baseUrl);
     }
 
     /// <inheritdoc />
@@ -168,7 +159,7 @@ public class HttpClientService : IHttpClientService, IDisposable
         await using var fileStream = File.Create(filePath);
         await respStream.CopyToAsync(fileStream);
         await fileStream.FlushAsync();
-        _loggingService.WriteLine($"Wrote '{fileStream.Length}' bytes to '{Path.GetFullPath(filePath)}'.");
+        loggingService.WriteLine($"Wrote '{fileStream.Length}' bytes to '{Path.GetFullPath(filePath)}'.");
     }
 
     /// <inheritdoc />
@@ -201,7 +192,12 @@ public class HttpClientService : IHttpClientService, IDisposable
     {
         Assert.NotNull(CurrentResponse);
         Assert.NotNull(_responseTime);
-        _variableService.SetVariable(variableName,_responseTime!.ToString());
+        variableService.SetVariable(variableName, _responseTime!.ToString());
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        CurrentResponse?.Dispose();
     }
 
     /// <summary>
@@ -213,14 +209,16 @@ public class HttpClientService : IHttpClientService, IDisposable
         HttpClient httpClient;
         if (_httpClientOptions.CheckSsl)
         {
-            httpClient = new HttpClient();
+            httpClient = new();
         }
         else
         {
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            httpClientHandler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
-            httpClient = new HttpClient(httpClientHandler);
+            var httpClientHandler = new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback = (_, _, _, _) => true,
+            };
+            httpClient = new(httpClientHandler);
         }
 
         if (_httpClientOptions.BaseUrl is not null)
@@ -270,7 +268,7 @@ public class HttpClientService : IHttpClientService, IDisposable
             sb.AppendLine($"{header.Key} = {string.Join(",", header.Value)}");
         }
 
-        _loggingService.WriteLine(sb.ToString());
+        loggingService.WriteLine(sb.ToString());
     }
 
     /// <summary>
@@ -295,7 +293,7 @@ public class HttpClientService : IHttpClientService, IDisposable
             sb.AppendLine(await currentResponse.Content.ReadAsStringAsync());
         }
 
-        _loggingService.WriteLine(sb.ToString());
+        loggingService.WriteLine(sb.ToString());
     }
 
     /// <summary>
@@ -310,7 +308,7 @@ public class HttpClientService : IHttpClientService, IDisposable
         public Uri? BaseUrl { get; set; }
 
         /// <summary>Default request headers added to each request.</summary>
-        public Dictionary<string, string> DefaultRequestHeaders { get; } = new();
+        public Dictionary<string, string> DefaultRequestHeaders { get; } = [];
 
         /// <summary>Whether to check SSL certificates. Set false to bypass validation.</summary>
         public bool CheckSsl { get; set; } = true;

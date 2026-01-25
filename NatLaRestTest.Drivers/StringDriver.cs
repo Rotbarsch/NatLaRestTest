@@ -7,26 +7,20 @@ namespace NatLaRestTest.Drivers;
 /// <summary>
 /// Provides operations to manipulate and assert on string values stored in scenario variables.
 /// </summary>
-public class StringDriver : IStringDriver
+/// <remarks>
+/// Initializes a new instance of the <see cref="StringDriver"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class StringDriver(IVariableService variableService) : IStringDriver
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="StringDriver"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public StringDriver(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     /// <summary>
     /// Appends the provided string to the value in the specified variable.
     /// </summary>
     public void AppendStringToVariable(string valueToAppend, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
-        _variableService.SetVariable(variableName, current + valueToAppend);
+        var current = variableService.GetVariable(variableName);
+        variableService.SetVariable(variableName, current + valueToAppend);
     }
 
     /// <summary>
@@ -34,8 +28,8 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void PrependStringToVariable(string valueToPrepend, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
-        _variableService.SetVariable(variableName, valueToPrepend + current);
+        var current = variableService.GetVariable(variableName);
+        variableService.SetVariable(variableName, valueToPrepend + current);
     }
 
     /// <summary>
@@ -43,9 +37,9 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void ReplaceStringInVariable(string oldValue, string newValue, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
         Assert.NotNull(current);
-        _variableService.SetVariable(variableName, current!.Replace(oldValue, newValue));
+        variableService.SetVariable(variableName, current!.Replace(oldValue, newValue));
     }
 
     /// <summary>
@@ -53,7 +47,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableLengthIsMoreThan(string variableName, int length)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.Greater(value!.Length, length,
             $"The length of variable '{variableName}' is not more than {length} characters.");
@@ -64,7 +58,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableLengthIsLessThan(string variableName, int length)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.Less(value!.Length, length,
             $"The length of variable '{variableName}' is not less than {length} characters.");
@@ -75,7 +69,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableLengthIs(string variableName, int length)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.AreEqual(length, value!.Length, $"The length of variable '{variableName}' is not {length} characters.");
     }
@@ -85,7 +79,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableIsNotEmpty(string variableName)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsNotEmpty(value!, $"Variable '{variableName}' is empty.");
     }
@@ -95,7 +89,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableIsEmpty(string variableName)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsEmpty(value!, $"Variable '{variableName}' is not empty.");
     }
@@ -105,7 +99,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableStartsWith(string variableName, string prefix)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsTrue(value!.StartsWith(prefix), $"Variable '{variableName}' does not start with '{prefix}'.");
     }
@@ -115,7 +109,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableEndsWith(string variableName, string suffix)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsTrue(value!.EndsWith(suffix), $"Variable '{variableName}' does not end with '{suffix}'.");
     }
@@ -125,7 +119,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableNotStartsWith(string variableName, string prefix)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsFalse(value!.StartsWith(prefix), $"Variable '{variableName}' starts with '{prefix}'.");
     }
@@ -135,7 +129,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableNotEndsWith(string variableName, string suffix)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsFalse(value!.EndsWith(suffix), $"Variable '{variableName}' ends with '{suffix}'.");
     }
@@ -145,7 +139,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableContains(string variableName, string substring)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsTrue(value!.Contains(substring), $"Variable '{variableName}' does not contain '{substring}'.");
     }
@@ -155,7 +149,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableNotContains(string variableName, string substring)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.IsFalse(value!.Contains(substring), $"Variable '{variableName}' contains '{substring}'.");
     }
@@ -165,7 +159,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableEquals(string variableName, string comparison)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.AreEqual(comparison, value!, $"Variable '{variableName}' does not equal '{comparison}'.");
     }
@@ -175,7 +169,7 @@ public class StringDriver : IStringDriver
     /// </summary>
     public void StringVariableNotEquals(string variableName, string comparison)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.NotNull(value, $"Variable '{variableName}' is null.");
         Assert.AreNotEqual(comparison, value!, $"Variable '{variableName}' equals '{comparison}'.");
     }
@@ -190,7 +184,7 @@ public class StringDriver : IStringDriver
     public void GetSubString(int startIndex, int length, string input, string targetVariableName)
     {
         var substring = input.Substring(startIndex, length);
-        _variableService.SetVariable(targetVariableName, substring);
+        variableService.SetVariable(targetVariableName, substring);
     }
 
     /// <summary>
@@ -201,6 +195,6 @@ public class StringDriver : IStringDriver
     public void GetStringLength(string input, string targetVariableName)
     {
         var stringLength = input.Length;
-        _variableService.SetVariable(targetVariableName, stringLength.ToString());
+        variableService.SetVariable(targetVariableName, stringLength.ToString());
     }
 }

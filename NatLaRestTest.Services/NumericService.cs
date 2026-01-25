@@ -7,30 +7,24 @@ namespace NatLaRestTest.Services;
 /// <summary>
 /// Provides numeric operations and assertions on values stored in scenario variables.
 /// </summary>
-public class NumericService : INumericService
+/// <remarks>
+/// Initializes a new instance of the <see cref="NumericService"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class NumericService(IVariableService variableService) : INumericService
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="NumericService"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public NumericService(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     /// <summary>
     /// Adds a number to the numeric value stored in the variable.
     /// </summary>
     public void AddNumberToVariable(double number, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
 
         Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
 
         var result = currentValue + number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -38,11 +32,11 @@ public class NumericService : INumericService
     /// </summary>
     public void MultiplyNumberWithVariable(double number, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
         Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
 
         var result = currentValue * number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -50,11 +44,11 @@ public class NumericService : INumericService
     /// </summary>
     public void DivideNumberByVariable(double number, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
         Assert.IsTrue(ParseNumber(current, out var divisor), $"Value '{current}' of variable {variableName} is not a parsable number.");
         Assert.AreNotEqual(0d, divisor, $"Division by zero for variable '{variableName}'.");
         var result = number / divisor;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -62,11 +56,11 @@ public class NumericService : INumericService
     /// </summary>
     public void DivideVariableByNumber(string variableName, double number)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
         Assert.IsTrue(ParseNumber(current, out var dividend), $"Value '{current}' of variable {variableName} is not a parsable number.");
         Assert.AreNotEqual(0d, number, "Division by zero.");
         var result = dividend / number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -74,10 +68,10 @@ public class NumericService : INumericService
     /// </summary>
     public void SubtractNumberFromVariable(double number, string variableName)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
         Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
         var result = currentValue - number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -85,10 +79,10 @@ public class NumericService : INumericService
     /// </summary>
     public void SubtractVariableFromNumber(string variableName, double number)
     {
-        var current = _variableService.GetVariable(variableName);
+        var current = variableService.GetVariable(variableName);
         Assert.IsTrue(ParseNumber(current, out var subtrahend), $"Value '{current}' of variable {variableName} is not a parsable number.");
         var result = number - subtrahend;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -96,7 +90,7 @@ public class NumericService : INumericService
     /// </summary>
     public void NumericVariableIsGreaterThan(string variableName, double value)
     {
-        var actualValue = _variableService.GetVariable(variableName);
+        var actualValue = variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
         
         Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
@@ -109,7 +103,7 @@ public class NumericService : INumericService
     /// </summary>
     public void NumericVariableIsLessThan(string variableName, double value)
     {
-        var actualValue = _variableService.GetVariable(variableName);
+        var actualValue = variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
 
         Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
