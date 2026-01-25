@@ -27,4 +27,8 @@
     <ProjectReference Include="..\NatLaRestTest.Services.Interfaces\NatLaRestTest.Services.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
 </Project>

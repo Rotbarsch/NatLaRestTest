@@ -1,1 +1,0 @@
-Visit [GitHub](https://github.com/Rotbarsch/NatLaRestTest) for more information on this package.
