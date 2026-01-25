@@ -29,21 +29,13 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore \
-             -p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet build --configuration Release --no-restore -p:Version=${{ steps.version.outputs.VERSION }}
 
       - name: Pack
-        run: dotnet pack . \
-              --configuration Release \
-              --no-build \
-              -p:ContinuousIntegrationBuild=true \
-              -p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack --configuration Release --no-build -p:ContinuousIntegrationBuild=true -p:Version=${{ steps.version.outputs.VERSION }}
 
       - name: Publish to NuGet
-        run: dotnet nuget push "**/*.nupkg" \
-              --api-key ${{ secrets.NUGET_API_KEY }} \
-              --source https://api.nuget.org/v3/index.json \
-              --skip-duplicate
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       # Create GitHub Release with auto-generated notes
       - name: Create GitHub Release
