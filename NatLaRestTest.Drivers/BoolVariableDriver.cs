@@ -7,6 +7,7 @@ namespace NatLaRestTest.Drivers;
 /// Provides assertions for boolean scenario variables.
 /// </summary>
 /// <param name="variableService">Service used to retrieve scenario variables.</param>
+/// <param name="boolService">Service used to handle boolean variables.</param>
 public class BoolVariableDriver(IVariableService variableService, IBoolService boolService) : IBoolVariableDriver
 {
     /// <summary>

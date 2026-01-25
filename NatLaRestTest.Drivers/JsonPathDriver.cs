@@ -15,6 +15,9 @@ namespace NatLaRestTest.Drivers;
 /// </remarks>
 /// <param name="jsonPathService">Service used to evaluate JSONPath expressions.</param>
 /// <param name="variableService">Service used to access scenario variables.</param>
+/// <param name="comparisonDriver">Service used to handle comparison operations.</param>
+/// <param name="boolService">Service used to handle boolean variables.</param>
+/// <param name="numericService">Service used to handle numeric variables.</param>
 public class JsonPathDriver(IJsonPathService jsonPathService, IVariableService variableService, IComparisonService comparisonDriver, IBoolService boolService, INumericService numericService) : IJsonPathDriver
 {
     /// <summary>
