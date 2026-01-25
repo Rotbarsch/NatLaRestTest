@@ -7,19 +7,13 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 /// <summary>
 ///     Step bindings for executing artihmetics.
 /// </summary>
+/// <remarks>
+///     Initializes a new instance of the <see cref="NumericVariableManipulationBindings" /> class.
+/// </remarks>
+/// <param name="numericService">Driver component used to perform numeric operations.</param>
 [Binding]
-public class NumericVariableManipulationBindings : INumericVariableManipulationBindings
+public class NumericVariableManipulationBindings(INumericService numericService) : INumericVariableManipulationBindings
 {
-    private readonly INumericService _numericService;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="NumericVariableManipulationBindings" /> class.
-    /// </summary>
-    /// <param name="numericService">Driver component used to perform numeric operations.</param>
-    public NumericVariableManipulationBindings(INumericService numericService)
-    {
-        _numericService = numericService;
-    }
 
     /// <summary>
     /// Adds two numbers and stores the result in a variable.
@@ -30,7 +24,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the sum of '(.*)' plus '(.*)' is stored in variable '(.*)'")]
     public void Addition(string summand1, string summand2, string targetVariableName)
     {
-        _numericService.Addition(summand1, summand2, targetVariableName);
+        numericService.Addition(summand1, summand2, targetVariableName);
     }
 
     /// <summary>
@@ -42,7 +36,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the difference of '(.*)' minus '(.*)' is stored in variable '(.*)'")]
     public void Subtraction(string minuend, string subtrahend, string targetVariableName)
     {
-        _numericService.Subtraction(minuend, subtrahend, targetVariableName);
+        numericService.Subtraction(minuend, subtrahend, targetVariableName);
     }
 
     /// <summary>
@@ -54,7 +48,7 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the product of '(.*)' multiplied by '(.*)' is stored in variable '(.*)'")]
     public void Multiplication(string factor1, string factor2, string targetVariableName)
     {
-        _numericService.Multiplication(factor1, factor2, targetVariableName);
+        numericService.Multiplication(factor1, factor2, targetVariableName);
     }
 
     /// <summary>
@@ -66,6 +60,6 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     [When("the quotient of '(.*)' divided by '(.*)' is stored in variable '(.*)'")]
     public void Division(string dividend, string divisor, string targetVariableName)
     {
-        _numericService.Division(dividend, divisor, targetVariableName);
+        numericService.Division(dividend, divisor, targetVariableName);
     }
 }

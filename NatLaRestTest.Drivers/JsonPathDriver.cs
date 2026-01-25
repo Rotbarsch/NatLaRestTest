@@ -10,28 +10,13 @@ namespace NatLaRestTest.Drivers;
 /// Provides operations to evaluate JSONPath expressions against JSON stored in scenario variables,
 /// assert values and collection counts, and store selections into variables.
 /// </summary>
-public class JsonPathDriver : IJsonPathDriver
+/// <remarks>
+/// Initializes a new instance of the <see cref="JsonPathDriver"/> class.
+/// </remarks>
+/// <param name="jsonPathService">Service used to evaluate JSONPath expressions.</param>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class JsonPathDriver(IJsonPathService jsonPathService, IVariableService variableService, IComparisonService comparisonDriver, IBoolService boolService, INumericService numericService) : IJsonPathDriver
 {
-    private readonly IJsonPathService _jsonPathService;
-    private readonly IVariableService _variableService;
-    private readonly IComparisonService _comparisonService;
-    private readonly IBoolService _boolService;
-    private readonly INumericService _numericService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="JsonPathDriver"/> class.
-    /// </summary>
-    /// <param name="jsonPathService">Service used to evaluate JSONPath expressions.</param>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public JsonPathDriver(IJsonPathService jsonPathService, IVariableService variableService, IComparisonService comparisonDriver, IBoolService boolService, INumericService numericService)
-    {
-        _jsonPathService = jsonPathService;
-        _variableService = variableService;
-        _comparisonService = comparisonDriver;
-        _boolService = boolService;
-        _numericService = numericService;
-    }
-
     /// <summary>
     /// Evaluates a JSONPath expression against the source variable and stores the result in the target variable.
     /// </summary>
@@ -40,8 +25,8 @@ public class JsonPathDriver : IJsonPathDriver
     /// <param name="targetVariableName">Variable to store the evaluation result.</param>
     public void SetVariableFromJPath(string jPath, string sourceVariableName, string targetVariableName)
     {
-        var selection = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(sourceVariableName), jPath);
-        _variableService.SetVariable(targetVariableName, selection);
+        var selection = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(sourceVariableName), jPath);
+        variableService.SetVariable(targetVariableName, selection);
     }
 
     /// <summary>
@@ -49,7 +34,7 @@ public class JsonPathDriver : IJsonPathDriver
     /// </summary>
     public void AssertValueEquals(string jsonPath, string variable, string comparison)
     {
-        var selection = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variable), jsonPath);
+        var selection = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variable), jsonPath);
         Assert.AreEqual(comparison, selection,
             $"The value at JSONPath '{jsonPath}' in variable '{variable}' does not equal '{comparison}'.");
     }
@@ -59,7 +44,7 @@ public class JsonPathDriver : IJsonPathDriver
     /// </summary>
     public void AssertValueNotEquals(string jsonPath, string variable, string comparison)
     {
-        var selection = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variable), jsonPath);
+        var selection = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variable), jsonPath);
         Assert.AreNotEqual(comparison, selection,
             $"The value at JSONPath '{jsonPath}' in variable '{variable}' equals '{comparison}'.");
     }
@@ -69,7 +54,7 @@ public class JsonPathDriver : IJsonPathDriver
     /// </summary>
     public void AssertJsonPathReturnsAnyValue(string jsonPath, string variable)
     {
-        Assert.True(_jsonPathService.JsonPathReturnsAnyValue(_variableService.GetVariable(variable), jsonPath),
+        Assert.True(jsonPathService.JsonPathReturnsAnyValue(variableService.GetVariable(variable), jsonPath),
             $"JSONPath expression '{jsonPath}' did not resolve in variable '{variable}'.");
     }
 
@@ -125,11 +110,11 @@ public class JsonPathDriver : IJsonPathDriver
     /// </summary>
     public void NumericVariableIsGreaterThan(string jsonPath, string variableName, int value)
     {
-        var actualValue = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variableName), jsonPath);
+        var actualValue = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variableName), jsonPath);
         Assert.NotNull(actualValue, $"JSONPath '{jsonPath}' on variable '{variableName}' returned null.");
 
         var str = actualValue!;
-        Assert.IsTrue(_numericService.ParseNumber(actualValue,out var parsed),
+        Assert.IsTrue(numericService.ParseNumber(actualValue,out var parsed),
             $"The value at JSONPath '{jsonPath}' in variable '{variableName}' is not numeric. Actual: '{str}'.");
 
         Assert.Greater(parsed, value,
@@ -141,11 +126,11 @@ public class JsonPathDriver : IJsonPathDriver
     /// </summary>
     public void NumericVariableIsLessThan(string jsonPath, string variableName, int value)
     {
-        var actualValue = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variableName), jsonPath);
+        var actualValue = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variableName), jsonPath);
         Assert.NotNull(actualValue, $"JSONPath '{jsonPath}' on variable '{variableName}' returned null.");
 
         var str = actualValue!;
-        Assert.IsTrue(_numericService.ParseNumber(actualValue,out var parsed),
+        Assert.IsTrue(numericService.ParseNumber(actualValue,out var parsed),
             $"The value at JSONPath '{jsonPath}' in variable '{variableName}' is not numeric. Actual: '{str}'.");
 
         Assert.Less(parsed, value,
@@ -263,16 +248,16 @@ public class JsonPathDriver : IJsonPathDriver
     public void FilterCollectionByJPath(string sourceVariableName, string jPath, string targetVariableName,
         ComparisonOperation comparisonOperation, string? comparisonValue=null)
     {
-        var selection = _variableService.GetVariable(sourceVariableName);
+        var selection = variableService.GetVariable(sourceVariableName);
         Assert.NotNull(selection,$"Value of variable '{sourceVariableName}' is null and cannot be parsed as collection.");
         var jArray = JArray.Parse(selection!);
         var result = new JArray();
 
         foreach (var item in jArray)
         {
-            var jsonPathOnItem = _jsonPathService.GetValueFromJsonPath(item.ToString(), jPath);
+            var jsonPathOnItem = jsonPathService.GetValueFromJsonPath(item.ToString(), jPath);
 
-            var fitsCriteria = _comparisonService.Compare(jsonPathOnItem, comparisonOperation, comparisonValue);
+            var fitsCriteria = comparisonDriver.Compare(jsonPathOnItem, comparisonOperation, comparisonValue);
 
             if (fitsCriteria)
             {
@@ -280,24 +265,24 @@ public class JsonPathDriver : IJsonPathDriver
             }
         }
 
-        _variableService.SetVariable(targetVariableName,result.ToString());
+        variableService.SetVariable(targetVariableName,result.ToString());
     }
 
     public void AssertJsonPathReturnsBoolean(string variableName, string jsonPath, bool expected)
     {
-        _boolService.AreBooleanEqual(expected, _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variableName), jsonPath));
+        boolService.AreBooleanEqual(expected, jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variableName), jsonPath));
     }
 
     private string GetSelectionString(string jsonPath, string variableName)
     {
-        var value = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variableName), jsonPath);
+        var value = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variableName), jsonPath);
         Assert.NotNull(value, $"JSONPath '{jsonPath}' on variable '{variableName}' returned null.");
         return value!;
     }
 
     private JArray GetSelectionArray(string variableName, string jsonPath)
     {
-        var selection = _jsonPathService.GetValueFromJsonPath(_variableService.GetVariable(variableName), jsonPath);
+        var selection = jsonPathService.GetValueFromJsonPath(variableService.GetVariable(variableName), jsonPath);
         Assert.IsNotNull(selection, $"JSONPath '{jsonPath}' on variable '{variableName}' returned null.");
         return JArray.Parse(selection!);
     }

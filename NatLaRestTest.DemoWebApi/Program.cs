@@ -13,4 +13,4 @@ app.MapGet("/ok", () => Results.Ok("works"));
 app.MapPost("/create", () => Results.Created());
 app.MapGet("/missing", () => Results.NotFound());
 
-app.Run();
+await app.RunAsync();

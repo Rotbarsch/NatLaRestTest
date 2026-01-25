@@ -9,7 +9,7 @@ namespace NatLaRestTest.Services
     /// </summary>
     public class StopwatchService : IStopwatchService
     {
-        private static readonly Dictionary<string, Stopwatch> Stopwatches = new Dictionary<string, Stopwatch>();
+        private static readonly Dictionary<string, Stopwatch> Stopwatches = [];
 
         /// <summary>
         /// Starts a new stopwatch.

@@ -7,21 +7,13 @@ namespace NatLaRestTest.Drivers;
 /// <summary>
 /// Provides high-level HTTP operations using an underlying Service and stores results in scenario variables.
 /// </summary>
-public class HttpClientDriver : IHttpClientDriver
+/// <remarks>
+/// Initializes a new instance of the <see cref="HttpClientDriver"/> class.
+/// </remarks>
+/// <param name="httpClientService">Service used to send HTTP requests and access responses.</param>
+/// <param name="variableService">Service used to store values in scenario variables.</param>
+public class HttpClientDriver(IHttpClientService httpClientService, IVariableService variableService) : IHttpClientDriver
 {
-    private readonly IHttpClientService _httpClientService;
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="HttpClientDriver"/> class.
-    /// </summary>
-    /// <param name="httpClientService">Service used to send HTTP requests and access responses.</param>
-    /// <param name="variableService">Service used to store values in scenario variables.</param>
-    public HttpClientDriver(IHttpClientService httpClientService, IVariableService variableService)
-    {
-        _httpClientService = httpClientService;
-        _variableService = variableService;
-    }
 
     /// <summary>
     /// Sends an HTTP request with optional body and content type.
@@ -33,7 +25,7 @@ public class HttpClientDriver : IHttpClientDriver
     public async Task SendRequest(string httpMethod, string relativePath, string? requestBody = null,
         string contentType = "application/json")
     {
-        await _httpClientService.SendRequest(httpMethod, relativePath, requestBody, contentType);
+        await httpClientService.SendRequest(httpMethod, relativePath, requestBody, contentType);
     }
 
     /// <summary>
@@ -46,7 +38,7 @@ public class HttpClientDriver : IHttpClientDriver
     public async Task SendRequestWithStreamBody(string httpMethod, string url, string fileName,
         string? contentType = null)
     {
-        await _httpClientService.SendRequestWithStreamBody(httpMethod, url, fileName, contentType);
+        await httpClientService.SendRequestWithStreamBody(httpMethod, url, fileName, contentType);
     }
 
     /// <summary>
@@ -55,7 +47,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="filePath">Path to the destination file.</param>
     public async Task SaveResponseStreamToFile(string filePath)
     {
-        await _httpClientService.SaveResponseStreamToFile(filePath);
+        await httpClientService.SaveResponseStreamToFile(filePath);
     }
 
     /// <summary>
@@ -64,8 +56,8 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="variableName">Name of the scenario variable to store the length value.</param>
     public async Task StoreResponseStreamLengthInVariable(string variableName)
     {
-        var length = await _httpClientService.GetResponseStreamLength();
-        _variableService.SetVariable(variableName, length.ToString());
+        var length = await httpClientService.GetResponseStreamLength();
+        variableService.SetVariable(variableName, length.ToString());
     }
 
     /// <summary>
@@ -74,7 +66,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="variableName">Name of the scenario variable to store the body.</param>
     public async Task StoreResponseBodyInVariable(string variableName)
     {
-        _variableService.SetVariable(variableName, await _httpClientService.GetCurrentResponseAsString());
+        variableService.SetVariable(variableName, await httpClientService.GetCurrentResponseAsString());
     }
 
     /// <summary>
@@ -84,8 +76,8 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="variableName">Name of the scenario variable to store the value.</param>
     public void StoreResponseHeaderValueInVariable(string headerName, string variableName)
     {
-        var headerValue = _httpClientService.GetCurrentResponseHeaderValue(headerName);
-        _variableService.SetVariable(variableName, headerValue);
+        var headerValue = httpClientService.GetCurrentResponseHeaderValue(headerName);
+        variableService.SetVariable(variableName, headerValue);
     }
 
     /// <summary>
@@ -94,7 +86,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="baseUrl">Base URL.</param>
     public void SetBaseUrl(string baseUrl)
     {
-        _httpClientService.SetBaseAddress(baseUrl);
+        httpClientService.SetBaseAddress(baseUrl);
     }
 
     /// <summary>
@@ -103,7 +95,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="seconds">Timeout in seconds.</param>
     public void SetDefaultTimeout(int seconds)
     {
-        _httpClientService.SetDefaultTimeout(seconds);
+        httpClientService.SetDefaultTimeout(seconds);
     }
 
     /// <summary>
@@ -113,7 +105,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="headerValue">Header value.</param>
     public void SetDefaultHeader(string headerName, string headerValue)
     {
-        _httpClientService.SetDefaultHeader(headerName, headerValue);
+        httpClientService.SetDefaultHeader(headerName, headerValue);
     }
 
     /// <summary>
@@ -121,7 +113,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// </summary>
     public void DisableSslCertificateValidation()
     {
-        _httpClientService.DisableSslCertificateValidation();
+        httpClientService.DisableSslCertificateValidation();
     }
 
     /// <summary>
@@ -129,8 +121,8 @@ public class HttpClientDriver : IHttpClientDriver
     /// </summary>
     public void ResponseIsSuccess()
     {
-        Assert.IsTrue(_httpClientService.CurrentResponseIsSuccessful(),
-            $"Response status code {_httpClientService.GetCurrentResponseStatusCode()} does not indicate success.");
+        Assert.IsTrue(httpClientService.CurrentResponseIsSuccessful(),
+            $"Response status code {httpClientService.GetCurrentResponseStatusCode()} does not indicate success.");
     }
 
     /// <summary>
@@ -138,8 +130,8 @@ public class HttpClientDriver : IHttpClientDriver
     /// </summary>
     public void ResponseIsNotSuccess()
     {
-        Assert.IsFalse(_httpClientService.CurrentResponseIsSuccessful(),
-            $"Response status code {_httpClientService.GetCurrentResponseStatusCode()} does indicate success.");
+        Assert.IsFalse(httpClientService.CurrentResponseIsSuccessful(),
+            $"Response status code {httpClientService.GetCurrentResponseStatusCode()} does indicate success.");
     }
 
     /// <summary>
@@ -148,8 +140,8 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="code">Expected HTTP status code (e.g., 200).</param>
     public void AssertResponseCode(int code)
     {
-        Assert.AreEqual(code, _httpClientService.GetCurrentResponseStatusCode(),
-            $"Expected response code {code} but got {_httpClientService.GetCurrentResponseStatusCode()}");
+        Assert.AreEqual(code, httpClientService.GetCurrentResponseStatusCode(),
+            $"Expected response code {code} but got {httpClientService.GetCurrentResponseStatusCode()}");
     }
 
     /// <summary>
@@ -158,7 +150,7 @@ public class HttpClientDriver : IHttpClientDriver
     /// <param name="code">HTTP status code that must not match.</param>
     public void AssertResponseCodeIsNot(int code)
     {
-        Assert.AreNotEqual(code, _httpClientService.GetCurrentResponseStatusCode(),
+        Assert.AreNotEqual(code, httpClientService.GetCurrentResponseStatusCode(),
             $"Expected response code to not be equal {code}.");
     }
 
@@ -169,6 +161,6 @@ public class HttpClientDriver : IHttpClientDriver
     /// <exception cref="System.NotImplementedException"></exception>
     public void StoreResponseTimeInVariable(string variableName)
     {
-        _httpClientService.StoreResponseTimeInVariable(variableName);
+        httpClientService.StoreResponseTimeInVariable(variableName);
     }
 }

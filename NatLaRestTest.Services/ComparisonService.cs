@@ -9,44 +9,26 @@ public class ComparisonService(INumericService numericService, IBoolService bool
 {
     public bool Compare(string? value, ComparisonOperation comparisonOperation, string? comparisonValue = null)
     {
-        switch (comparisonOperation)
+        return comparisonOperation switch
         {
-            case ComparisonOperation.DoesNotEqual:
-                return value != comparisonValue;
-            case ComparisonOperation.Equals:
-                return value == comparisonValue;
-            case ComparisonOperation.IsNotNull:
-                return value is not null;
-            case ComparisonOperation.IsNull:
-                return value is null;
-
+            ComparisonOperation.DoesNotEqual => value != comparisonValue,
+            ComparisonOperation.Equals => value == comparisonValue,
+            ComparisonOperation.IsNotNull => value is not null,
+            ComparisonOperation.IsNull => value is null,
             // Numeric
-            case ComparisonOperation.LessThan:
-            case ComparisonOperation.LessThanOrEqual:
-            case ComparisonOperation.GreaterThan:
-            case ComparisonOperation.GreaterThanOrEqual:
-                return CompareNumeric(value, comparisonValue, comparisonOperation);
-
+            ComparisonOperation.LessThan or ComparisonOperation.LessThanOrEqual or ComparisonOperation.GreaterThan
+                or ComparisonOperation.GreaterThanOrEqual =>
+                CompareNumeric(value, comparisonValue, comparisonOperation),
             // Collection only
-            case ComparisonOperation.HasElements:
-                return value is not null && JArray.Parse(value).HasValues;
-
-            case ComparisonOperation.HasNoElements:
-                return value is not null && !JArray.Parse(value).HasValues;
-
+            ComparisonOperation.HasElements => value is not null && JArray.Parse(value).HasValues,
+            ComparisonOperation.HasNoElements => value is not null && !JArray.Parse(value).HasValues,
             // Bool only
-            case ComparisonOperation.BoolEquals:
-                return CompareBool(comparisonValue, value);
-
+            ComparisonOperation.BoolEquals => CompareBool(comparisonValue, value),
             // String only
-            case ComparisonOperation.IsEmpty:
-                return value is not null && string.IsNullOrEmpty(value) ;
-            case ComparisonOperation.IsNotEmpty:
-                return value is not null && !string.IsNullOrEmpty(value);
-            default:
-                throw new InvalidOperationException(
-                    $"Unsupported comparison operation '{comparisonOperation}'.");
-        }
+            ComparisonOperation.IsEmpty => value is not null && string.IsNullOrEmpty(value),
+            ComparisonOperation.IsNotEmpty => value is not null && !string.IsNullOrEmpty(value),
+            _ => throw new InvalidOperationException($"Unsupported comparison operation '{comparisonOperation}'.")
+        };
     }
 
     private bool CompareBool(string? expectedBooleanString, string? actualBooleanString)

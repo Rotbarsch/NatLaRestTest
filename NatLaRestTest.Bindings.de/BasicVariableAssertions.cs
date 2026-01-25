@@ -1,6 +1,7 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
 using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace NatLaRestTest.Bindings.de;
 

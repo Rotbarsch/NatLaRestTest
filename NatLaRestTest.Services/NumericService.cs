@@ -7,32 +7,26 @@ namespace NatLaRestTest.Services;
 /// <summary>
 /// Provides numeric operations and assertions on values stored in scenario variables.
 /// </summary>
-public class NumericService : INumericService
+/// <remarks>
+/// Initializes a new instance of the <see cref="NumericService"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class NumericService(IVariableService variableService) : INumericService
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="NumericService"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public NumericService(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     public void Addition(string summand1, string summand2, string targetVariableName)
     {
         Assert.IsTrue(ParseNumber(summand1, out var s1), $"Failed to parse '{summand1}' as a number.");
         Assert.IsTrue(ParseNumber(summand2, out var s2), $"Failed to parse '{summand2}' as a number.");
 
-        _variableService.SetVariable(targetVariableName, (s1 + s2).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (s1 + s2).ToString(CultureInfo.InvariantCulture));
     }
 
     public void Subtraction(string minuend, string subtrahend, string targetVariableName)
     {
         Assert.IsTrue(ParseNumber(minuend, out var m), $"Failed to parse '{minuend}' as a number.");
         Assert.IsTrue(ParseNumber(subtrahend, out var s), $"Failed to parse '{subtrahend}' as a number.");
-        _variableService.SetVariable(targetVariableName, (m - s).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (m - s).ToString(CultureInfo.InvariantCulture));
     }
 
     public void Multiplication(string factor1, string factor2, string targetVariableName)
@@ -40,7 +34,7 @@ public class NumericService : INumericService
         Assert.IsTrue(ParseNumber(factor1, out var f1), $"Failed to parse '{factor1}' as a number.");
         Assert.IsTrue(ParseNumber(factor2, out var f2), $"Failed to parse '{factor2}' as a number.");
 
-        _variableService.SetVariable(targetVariableName, (f1 * f2).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (f1 * f2).ToString(CultureInfo.InvariantCulture));
     }
 
     public void Division(string dividend, string divisor, string targetVariableName)
@@ -48,7 +42,7 @@ public class NumericService : INumericService
         Assert.IsTrue(ParseNumber(dividend, out var d), $"Failed to parse '{dividend}' as a number.");
         Assert.IsTrue(ParseNumber(divisor, out var di), $"Failed to parse '{divisor}' as a number.");
 
-        _variableService.SetVariable(targetVariableName, (d / di).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (d / di).ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -56,7 +50,7 @@ public class NumericService : INumericService
     /// </summary>
     public void NumericVariableIsGreaterThan(string variableName, double value)
     {
-        var actualValue = _variableService.GetVariable(variableName);
+        var actualValue = variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
         
         Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
@@ -69,7 +63,7 @@ public class NumericService : INumericService
     /// </summary>
     public void NumericVariableIsLessThan(string variableName, double value)
     {
-        var actualValue = _variableService.GetVariable(variableName);
+        var actualValue = variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
 
         Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");

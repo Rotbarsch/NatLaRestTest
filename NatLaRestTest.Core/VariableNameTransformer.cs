@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using NatLaRestTest.Services.Interfaces;
+using NUnit.Framework;
 using Reqnroll;
 
 namespace NatLaRestTest.Core;
@@ -7,19 +8,13 @@ namespace NatLaRestTest.Core;
 /// <summary>
 ///     Provides a step argument transformation that resolves variable placeholders in the form $(variableName).
 /// </summary>
+/// <remarks>
+///     Initializes a new instance of the <see cref="VariableNameTransformer" /> class.
+/// </remarks>
+/// <param name="variableService">The variable Service used to resolve placeholder values.</param>
 [Binding]
-public class VariableNameTransformer
+public class VariableNameTransformer(IVariableService variableService)
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="VariableNameTransformer" /> class.
-    /// </summary>
-    /// <param name="variableService">The variable Service used to resolve placeholder values.</param>
-    public VariableNameTransformer(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     /// <summary>
     ///     Gets all variables marked by $() and resolves them to their values.
@@ -31,11 +26,8 @@ public class VariableNameTransformer
     [StepArgumentTransformation]
     public string? ResolveVariable(string argument)
     {
-        if (argument is null)
-        {
-            throw new ArgumentNullException(nameof(argument));
-        }
-
+        Assert.NotNull(argument);
+        
         // Match innermost placeholders only (no nested '(' or ')') in the variable name
         var pattern = "\\$\\(([^\\(\\)]+)\\)";
         var updated = argument;
@@ -47,7 +39,7 @@ public class VariableNameTransformer
             updated = Regex.Replace(updated, pattern, match =>
             {
                 var variableName = match.Groups[1].Value;
-                var value = _variableService.GetVariable(variableName);
+                var value = variableService.GetVariable(variableName);
                 return value ?? string.Empty;
             });
 

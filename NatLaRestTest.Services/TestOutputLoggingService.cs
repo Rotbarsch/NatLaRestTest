@@ -7,23 +7,17 @@ namespace NatLaRestTest.Services;
 /// <summary>
 ///     Service that writes log messages to the test output helper.
 /// </summary>
-public class TestOutputLoggingService : ITestOutputLoggingService
+/// <remarks>
+///     Initializes a new instance of the <see cref="TestOutputLoggingService" /> class.
+/// </remarks>
+/// <param name="outputHelper">The Reqnroll output helper to write logs to.</param>
+public partial class TestOutputLoggingService(IReqnrollOutputHelper outputHelper) : ITestOutputLoggingService
 {
-    private readonly IReqnrollOutputHelper _outputHelper;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="TestOutputLoggingService" /> class.
-    /// </summary>
-    /// <param name="outputHelper">The Reqnroll output helper to write logs to.</param>
-    public TestOutputLoggingService(IReqnrollOutputHelper outputHelper)
-    {
-        _outputHelper = outputHelper;
-    }
 
     /// <inheritdoc />
     public void WriteLine(string logMessage)
     {
-        _outputHelper.WriteLine("[NatLaRestTest]" + logMessage);
+        outputHelper.WriteLine("[NatLaRestTest]" + logMessage);
     }
 
     public void WriteLine(string logMessage, params object[] messageParameters)
@@ -41,7 +35,7 @@ public class TestOutputLoggingService : ITestOutputLoggingService
 
             if (s.Length > 50)
             {
-                updatedParamArray.Add(s.Substring(0, 50) + "...");
+                updatedParamArray.Add(s[..50] + "...");
                 continue;
             }
 
@@ -49,9 +43,14 @@ public class TestOutputLoggingService : ITestOutputLoggingService
         }
 
         int i = 0;
-        var numeric = Regex.Replace(logMessage, @"{[^}]+}", _ => $"{{{i++}}}");
+        var numeric = VariableRegEx().Replace(logMessage, _ => $"{{{i++}}}");
+#pragma warning disable IDE0305 // Simplify collection initialization
         var result = string.Format(numeric, updatedParamArray.ToArray());
+#pragma warning restore IDE0305 // Simplify collection initialization
 
         WriteLine(result);
     }
+
+    [GeneratedRegex(@"{[^}]+}")]
+    private static partial Regex VariableRegEx();
 }

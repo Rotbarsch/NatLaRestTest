@@ -7,18 +7,12 @@ namespace NatLaRestTest.Bindings.Assertions;
 /// <summary>
 ///     Step bindings providing numeric assertions on variables that store numeric values.
 /// </summary>
+/// <remarks>
+///     Step bindings providing numeric assertions on variables that store numeric values.
+/// </remarks>
 [Binding]
-public class NumericVariableAssertions : INumericVariableAssertions
+public class NumericVariableAssertions(INumericService numericService) : INumericVariableAssertions
 {
-    private readonly INumericService _numericService;
-
-    /// <summary>
-    ///     Step bindings providing numeric assertions on variables that store numeric values.
-    /// </summary>
-    public NumericVariableAssertions(INumericService numericService)
-    {
-        _numericService = numericService;
-    }
 
     /// <summary>
     ///     Then step: Asserts that the numeric value stored in the specified variable is greater than the given value.
@@ -28,7 +22,7 @@ public class NumericVariableAssertions : INumericVariableAssertions
     [Then("the value of variable '(.*)' is greater than '(.*)'")]
     public void NumericVariableIsGreaterThan(string variableName, double value)
     {
-        _numericService.NumericVariableIsGreaterThan(variableName, value);
+        numericService.NumericVariableIsGreaterThan(variableName, value);
     }
 
     /// <summary>
@@ -40,6 +34,6 @@ public class NumericVariableAssertions : INumericVariableAssertions
     [Then("the value of variable '(.*)' is less than '(.*)'")]
     public void NumericVariableIsLessThan(string variableName, double value)
     {
-        _numericService.NumericVariableIsLessThan(variableName, value);
+        numericService.NumericVariableIsLessThan(variableName, value);
     }
 }
