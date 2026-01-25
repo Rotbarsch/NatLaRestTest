@@ -11,7 +11,8 @@ namespace NatLaRestTest.Services;
 /// Initializes a new instance of the <see cref="NumericService"/> class.
 /// </remarks>
 /// <param name="variableService">Service used to access scenario variables.</param>
-public class NumericService(IVariableService variableService) : INumericService
+/// <param name="cultureInfoService">Service for getting configured CultureInfo.</param>
+public class NumericService(IVariableService variableService, ICultureInfoService cultureInfoService) : INumericService
 {
 
     public void Addition(string summand1, string summand2, string targetVariableName)
@@ -19,14 +20,14 @@ public class NumericService(IVariableService variableService) : INumericService
         Assert.IsTrue(ParseNumber(summand1, out var s1), $"Failed to parse '{summand1}' as a number.");
         Assert.IsTrue(ParseNumber(summand2, out var s2), $"Failed to parse '{summand2}' as a number.");
 
-        variableService.SetVariable(targetVariableName, (s1 + s2).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (s1 + s2).ToString(cultureInfoService.GetConfiguredCultureInfo()));
     }
 
     public void Subtraction(string minuend, string subtrahend, string targetVariableName)
     {
         Assert.IsTrue(ParseNumber(minuend, out var m), $"Failed to parse '{minuend}' as a number.");
         Assert.IsTrue(ParseNumber(subtrahend, out var s), $"Failed to parse '{subtrahend}' as a number.");
-        variableService.SetVariable(targetVariableName, (m - s).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (m - s).ToString(cultureInfoService.GetConfiguredCultureInfo()));
     }
 
     public void Multiplication(string factor1, string factor2, string targetVariableName)
@@ -34,7 +35,7 @@ public class NumericService(IVariableService variableService) : INumericService
         Assert.IsTrue(ParseNumber(factor1, out var f1), $"Failed to parse '{factor1}' as a number.");
         Assert.IsTrue(ParseNumber(factor2, out var f2), $"Failed to parse '{factor2}' as a number.");
 
-        variableService.SetVariable(targetVariableName, (f1 * f2).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (f1 * f2).ToString(cultureInfoService.GetConfiguredCultureInfo()));
     }
 
     public void Division(string dividend, string divisor, string targetVariableName)
@@ -42,7 +43,7 @@ public class NumericService(IVariableService variableService) : INumericService
         Assert.IsTrue(ParseNumber(dividend, out var d), $"Failed to parse '{dividend}' as a number.");
         Assert.IsTrue(ParseNumber(divisor, out var di), $"Failed to parse '{divisor}' as a number.");
 
-        variableService.SetVariable(targetVariableName, (d / di).ToString(CultureInfo.InvariantCulture));
+        variableService.SetVariable(targetVariableName, (d / di).ToString(cultureInfoService.GetConfiguredCultureInfo()));
     }
 
     /// <summary>
@@ -74,6 +75,6 @@ public class NumericService(IVariableService variableService) : INumericService
     public bool ParseNumber(string? input, out double parsed)
     {
         Assert.NotNull(input, "Cannot parse null.");
-        return double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed);
+        return double.TryParse(input, NumberStyles.Float, cultureInfoService.GetConfiguredCultureInfo(), out parsed);
     }
 }

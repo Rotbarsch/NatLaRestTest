@@ -1,4 +1,3 @@
-using System.Net.Mime;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

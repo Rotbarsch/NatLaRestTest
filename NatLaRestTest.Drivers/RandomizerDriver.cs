@@ -1,11 +1,10 @@
-﻿using System.Globalization;
-using NatLaRestTest.Core.Contracts;
+﻿using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
 
 namespace NatLaRestTest.Drivers;
 
-public class RandomizerDriver(IVariableService variableService, IRandomDataService randomDataService)
+public class RandomizerDriver(IVariableService variableService, IRandomDataService randomDataService, ICultureInfoService cultureInfoService)
     : IRandomizerDriver
 {
     public void SetRandomNumberInRange(int minValue, int maxValue, string variableName)
@@ -16,7 +15,7 @@ public class RandomizerDriver(IVariableService variableService, IRandomDataServi
     public void SetRandomDoubleInRange(double minValue, double maxValue, string variableName)
     {
         var randomDouble = randomDataService.GetDoubleInRange(minValue, maxValue)
-            .ToString(CultureInfo.InvariantCulture);
+            .ToString(cultureInfoService.GetConfiguredCultureInfo());
         variableService.SetVariable(variableName, randomDouble);
     }
 
