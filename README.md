@@ -29,7 +29,7 @@ See the NatLaRestTest.Demo project for more usage examples or the full listing o
 ## Getting Started
 Assuming you prepared a Reqnroll project (see the [Quickstart](https://docs.reqnroll.net/latest/quickstart/index.html)), we need to register and prepare the project for usage with NatLaRestTest:
 1. Make sure your project has a reference to [Reqnroll.NUnit](https://www.nuget.org/packages/Reqnroll.NUnit) and [Microsoft.NET.Test.Sdk](https://www.nuget.org/packages/microsoft.net.test.sdk).
-2. Add a reference to the [NatLaRestTest](https://www.nuget.org/packages/NatLaRestTest) NuGet package.
+2. Add a reference to the [NatLaRestTest](https://www.nuget.org/packages/NatLaRestTest.Bindings) NuGet package.
 3. Make sure your test project has a reqnroll.json configuration file. It should look like this:
 ```
 {
@@ -44,7 +44,7 @@ Assuming you prepared a Reqnroll project (see the [Quickstart](https://docs.reqn
   ]
 }
 ```
-4. Add the NatLaRestTest assemblies to the `bindingAssemblies` section:
+4. Add the NatLaRestTest assemblies (**both of them**) to the `bindingAssemblies` section:
 ```
 ...
 "bindingAssemblies": [
