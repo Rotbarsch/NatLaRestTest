@@ -7,18 +7,12 @@ namespace NatLaRestTest.Drivers;
 /// <summary>
 /// Provides basic operations on scenario variables, including setting and null checks.
 /// </summary>
-public class BasicVariableDriver : IBasicVariableDriver
+/// <remarks>
+/// Initializes a new instance of the <see cref="BasicVariableDriver"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to store and retrieve scenario variables.</param>
+public class BasicVariableDriver(IVariableService variableService) : IBasicVariableDriver
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BasicVariableDriver"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to store and retrieve scenario variables.</param>
-    public BasicVariableDriver(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     /// <summary>
     /// Sets the value of a scenario variable.
@@ -27,7 +21,7 @@ public class BasicVariableDriver : IBasicVariableDriver
     /// <param name="variableValue">The value to store.</param>
     public void SetVariable(string variableName, string? variableValue)
     {
-        _variableService.SetVariable(variableName, variableValue);
+        variableService.SetVariable(variableName, variableValue);
     }
 
     /// <summary>
@@ -36,7 +30,7 @@ public class BasicVariableDriver : IBasicVariableDriver
     /// <param name="variableName">The variable name.</param>
     public void AssertVariableIsNull(string variableName)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.IsNull(value, $"Variable '{variableName}' is not null.");
     }
 
@@ -46,7 +40,7 @@ public class BasicVariableDriver : IBasicVariableDriver
     /// <param name="variableName">The variable name.</param>
     public void AssertVariableIsNotNull(string variableName)
     {
-        var value = _variableService.GetVariable(variableName);
+        var value = variableService.GetVariable(variableName);
         Assert.IsNotNull(value, $"Variable '{variableName}' is null.");
     }
 }

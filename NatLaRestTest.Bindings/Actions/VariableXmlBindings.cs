@@ -7,19 +7,13 @@ namespace NatLaRestTest.Bindings.Actions;
 /// <summary>
 /// Step bindings for extracting values from XML using XPath and storing them in scenario variables.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="VariableXmlBindings"/> class.
+/// </remarks>
+/// <param name="xmlDriver">Driver component used to evaluate XPath and set variables.</param>
 [Binding]
-public class VariableXmlBindings : IVariableXmlBindings
+public class VariableXmlBindings(IXmlDriver xmlDriver) : IVariableXmlBindings
 {
-    private readonly IXmlDriver _xmlDriver;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableXmlBindings"/> class.
-    /// </summary>
-    /// <param name="xmlDriver">Driver component used to evaluate XPath and set variables.</param>
-    public VariableXmlBindings(IXmlDriver xmlDriver)
-    {
-        _xmlDriver = xmlDriver;
-    }
 
     /// <summary>
     /// When step: Evaluates the given XPath expression against XML stored in <paramref name="sourceVariableName"/>
@@ -31,6 +25,6 @@ public class VariableXmlBindings : IVariableXmlBindings
     [When("the result of XPath '(.*)' in the value of variable '(.*)' is stored in variable '(.*)'")]
     public void SetVariableFromXPath(string xPath, string sourceVariableName, string targetVariableName)
     {
-        _xmlDriver.SetVariableFromXPath(xPath, sourceVariableName, targetVariableName);
+        xmlDriver.SetVariableFromXPath(xPath, sourceVariableName, targetVariableName);
     }
 }

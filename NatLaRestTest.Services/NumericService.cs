@@ -7,18 +7,12 @@ namespace NatLaRestTest.Services;
 /// <summary>
 /// Provides numeric operations and assertions on values stored in scenario variables.
 /// </summary>
-public class NumericService : INumericService
+/// <remarks>
+/// Initializes a new instance of the <see cref="NumericService"/> class.
+/// </remarks>
+/// <param name="variableService">Service used to access scenario variables.</param>
+public class NumericService(IVariableService variableService) : INumericService
 {
-    private readonly IVariableService _variableService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="NumericService"/> class.
-    /// </summary>
-    /// <param name="variableService">Service used to access scenario variables.</param>
-    public NumericService(IVariableService variableService)
-    {
-        _variableService = variableService;
-    }
 
     public void Addition(string summand1, string summand2, string targetVariableName)
     {
@@ -56,7 +50,7 @@ public class NumericService : INumericService
     /// </summary>
     public void NumericVariableIsGreaterThan(string variableName, double value)
     {
-        var actualValue = _variableService.GetVariable(variableName);
+        var actualValue = variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
         
         Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
@@ -69,7 +63,7 @@ public class NumericService : INumericService
     /// </summary>
     public void NumericVariableIsLessThan(string variableName, double value)
     {
-        var actualValue = _variableService.GetVariable(variableName);
+        var actualValue = variableService.GetVariable(variableName);
         Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
 
         Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");

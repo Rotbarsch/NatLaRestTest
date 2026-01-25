@@ -7,19 +7,13 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 /// <summary>
 ///     Step bindings for manipulating existing string variables by appending, prepending, or replacing content.
 /// </summary>
+/// <remarks>
+///     Initializes a new instance of the <see cref="StringVariableManipulationBindings" /> class.
+/// </remarks>
+/// <param name="stringDriver">Driver component used to perform string manipulations.</param>
 [Binding]
-public class StringVariableManipulationBindings : IStringVariableManipulationBindings
+public class StringVariableManipulationBindings(IStringDriver stringDriver) : IStringVariableManipulationBindings
 {
-    private readonly IStringDriver _stringDriver;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="StringVariableManipulationBindings" /> class.
-    /// </summary>
-    /// <param name="stringDriver">Driver component used to perform string manipulations.</param>
-    public StringVariableManipulationBindings(IStringDriver stringDriver)
-    {
-        _stringDriver = stringDriver;
-    }
 
     /// <summary>
     ///     When step: Appends a literal string to the end of the specified variable's current value.
@@ -29,7 +23,7 @@ public class StringVariableManipulationBindings : IStringVariableManipulationBin
     [When("the string '(.*)' is appended to the value of variable '(.*)'")]
     public void AppendStringToVariable(string valueToAppend, string variableName)
     {
-        _stringDriver.AppendStringToVariable(valueToAppend, variableName);
+        stringDriver.AppendStringToVariable(valueToAppend, variableName);
     }
 
     /// <summary>
@@ -40,7 +34,7 @@ public class StringVariableManipulationBindings : IStringVariableManipulationBin
     [When("the string '(.*)' is prepended to the value of variable '(.*)'")]
     public void PrependStringToVariable(string valueToPrepend, string variableName)
     {
-        _stringDriver.PrependStringToVariable(valueToPrepend, variableName);
+        stringDriver.PrependStringToVariable(valueToPrepend, variableName);
     }
 
     /// <summary>
@@ -52,6 +46,6 @@ public class StringVariableManipulationBindings : IStringVariableManipulationBin
     [When("the string '(.*)' is replaced with '(.*)' in the value of variable '(.*)'")]
     public void ReplaceStringInVariable(string oldValue, string newValue, string variableName)
     {
-        _stringDriver.ReplaceStringInVariable(oldValue, newValue, variableName);
+        stringDriver.ReplaceStringInVariable(oldValue, newValue, variableName);
     }
 }

@@ -8,18 +8,12 @@ namespace NatLaRestTest.Bindings.Actions.SetVariableActions;
 /// <summary>
 ///     Step bindings for generating and storing random strings in scenario variables.
 /// </summary>
+/// <remarks>
+///     Step bindings for generating and storing random strings in scenario variables.
+/// </remarks>
 [Binding]
-public class RandomStringVariableBindings : IRandomStringVariableBindings
+public class RandomStringVariableBindings(IRandomizerDriver randomizerDriver) : IRandomStringVariableBindings
 {
-    private readonly IRandomizerDriver _randomizerDriver;
-
-    /// <summary>
-    ///     Step bindings for generating and storing random strings in scenario variables.
-    /// </summary>
-    public RandomStringVariableBindings(IRandomizerDriver randomizerDriver)
-    {
-        _randomizerDriver = randomizerDriver;
-    }
 
     /// <summary>
     ///     When step: Generates a random string based on the specified type and stores it in the given variable.
@@ -49,6 +43,6 @@ public class RandomStringVariableBindings : IRandomStringVariableBindings
     [When("a random '(.*)' string is stored in variable '(.*)'")]
     public void SetRandomString(FakerStringType stringType, string variableName)
     {
-        _randomizerDriver.SetRandomString(stringType, variableName);
+        randomizerDriver.SetRandomString(stringType, variableName);
     }
 }

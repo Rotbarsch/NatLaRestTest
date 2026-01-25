@@ -7,19 +7,13 @@ namespace NatLaRestTest.Bindings.Actions;
 /// <summary>
 /// Step bindings for setting scenario variables to explicit string values (single line or multiline).
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="BasicVariableBindings"/> class.
+/// </remarks>
+/// <param name="basicVariableDriver">Driver component used to set variables.</param>
 [Binding]
-public class BasicVariableBindings : IBasicVariableBindings
+public class BasicVariableBindings(IBasicVariableDriver basicVariableDriver) : IBasicVariableBindings
 {
-    private readonly IBasicVariableDriver _basicVariableDriver;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BasicVariableBindings"/> class.
-    /// </summary>
-    /// <param name="basicVariableDriver">Driver component used to set variables.</param>
-    public BasicVariableBindings(IBasicVariableDriver basicVariableDriver)
-    {
-        _basicVariableDriver = basicVariableDriver;
-    }
 
     /// <summary>
     /// When step: Sets the specified scenario variable to the provided string value.
@@ -29,7 +23,7 @@ public class BasicVariableBindings : IBasicVariableBindings
     /// <param name="variableName">The name of the variable to set.</param>
     [When("the value '(.*)' is stored in variable '(.*)'")]
     public void SetVariableManually(string value, string variableName) =>
-        _basicVariableDriver.SetVariable(variableName, value);
+        basicVariableDriver.SetVariable(variableName, value);
 
     /// <summary>
     /// When step: Sets the specified scenario variable to the provided multiline string value.
@@ -39,12 +33,12 @@ public class BasicVariableBindings : IBasicVariableBindings
     /// <param name="value">The value to assign to the variable.</param>
     [When("the following value is stored in variable '(.*)':")]
     public void SetVariableManuallyMultiline(string variableName, string value) =>
-        _basicVariableDriver.SetVariable(variableName, value);
+        basicVariableDriver.SetVariable(variableName, value);
 
     /// <summary>
     /// When step: Sets the specified scenario variable to null.
     /// </summary>
     /// <param name="variableName">The name of the variable to set.</param>
     [When("the value of variable '(.*)' is set to null")]
-    public void SetVariableNull(string variableName)=> _basicVariableDriver.SetVariable(variableName, null);
+    public void SetVariableNull(string variableName)=> basicVariableDriver.SetVariable(variableName, null);
 }

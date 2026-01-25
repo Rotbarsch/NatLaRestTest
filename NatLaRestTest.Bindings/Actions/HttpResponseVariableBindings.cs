@@ -7,19 +7,13 @@ namespace NatLaRestTest.Bindings.Actions;
 /// <summary>
 ///     Step bindings for storing parts of the HTTP response (e.g., body) into scenario variables.
 /// </summary>
+/// <remarks>
+///     Initializes a new instance of the <see cref="HttpResponseVariableBindings" /> class.
+/// </remarks>
+/// <param name="httpClientDriver">Driver component used to access the current HTTP response and store values.</param>
 [Binding]
-public class HttpResponseVariableBindings : IHttpResponseVariableBindings
+public class HttpResponseVariableBindings(IHttpClientDriver httpClientDriver) : IHttpResponseVariableBindings
 {
-    private readonly IHttpClientDriver _httpClientDriver;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="HttpResponseVariableBindings" /> class.
-    /// </summary>
-    /// <param name="httpClientDriver">Driver component used to access the current HTTP response and store values.</param>
-    public HttpResponseVariableBindings(IHttpClientDriver httpClientDriver)
-    {
-        _httpClientDriver = httpClientDriver;
-    }
 
     /// <summary>
     ///     When step: Stores the body of the current HTTP response as a string in the specified variable. Asserts that a
@@ -29,7 +23,7 @@ public class HttpResponseVariableBindings : IHttpResponseVariableBindings
     [When("the response body is stored in variable '(.*)'")]
     public async Task StoreResponseBody(string variableName)
     {
-        await _httpClientDriver.StoreResponseBodyInVariable(variableName);
+        await httpClientDriver.StoreResponseBodyInVariable(variableName);
     }
 
     /// <summary>
@@ -40,7 +34,7 @@ public class HttpResponseVariableBindings : IHttpResponseVariableBindings
     [When("the value of header '(.*)' is stored in variable '(.*)'")]
     public void StoreResponseHeaderValue(string headerName, string variableName)
     {
-        _httpClientDriver.StoreResponseHeaderValueInVariable(headerName, variableName);
+        httpClientDriver.StoreResponseHeaderValueInVariable(headerName, variableName);
     }
 
     /// <summary>
@@ -50,6 +44,6 @@ public class HttpResponseVariableBindings : IHttpResponseVariableBindings
     [When("the response time is stored in variable '(.*)'")]
     public void StoreResponseTime(string variableName)
     {
-        _httpClientDriver.StoreResponseTimeInVariable(variableName);
+        httpClientDriver.StoreResponseTimeInVariable(variableName);
     }
 }

@@ -8,19 +8,13 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 ///     Step bindings for manipulating existing DateTime variables by adding or subtracting a TimeSpan, and computing
 ///     differences.
 /// </summary>
+/// <remarks>
+///     Initializes a new instance of the <see cref="DateTimeVariableManipulationBindings" /> class.
+/// </remarks>
+/// <param name="dateTimeDriver">Driver component for DateTime operations.</param>
 [Binding]
-public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulationBindings
+public class DateTimeVariableManipulationBindings(IDateTimeDriver dateTimeDriver) : IDateTimeVariableManipulationBindings
 {
-    private readonly IDateTimeDriver _dateTimeDriver;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="DateTimeVariableManipulationBindings" /> class.
-    /// </summary>
-    /// <param name="dateTimeDriver">Driver component for DateTime operations.</param>
-    public DateTimeVariableManipulationBindings(IDateTimeDriver dateTimeDriver)
-    {
-        _dateTimeDriver = dateTimeDriver;
-    }
 
     /// <summary>
     ///     When step: Adds the provided timespan to the current DateTime value stored in the specified variable.
@@ -30,7 +24,7 @@ public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulatio
     [When("the timespan '(.*)' is added to the value of variable '(.*)'")]
     public void AddTimeSpanToVariable(string timeSpan, string variableName)
     {
-        _dateTimeDriver.AddTimeSpanToVariable(timeSpan, variableName);
+        dateTimeDriver.AddTimeSpanToVariable(timeSpan, variableName);
     }
 
     /// <summary>
@@ -41,7 +35,7 @@ public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulatio
     [When("the timespan '(.*)' is subtracted from the value of variable '(.*)'")]
     public void SubtractTimeSpanFromVariable(string timeSpan, string variableName)
     {
-        _dateTimeDriver.SubtractTimeSpanFromVariable(timeSpan, variableName);
+        dateTimeDriver.SubtractTimeSpanFromVariable(timeSpan, variableName);
     }
 
     /// <summary>
@@ -53,6 +47,6 @@ public class DateTimeVariableManipulationBindings : IDateTimeVariableManipulatio
     [When("the date '(.*)' is stored in variable '(.*)' in format '(.*)'")]
     public void SaveFormattedDateTime(string dateTime, string targetVariableName, string format)
     {
-        _dateTimeDriver.SaveDateTimeFormatted(dateTime, format, targetVariableName);
+        dateTimeDriver.SaveDateTimeFormatted(dateTime, format, targetVariableName);
     }
 }

@@ -11,7 +11,7 @@ public class VariableService : IVariableService
 {
     private const string TestVariablesName = "reqnroll.json";
 
-    private readonly Dictionary<string, string?> _variableStorage = new();
+    private readonly Dictionary<string, string?> _variableStorage = [];
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="VariableService" /> class and loads default variables from

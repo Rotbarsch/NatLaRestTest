@@ -7,19 +7,13 @@ namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 /// <summary>
 ///     Step bindings for executing artihmetics.
 /// </summary>
+/// <remarks>
+///     Initializes a new instance of the <see cref="NumericVariableManipulationBindings" /> class.
+/// </remarks>
+/// <param name="numericService">Driver component used to perform numeric operations.</param>
 [Binding]
-public class NumericVariableManipulationBindings : INumericVariableManipulationBindings
+public class NumericVariableManipulationBindings(INumericService numericService) : INumericVariableManipulationBindings
 {
-    private readonly INumericService _numericService;
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="NumericVariableManipulationBindings" /> class.
-    /// </summary>
-    /// <param name="numericService">Driver component used to perform numeric operations.</param>
-    public NumericVariableManipulationBindings(INumericService numericService)
-    {
-        _numericService = numericService;
-    }
 
     /// <summary>
     /// Adds two numbers and stores the result in a variable.
