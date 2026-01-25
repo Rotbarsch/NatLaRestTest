@@ -136,14 +136,14 @@ Step bindings for manipulating existing DateTime variables by adding or subtract
 <a id="class-natlaresttestbindingsactionsmanipulatevariableactionsnumericvariablemanipulationbindings"></a>
 ## Class: NatLaRestTest.Bindings.Actions.ManipulateVariableActions.NumericVariableManipulationBindings
 
-Step bindings for manipulating existing numeric variables by applying arithmetic operations.
+Step bindings for executing artihmetics.
 
 | MethodName | BindingValue | Comments |
 |------------|--------------|----------|
-| AddNumberToVariable | When the number '(.\*)' is added to the value of variable '(.\*)' | When step: Adds the provided number to the current numeric value stored in the specified variable.<br>*number*: The number to add.<br>*variableName*: The target variable name. |
-| DivideVariableByNumber | When the value of variable '(.\*)' is divided by the number '(.\*)' | When step (inverse of above): Divides the current numeric value stored in the specified variable by the provided<br>                number (variable / number).<br>*variableName*: The variable containing the dividend.<br>*number*: The divisor. |
-| MultiplyNumberWithVariable | When the value of variable '(.\*)' is multiplied with the number '(.\*)' | When step: Multiplies the provided number with the current numeric value stored in the specified variable.<br>*variableName*: The target variable name.<br>*number*: The number to multiply with. |
-| SubtractNumberFromVariable | When the number '(.\*)' is subtracted from the value of variable '(.\*)' | When step: Subtracts the provided number from the current numeric value stored in the specified variable (variable<br>                - number).<br>*number*: The number to subtract.<br>*variableName*: The target variable name. |
+| Addition | When the sum of '(.\*)' plus '(.\*)' is stored in variable '(.\*)' | Adds two numbers and stores the result in a variable.<br>*summand1*: Summand.<br>*summand2*: Summand.<br>*targetVariableName*: Name of target variable to store sum in. |
+| Division | When the quotient of '(.\*)' divided by '(.\*)' is stored in variable '(.\*)' | Divides one number by another and stores the result in a variable.<br>*dividend*: Divided.<br>*divisor*: Dividend.<br>*targetVariableName*: Name of target variable to store quotient in. |
+| Multiplication | When the product of '(.\*)' multiplied by '(.\*)' is stored in variable '(.\*)' | Multiplies one number with another and stores the result in a variable.<br>*factor1*: Factor.<br>*factor2*: Factor.<br>*targetVariableName*: Name of target variable to store product in. |
+| Subtraction | When the difference of '(.\*)' minus '(.\*)' is stored in variable '(.\*)' | Subtracts one number from another and stores the result in a variable.<br>*minuend*: Minuend.<br>*subtrahend*: Subtrahend.<br>*targetVariableName*: Name of target variable to store difference in. |
 
 
 <a id="class-natlaresttestbindingsactionsmanipulatevariableactionsstringvariablemanipulationbindings"></a>

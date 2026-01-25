@@ -2,26 +2,9 @@
 
 public interface INumericVariableManipulationBindings
 {
-    /// <summary>
-    ///     When step: Adds the provided number to the current numeric value stored in the specified variable.
-    /// </summary>
-    /// <param name="number">The number to add.</param>
-    /// <param name="variableName">The target variable name.</param>
-    void AddNumberToVariable(double number, string variableName);
-    
-    /// <summary>
-    ///     When step (inverse of above): Divides the current numeric value stored in the specified variable by the provided
-    ///     number (variable / number).
-    /// </summary>
-    /// <param name="variableName">The variable containing the dividend.</param>
-    /// <param name="number">The divisor.</param>
-    void DivideVariableByNumber(string variableName, double number);
 
-    /// <summary>
-    ///     When step: Subtracts the provided number from the current numeric value stored in the specified variable (variable
-    ///     - number).
-    /// </summary>
-    /// <param name="number">The number to subtract.</param>
-    /// <param name="variableName">The target variable name.</param>
-    void SubtractNumberFromVariable(double number, string variableName);
+    public void Addition(string summand1, string summand2, string targetVariableName);
+    public void Subtraction(string minuend, string subtrahend, string targetVariableName);
+    public void Multiplication(string factor1, string factor2, string targetVariableName);
+    public void Division(string dividend, string divisor, string targetVariableName);
 }

@@ -7,9 +7,14 @@ Scenario: Basic functionality - comparisons
 
 Scenario: Basic functionaly - arithmetics
 	When the value '10' is stored in variable 'ari_var'
-	And the number '5' is added to the value of variable 'ari_var'
-	And the value of variable 'ari_var' is multiplied with the number '2'
-	And the value of variable 'ari_var' is divided by the number '6'
-	And the number '2' is subtracted from the value of variable 'ari_var'
-	Then the value of variable 'ari_var' equals '3'
+	And the sum of '$(ari_var)' plus '5' is stored in variable 'ari_result_add'
+	Then the value of variable 'ari_result_add' equals '15'
 	
+	When the difference of '$(ari_var)' minus '3' is stored in variable 'ari_result_sub'
+	Then the value of variable 'ari_result_sub' equals '7'
+
+	When the quotient of '$(ari_var)' divided by '4' is stored in variable 'ari_result_div'
+	Then the value of variable 'ari_result_div' equals '2.5'
+
+	When the product of '$(ari_var)' multiplied by '2' is stored in variable 'ari_result_mul'
+	Then the value of variable 'ari_result_mul' equals '20'

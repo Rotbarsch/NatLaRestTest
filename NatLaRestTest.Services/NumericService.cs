@@ -20,75 +20,35 @@ public class NumericService : INumericService
         _variableService = variableService;
     }
 
-    /// <summary>
-    /// Adds a number to the numeric value stored in the variable.
-    /// </summary>
-    public void AddNumberToVariable(double number, string variableName)
+    public void Addition(string summand1, string summand2, string targetVariableName)
     {
-        var current = _variableService.GetVariable(variableName);
+        Assert.IsTrue(ParseNumber(summand1, out var s1), $"Failed to parse '{summand1}' as a number.");
+        Assert.IsTrue(ParseNumber(summand2, out var s2), $"Failed to parse '{summand2}' as a number.");
 
-        Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
-
-        var result = currentValue + number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        _variableService.SetVariable(targetVariableName, (s1 + s2).ToString(CultureInfo.InvariantCulture));
     }
 
-    /// <summary>
-    /// Multiplies the numeric value stored in the variable by the specified number.
-    /// </summary>
-    public void MultiplyNumberWithVariable(double number, string variableName)
+    public void Subtraction(string minuend, string subtrahend, string targetVariableName)
     {
-        var current = _variableService.GetVariable(variableName);
-        Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
-
-        var result = currentValue * number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        Assert.IsTrue(ParseNumber(minuend, out var m), $"Failed to parse '{minuend}' as a number.");
+        Assert.IsTrue(ParseNumber(subtrahend, out var s), $"Failed to parse '{subtrahend}' as a number.");
+        _variableService.SetVariable(targetVariableName, (m - s).ToString(CultureInfo.InvariantCulture));
     }
 
-    /// <summary>
-    /// Divides the specified number by the numeric value stored in the variable.
-    /// </summary>
-    public void DivideNumberByVariable(double number, string variableName)
+    public void Multiplication(string factor1, string factor2, string targetVariableName)
     {
-        var current = _variableService.GetVariable(variableName);
-        Assert.IsTrue(ParseNumber(current, out var divisor), $"Value '{current}' of variable {variableName} is not a parsable number.");
-        Assert.AreNotEqual(0d, divisor, $"Division by zero for variable '{variableName}'.");
-        var result = number / divisor;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        Assert.IsTrue(ParseNumber(factor1, out var f1), $"Failed to parse '{factor1}' as a number.");
+        Assert.IsTrue(ParseNumber(factor2, out var f2), $"Failed to parse '{factor2}' as a number.");
+
+        _variableService.SetVariable(targetVariableName, (f1 * f2).ToString(CultureInfo.InvariantCulture));
     }
 
-    /// <summary>
-    /// Divides the numeric value stored in the variable by the specified number.
-    /// </summary>
-    public void DivideVariableByNumber(string variableName, double number)
+    public void Division(string dividend, string divisor, string targetVariableName)
     {
-        var current = _variableService.GetVariable(variableName);
-        Assert.IsTrue(ParseNumber(current, out var dividend), $"Value '{current}' of variable {variableName} is not a parsable number.");
-        Assert.AreNotEqual(0d, number, "Division by zero.");
-        var result = dividend / number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
-    }
+        Assert.IsTrue(ParseNumber(dividend, out var d), $"Failed to parse '{dividend}' as a number.");
+        Assert.IsTrue(ParseNumber(divisor, out var di), $"Failed to parse '{divisor}' as a number.");
 
-    /// <summary>
-    /// Subtracts a number from the numeric value stored in the variable.
-    /// </summary>
-    public void SubtractNumberFromVariable(double number, string variableName)
-    {
-        var current = _variableService.GetVariable(variableName);
-        Assert.IsTrue(ParseNumber(current, out var currentValue), $"Value '{current}' of variable {variableName} is not a parsable number.");
-        var result = currentValue - number;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
-    }
-
-    /// <summary>
-    /// Subtracts the numeric value stored in the variable from the provided number.
-    /// </summary>
-    public void SubtractVariableFromNumber(string variableName, double number)
-    {
-        var current = _variableService.GetVariable(variableName);
-        Assert.IsTrue(ParseNumber(current, out var subtrahend), $"Value '{current}' of variable {variableName} is not a parsable number.");
-        var result = number - subtrahend;
-        _variableService.SetVariable(variableName, result.ToString(CultureInfo.InvariantCulture));
+        _variableService.SetVariable(targetVariableName, (d / di).ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
