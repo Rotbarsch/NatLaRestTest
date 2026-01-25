@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
 
     <IsPackable>true</IsPackable>
     <PackageId>NatLaRestTest.Services</PackageId>
@@ -23,6 +25,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NatLaRestTest.Services.Interfaces\NatLaRestTest.Services.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>

@@ -10,16 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NatLaRestTest.Bindings.Interfaces" Version="0.0.1-preview5" />
+    <PackageReference Include="NatLaRestTest.Core" Version="0.0.1-preview5" />
+    <PackageReference Include="NatLaRestTest.Drivers.Interfaces" Version="0.0.1-preview5" />
     <PackageReference Include="Reqnroll" Version="3.3.2" />
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.2">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\NatLaRestTest.Bindings.Interfaces\NatLaRestTest.Bindings.Interfaces.csproj" />
-    <ProjectReference Include="..\NatLaRestTest.Core\NatLaRestTest.Core.csproj" />
-    <ProjectReference Include="..\NatLaRestTest.Drivers.Interfaces\NatLaRestTest.Drivers.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
