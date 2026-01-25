@@ -5,7 +5,7 @@ using Reqnroll;
 namespace NatLaRestTest.Bindings.Actions.ManipulateVariableActions;
 
 /// <summary>
-///     Step bindings for manipulating existing numeric variables by applying arithmetic operations.
+///     Step bindings for executing artihmetics.
 /// </summary>
 [Binding]
 public class NumericVariableManipulationBindings : INumericVariableManipulationBindings
@@ -22,48 +22,50 @@ public class NumericVariableManipulationBindings : INumericVariableManipulationB
     }
 
     /// <summary>
-    ///     When step: Adds the provided number to the current numeric value stored in the specified variable.
+    /// Adds two numbers and stores the result in a variable.
     /// </summary>
-    /// <param name="number">The number to add.</param>
-    /// <param name="variableName">The target variable name.</param>
-    [When("the number '(.*)' is added to the value of variable '(.*)'")]
-    public void AddNumberToVariable(double number, string variableName)
+    /// <param name="summand1">Summand.</param>
+    /// <param name="summand2">Summand.</param>
+    /// <param name="targetVariableName">Name of target variable to store sum in.</param>
+    [When("the sum of '(.*)' plus '(.*)' is stored in variable '(.*)'")]
+    public void Addition(string summand1, string summand2, string targetVariableName)
     {
-        _numericService.AddNumberToVariable(number, variableName);
+        _numericService.Addition(summand1, summand2, targetVariableName);
     }
 
     /// <summary>
-    ///     When step: Multiplies the provided number with the current numeric value stored in the specified variable.
+    /// Subtracts one number from another and stores the result in a variable.
     /// </summary>
-    /// <param name="number">The number to multiply with.</param>
-    /// <param name="variableName">The target variable name.</param>
-    [When("the value of variable '(.*)' is multiplied with the number '(.*)'")]
-    public void MultiplyNumberWithVariable(string variableName, double number)
+    /// <param name="minuend">Minuend.</param>
+    /// <param name="subtrahend">Subtrahend.</param>
+    /// <param name="targetVariableName">Name of target variable to store difference in.</param>
+    [When("the difference of '(.*)' minus '(.*)' is stored in variable '(.*)'")]
+    public void Subtraction(string minuend, string subtrahend, string targetVariableName)
     {
-        _numericService.MultiplyNumberWithVariable(number, variableName);
+        _numericService.Subtraction(minuend, subtrahend, targetVariableName);
     }
 
     /// <summary>
-    ///     When step (inverse of above): Divides the current numeric value stored in the specified variable by the provided
-    ///     number (variable / number).
+    /// Multiplies one number with another and stores the result in a variable.
     /// </summary>
-    /// <param name="variableName">The variable containing the dividend.</param>
-    /// <param name="number">The divisor.</param>
-    [When("the value of variable '(.*)' is divided by the number '(.*)'")]
-    public void DivideVariableByNumber(string variableName, double number)
+    /// <param name="factor1">Factor.</param>
+    /// <param name="factor2">Factor.</param>
+    /// <param name="targetVariableName">Name of target variable to store product in.</param>
+    [When("the product of '(.*)' multiplied by '(.*)' is stored in variable '(.*)'")]
+    public void Multiplication(string factor1, string factor2, string targetVariableName)
     {
-        _numericService.DivideVariableByNumber(variableName, number);
+        _numericService.Multiplication(factor1, factor2, targetVariableName);
     }
 
     /// <summary>
-    ///     When step: Subtracts the provided number from the current numeric value stored in the specified variable (variable
-    ///     - number).
+    /// Divides one number by another and stores the result in a variable.
     /// </summary>
-    /// <param name="number">The number to subtract.</param>
-    /// <param name="variableName">The target variable name.</param>
-    [When("the number '(.*)' is subtracted from the value of variable '(.*)'")]
-    public void SubtractNumberFromVariable(double number, string variableName)
+    /// <param name="dividend">Divided.</param>
+    /// <param name="divisor">Dividend.</param>
+    /// <param name="targetVariableName">Name of target variable to store quotient in.</param>
+    [When("the quotient of '(.*)' divided by '(.*)' is stored in variable '(.*)'")]
+    public void Division(string dividend, string divisor, string targetVariableName)
     {
-        _numericService.SubtractNumberFromVariable(number, variableName);
+        _numericService.Division(dividend, divisor, targetVariableName);
     }
 }
