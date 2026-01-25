@@ -24,7 +24,7 @@ public class NumericVariableManipulationBindings(INumericService numericService)
     [When("the sum of '(.*)' plus '(.*)' is stored in variable '(.*)'")]
     public void Addition(string summand1, string summand2, string targetVariableName)
     {
-        _numericService.Addition(summand1, summand2, targetVariableName);
+        numericService.Addition(summand1, summand2, targetVariableName);
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class NumericVariableManipulationBindings(INumericService numericService)
     [When("the difference of '(.*)' minus '(.*)' is stored in variable '(.*)'")]
     public void Subtraction(string minuend, string subtrahend, string targetVariableName)
     {
-        _numericService.Subtraction(minuend, subtrahend, targetVariableName);
+        numericService.Subtraction(minuend, subtrahend, targetVariableName);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class NumericVariableManipulationBindings(INumericService numericService)
     [When("the product of '(.*)' multiplied by '(.*)' is stored in variable '(.*)'")]
     public void Multiplication(string factor1, string factor2, string targetVariableName)
     {
-        _numericService.Multiplication(factor1, factor2, targetVariableName);
+        numericService.Multiplication(factor1, factor2, targetVariableName);
     }
 
     /// <summary>
@@ -60,6 +60,6 @@ public class NumericVariableManipulationBindings(INumericService numericService)
     [When("the quotient of '(.*)' divided by '(.*)' is stored in variable '(.*)'")]
     public void Division(string dividend, string divisor, string targetVariableName)
     {
-        _numericService.Division(dividend, divisor, targetVariableName);
+        numericService.Division(dividend, divisor, targetVariableName);
     }
 }
