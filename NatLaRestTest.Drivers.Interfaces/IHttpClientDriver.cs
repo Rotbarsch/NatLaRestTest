@@ -101,4 +101,9 @@ public interface IHttpClientDriver
     /// </summary>
     /// <param name="variableName">The target variable name.</param>
     void StoreResponseTimeInVariable(string variableName);
+
+    /// <summary>
+    /// Enables NTLM authentication for outgoing requests.
+    /// </summary>
+    void EnableNtlmAuthentication();
 }

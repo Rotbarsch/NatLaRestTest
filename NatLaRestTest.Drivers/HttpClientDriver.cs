@@ -163,4 +163,12 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     {
         httpClientService.StoreResponseTimeInVariable(variableName);
     }
+
+    /// <summary>
+    /// Enables NTLM authentication for outgoing requests, using the executing user as credential.
+    /// </summary>
+    public void EnableNtlmAuthentication()
+    {
+        httpClientService.EnableNtlm();
+    }
 }

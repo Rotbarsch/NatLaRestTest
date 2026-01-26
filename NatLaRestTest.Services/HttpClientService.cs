@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Runtime.Versioning;
 using System.Text;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
@@ -20,6 +21,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
 {
     private readonly HttpClientOptions _httpClientOptions = new();
     private long? _responseTime;
+    private bool _useNtlm;
 
     /// <summary>
     ///     Gets or sets the current HTTP response captured by the Service.
@@ -195,6 +197,14 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         variableService.SetVariable(variableName, _responseTime!.ToString());
     }
 
+    [SupportedOSPlatform("windows")]
+    public void EnableNtlm()
+    {
+        var name = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+        _useNtlm = true;
+        loggingService.WriteLine($"Authenticating via NTLM as user '{name}'.");
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         CurrentResponse?.Dispose();
@@ -209,7 +219,10 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         HttpClient httpClient;
         if (_httpClientOptions.CheckSsl)
         {
-            httpClient = new();
+            httpClient = new(new HttpClientHandler()
+            {
+                UseDefaultCredentials = _useNtlm,
+            });
         }
         else
         {
@@ -217,6 +230,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
             {
                 ClientCertificateOptions = ClientCertificateOption.Manual,
                 ServerCertificateCustomValidationCallback = (_, _, _, _) => true,
+                UseDefaultCredentials = _useNtlm,
             };
             httpClient = new(httpClientHandler);
         }

@@ -49,4 +49,13 @@ public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver)
     {
         httpClientDriver.DisableSslCertificateValidation();
     }
+
+    /// <summary>
+    /// Given step: Enabled NTLM authentication for outgoing requests, using the executing user as credential.
+    /// </summary>
+    [Given("NTLM authentication is enabled")]
+    public void EnableNtlmAuthentication()
+    {
+        httpClientDriver.EnableNtlmAuthentication();
+    }
 }

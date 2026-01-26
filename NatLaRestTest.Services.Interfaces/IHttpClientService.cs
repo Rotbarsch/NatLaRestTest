@@ -93,4 +93,9 @@ public interface IHttpClientService
     /// </summary>
     /// <param name="variableName">Target variable name.</param>
     void StoreResponseTimeInVariable(string variableName);
+
+    /// <summary>
+    /// Enabled NTLM authentication.
+    /// </summary>
+    void EnableNtlm();
 }
