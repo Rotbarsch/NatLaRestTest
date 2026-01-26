@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using NatLaRestTest.Core.Contracts;
+
 namespace NatLaRestTest.Services.Interfaces;
 
 /// <summary>
@@ -95,7 +98,13 @@ public interface IHttpClientService
     void StoreResponseTimeInVariable(string variableName);
 
     /// <summary>
-    /// Enabled NTLM authentication.
+    /// Enables NTLM authentication.
     /// </summary>
     void EnableNtlm();
+
+    /// <summary>
+    /// Enables OAuth authentication.
+    /// </summary>
+    /// <param name="options">OAuth configuration.</param>
+    Task EnableOAuth(OAuthOptions options);
 }

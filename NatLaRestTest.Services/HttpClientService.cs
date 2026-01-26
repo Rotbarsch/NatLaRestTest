@@ -1,7 +1,14 @@
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Versioning;
 using System.Text;
+using System.Threading.Tasks;
+using NatLaRestTest.Core.Contracts;
+using NatLaRestTest.Services.Helpers.OAuth;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 
@@ -22,6 +29,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     private readonly HttpClientOptions _httpClientOptions = new();
     private long? _responseTime;
     private bool _useNtlm;
+    private OAuthHelper? _oAuthService;
 
     /// <summary>
     ///     Gets or sets the current HTTP response captured by the Service.
@@ -59,17 +67,8 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
             msg.Content = new StringContent(requestBody, new MediaTypeHeaderValue(contentType));
         }
 
-
         await LogHttpRequest(msg);
-        using (var httpClient = GetConfiguredHttpClient())
-        {
-            var sw = Stopwatch.StartNew();
-            CurrentResponse = await httpClient.SendAsync(msg);
-            sw.Stop();
-            loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
-            _responseTime = sw.ElapsedMilliseconds;
-        }
-
+        await SendHttpRequestMessage(msg);
         await LogHttpResponse(CurrentResponse);
     }
 
@@ -97,10 +96,8 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         };
 
         await LogHttpRequest(msg);
-        using (var httpClient = GetConfiguredHttpClient())
-        {
-            CurrentResponse = await httpClient.SendAsync(msg);
-        }
+
+        await SendHttpRequestMessage(msg);
 
         await LogHttpResponse(CurrentResponse);
     }
@@ -205,9 +202,31 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         loggingService.WriteLine($"Authenticating via NTLM as user '{name}'.");
     }
 
+    public async Task EnableOAuth(OAuthOptions options)
+    {
+        _oAuthService = new OAuthHelper(options);
+        await _oAuthService.GetOAuthToken();
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         CurrentResponse?.Dispose();
+    }
+
+    private async Task SendHttpRequestMessage(HttpRequestMessage msg)
+    {
+        if (_oAuthService is not null)
+        {
+            // Add Bearer token if OAuth is configured
+            msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _oAuthService.GetOAuthToken());
+        }
+
+        using var httpClient = GetConfiguredHttpClient();
+        var sw = Stopwatch.StartNew();
+        CurrentResponse = await httpClient.SendAsync(msg);
+        sw.Stop();
+        loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
+        _responseTime = sw.ElapsedMilliseconds;
     }
 
     /// <summary>
@@ -289,8 +308,10 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     ///     Logs summary details of the received HTTP response.
     /// </summary>
     /// <param name="currentResponse">The HTTP response message.</param>
-    private async Task LogHttpResponse(HttpResponseMessage currentResponse)
+    private async Task LogHttpResponse(HttpResponseMessage? currentResponse)
     {
+        if (currentResponse is null) return;
+
         var bodyLength = (await currentResponse.Content.ReadAsByteArrayAsync()).Length;
 
         var sb = new StringBuilder();

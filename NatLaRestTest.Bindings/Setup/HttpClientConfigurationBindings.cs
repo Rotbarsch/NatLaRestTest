@@ -1,4 +1,6 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Setup;
+﻿using System.Threading.Tasks;
+using NatLaRestTest.Bindings.Interfaces.Setup;
+using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
@@ -57,5 +59,25 @@ public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver)
     public void EnableNtlmAuthentication()
     {
         httpClientDriver.EnableNtlmAuthentication();
+    }
+
+    /// <summary>
+    /// Given step: Sets up OAuth authentication for outgoing requests, using the provided parameters.
+    /// </summary>
+    /// <param name="oAuthSettings">
+    /// Formatted as a reqnroll data table with the following entries for fields:
+    /// - TokenEndpoint
+    /// - ClientId
+    /// - ClientSecret
+    /// - Scope (optional)
+    /// - GrantType (optional, defaults to client_credentials)
+    /// - Audience (optional)
+    /// - ExtraParameter (optional; separated by ';' e.g., "key1=value1;key2=value2")
+    /// </param>
+    [Given("OAuth is configured with the following parameters:")]
+    public async Task EnableOAuth(DataTable oAuthSettings)
+    {
+        var options = oAuthSettings.CreateInstance<OAuthOptions>();
+        await httpClientDriver.EnableOAuth(options);
     }
 }

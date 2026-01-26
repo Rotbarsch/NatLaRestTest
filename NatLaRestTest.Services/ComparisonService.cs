@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Core.Contracts;
+﻿using System;
+using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;

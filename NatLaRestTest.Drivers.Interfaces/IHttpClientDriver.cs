@@ -1,4 +1,7 @@
-﻿namespace NatLaRestTest.Drivers.Interfaces;
+﻿using System.Threading.Tasks;
+using NatLaRestTest.Core.Contracts;
+
+namespace NatLaRestTest.Drivers.Interfaces;
 
 /// <summary>
 /// Defines high-level HTTP client operations and assertions used by Driver components.
@@ -106,4 +109,10 @@ public interface IHttpClientDriver
     /// Enables NTLM authentication for outgoing requests.
     /// </summary>
     void EnableNtlmAuthentication();
+
+    /// <summary>
+    /// Configures and fetches OAuth tokens for outgoing requests.
+    /// </summary>
+    /// <param name="options"></param>
+    Task EnableOAuth(OAuthOptions options);
 }

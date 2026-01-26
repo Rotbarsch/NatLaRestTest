@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 

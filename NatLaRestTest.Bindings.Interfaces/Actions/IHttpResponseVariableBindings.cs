@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Bindings.Interfaces.Actions;
+﻿using System.Threading.Tasks;
+
+namespace NatLaRestTest.Bindings.Interfaces.Actions;
 
 public interface IHttpResponseVariableBindings
 {

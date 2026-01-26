@@ -1,6 +1,6 @@
 Feature: HttpClient
 
-The demoApiBaseUrl variable is read from reqnroll.json
+The demoApiBaseUrl variable is read from reqnroll.json Use the tests in here with a running instance of the NatLaRestTest.DemoWebApi project.
 
 Background:
 	Given SSL certificate validation is disabled

@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using System;
+using Bogus;
 using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;

@@ -1,7 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text.RegularExpressions;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
+using DataTable = Reqnroll.DataTable;
 
 namespace NatLaRestTest.Core;
 
@@ -15,6 +20,24 @@ namespace NatLaRestTest.Core;
 [Binding]
 public class VariableNameTransformer(IVariableService variableService)
 {
+    /// <summary>
+    /// Gets all variables marked by $() in a DataTable and resolves them to their values.
+    /// Supports nested placeholders by resolving innermost first.
+    /// </summary>
+    /// <param name="dataTable">Input datatable.</param>
+    /// <returns>New DataTable with all variable instances resolved to their values.</returns>
+    [StepArgumentTransformation]
+    public DataTable ResolveVariablesInDataTable(DataTable dataTable)
+    {
+        var resultDt = new DataTable(dataTable.Header.ToArray());
+
+        foreach (var r in dataTable.Rows)
+        {
+            resultDt.AddRow(r.Values.Select(ResolveVariable).ToArray());
+        }
+
+        return resultDt;
+    }
 
     /// <summary>
     ///     Gets all variables marked by $() and resolves them to their values.
@@ -22,7 +45,6 @@ public class VariableNameTransformer(IVariableService variableService)
     /// </summary>
     /// <param name="argument">The original step argument which may contain variable placeholders in the form $(variableName).</param>
     /// <returns>The argument string with all variable placeholders replaced by their resolved values.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when argument is null.</exception>
     [StepArgumentTransformation]
     public string? ResolveVariable(string argument)
     {
