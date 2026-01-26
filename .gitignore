@@ -421,3 +421,4 @@ FodyWeavers.xsd
 
 *.feature.cs
 /NatLaRestTest.DemoWebApi/appsettings.Development.json
+/NatLaRestTest.Demo/TestData/oauth.json
