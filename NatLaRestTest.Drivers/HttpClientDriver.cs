@@ -1,4 +1,6 @@
-﻿using NatLaRestTest.Drivers.Interfaces;
+﻿using System.Threading.Tasks;
+using NatLaRestTest.Core.Contracts;
+using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 
@@ -170,5 +172,14 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     public void EnableNtlmAuthentication()
     {
         httpClientService.EnableNtlm();
+    }
+
+    /// <summary>
+    /// Enables OAuth authentication for outgoing requests, using the provided options.
+    /// </summary>
+    /// <param name="options">OAuth configuration.</param>
+    public async Task EnableOAuth(OAuthOptions options)
+    {
+        await httpClientService.EnableOAuth(options);
     }
 }

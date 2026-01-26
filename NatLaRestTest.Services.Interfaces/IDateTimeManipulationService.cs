@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Services.Interfaces;
+﻿using System;
+
+namespace NatLaRestTest.Services.Interfaces;
 
 /// <summary>
 ///     Provides operations to parse and manipulate <see cref="DateTime" /> and <see cref="TimeSpan" /> values.

@@ -1,4 +1,4 @@
-﻿namespace NatLaRestTest.Bindings.Actions.SetVariableActions;
+﻿namespace NatLaRestTest.Bindings.Interfaces.Assertions;
 
 /// <summary>
 /// Defines methods for reading variable values from files and loading variables from a JSON file into variable storage.

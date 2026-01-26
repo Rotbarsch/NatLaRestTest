@@ -1,4 +1,7 @@
-﻿namespace NatLaRestTest.Bindings.Interfaces.Setup;
+﻿using System.Threading.Tasks;
+using Reqnroll;
+
+namespace NatLaRestTest.Bindings.Interfaces.Setup;
 
 public interface IHttpClientConfigurationBindings
 {
@@ -25,4 +28,24 @@ public interface IHttpClientConfigurationBindings
     ///     Given step: Disables SSL certificate validation for outgoing requests.
     /// </summary>
     void DisableSslCertificateValidation();
+
+    /// <summary>
+    /// Given step: Enabled NTLM authentication for outgoing requests, using the executing user as credential.
+    /// </summary>
+    void EnableNtlmAuthentication();
+
+    /// <summary>
+    /// Given step: Sets up OAuth authentication for outgoing requests, using the provided parameters.
+    /// </summary>
+    /// <param name="oAuthSettings">
+    /// Formatted as a reqnroll data table with the following entries for fields:
+    /// - TokenEndpoint
+    /// - ClientId
+    /// - ClientSecret
+    /// - Scope (optional)
+    /// - GrantType (optional, defaults to client_credentials)
+    /// - Audience (optional)
+    /// - ExtraParameter (optional; seperated by ;, e.g., "key1=value1;key2=value2")
+    /// </param>
+    Task EnableOAuth(DataTable oAuthSettings);
 }
