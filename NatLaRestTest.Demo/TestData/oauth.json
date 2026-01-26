@@ -1,0 +1,20 @@
+{
+  "testVariables": [
+    {
+      "name": "oauth.tokenendpoint",
+      "value": ""
+    },
+    {
+      "name": "oauth.clientid",
+      "value": ""
+    },
+    {
+      "name": "oauth.clientsecret",
+      "value": ""
+    },
+    {
+      "name": "oauth.audience",
+      "value": ""
+    }
+  ]
+}
