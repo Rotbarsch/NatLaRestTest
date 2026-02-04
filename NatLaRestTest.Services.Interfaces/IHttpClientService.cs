@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using NatLaRestTest.Core.Contracts;
 
 namespace NatLaRestTest.Services.Interfaces;

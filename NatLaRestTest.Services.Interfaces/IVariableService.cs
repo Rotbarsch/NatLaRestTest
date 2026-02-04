@@ -18,11 +18,17 @@ public interface IVariableService
     /// <param name="variableName">The variable name.</param>
     /// <param name="variableValue">The value to store.</param>
     void SetVariable(string variableName, string? variableValue);
+    
+    /// <summary>
+    /// Replaces all variables in a given string (denoted by $() syntax with their actual value.
+    /// </summary>
+    /// <param name="stringWithPlaceholders">A string containing 0 or more placeholders.</param>
+    /// <returns>String with resolved placeholders.</returns>
+    string? ResolvePlaceHolderString(string stringWithPlaceholders);
 
     /// <summary>
-    ///     Loads variables from a JSON file in the expected format.
+    /// Extracts relevant variables from the supplied json.
     /// </summary>
-    /// <param name="filePath">Path to the JSON file.</param>
-    /// <param name="failIfNotExist">If true, asserts failure when the file does not exist.</param>
-    void LoadVariablesFromFile(string filePath, bool failIfNotExist = false);
+    /// <param name="json">JSON to parse.</param>
+    void LoadVariablesFromJson(string? json);
 }

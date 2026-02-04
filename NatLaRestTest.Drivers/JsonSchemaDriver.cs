@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;

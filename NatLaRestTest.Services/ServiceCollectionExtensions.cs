@@ -8,10 +8,12 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterNatLaRestTestServices(this IServiceCollection serviceCollection)
     {
         serviceCollection
+            .AddSingleton<INatLaRestTestSettingsService, NatLaRestTestSettingsService>()
             .AddScoped<IBoolService, BoolService>()
             .AddScoped<IComparisonService, ComparisonService>()
             .AddScoped<ICultureInfoService, CultureInfoService>()
             .AddScoped<IDateTimeManipulationService, DateTimeManipulationService>()
+            .AddScoped<IFileSystemService, FileSystemService>()
             .AddScoped<IHttpClientService, HttpClientService>()
             .AddScoped<IJsonPathService, JsonPathService>()
             .AddScoped<INumericService, NumericService>()
