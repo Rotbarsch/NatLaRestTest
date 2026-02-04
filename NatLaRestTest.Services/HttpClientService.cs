@@ -138,6 +138,11 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     /// <inheritdoc />
     public void SetDefaultHeader(string headerName, string headerValue)
     {
+        if (_httpClientOptions.DefaultRequestHeaders.ContainsKey(headerName))
+        {
+            _httpClientOptions.DefaultRequestHeaders.Remove(headerName);
+        }
+        
         _httpClientOptions.DefaultRequestHeaders.Add(headerName, headerValue);
     }
 
