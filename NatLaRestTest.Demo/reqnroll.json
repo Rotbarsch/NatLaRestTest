@@ -13,11 +13,5 @@
     {
       "assembly": "NatLaRestTest.Bindings"
     }
-  ],
-  "testVariables": [
-    {
-      "name": "demoApiBaseUrl",
-      "value": "https://localhost:7031"
-    }
   ]
 }

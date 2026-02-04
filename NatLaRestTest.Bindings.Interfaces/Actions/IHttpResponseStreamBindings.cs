@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace NatLaRestTest.Bindings.Interfaces.Actions;
+﻿namespace NatLaRestTest.Bindings.Interfaces.Actions;
 
 public interface IHttpResponseStreamBindings
 {

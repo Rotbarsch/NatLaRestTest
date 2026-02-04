@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using NatLaRestTest.Core.Contracts;
+﻿using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;

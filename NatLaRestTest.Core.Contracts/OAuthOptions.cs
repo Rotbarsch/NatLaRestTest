@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace NatLaRestTest.Core.Contracts;
 
 public record OAuthOptions

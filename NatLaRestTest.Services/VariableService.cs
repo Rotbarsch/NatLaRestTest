@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using NatLaRestTest.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using System.Text.RegularExpressions;
 
 namespace NatLaRestTest.Services;
 
@@ -10,17 +10,16 @@ namespace NatLaRestTest.Services;
 /// </summary>
 public class VariableService : IVariableService
 {
-    private const string TestVariablesName = "reqnroll.json";
-
+    private readonly INatLaRestTestSettingsService _settingsService;
     private readonly Dictionary<string, string?> _variableStorage = [];
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="VariableService" /> class and loads default variables from
-    ///     <see cref="TestVariablesName" />.
+    ///     Initializes a new instance of the <see cref="VariableService" /> class.
     /// </summary>
-    public VariableService()
+    public VariableService(INatLaRestTestSettingsService settingsService)
     {
-        LoadVariablesFromFile(TestVariablesName);
+        _settingsService = settingsService;
+        SetGlobalVariables();
     }
 
     /// <inheritdoc />
@@ -46,32 +45,54 @@ public class VariableService : IVariableService
         _variableStorage.Add(variableName, variableValue);
     }
 
-    /// <inheritdoc />
-    public void LoadVariablesFromFile(string filePath, bool failIfNotExist = false)
+    public string? ResolvePlaceHolderString(string? stringWithPlaceholders)
     {
-        var fileExists = File.Exists(filePath);
-        if (!fileExists && failIfNotExist)
+        if (string.IsNullOrEmpty(stringWithPlaceholders)) return stringWithPlaceholders;
+
+        // Match innermost placeholders only (no nested '(' or ')') in the variable name
+        var pattern = "\\$\\(([^\\(\\)]+)\\)";
+        var updated = stringWithPlaceholders;
+        var safetyCounter = 0;
+
+        // Resolve recursively until no more placeholders are found or safety limit reached
+        while (Regex.IsMatch(updated, pattern) && safetyCounter < 100)
         {
-            Assert.Fail($"File '{filePath}' does not exist.");
+            updated = Regex.Replace(updated, pattern, match =>
+            {
+                var variableName = match.Groups[1].Value;
+                var value = GetVariable(variableName);
+                return value ?? string.Empty;
+            });
+
+            safetyCounter++;
         }
 
-        if (fileExists)
+        return updated;
+    }
+
+    public void LoadVariablesFromJson(string? json)
+    {
+        var jToken = JToken.Parse(json ?? string.Empty);
+
+        if (jToken["testVariables"] is null) return;
+
+        foreach (var entry in jToken["testVariables"]!)
         {
-            var json = File.ReadAllText(filePath);
-            var jToken = JToken.Parse(json);
+            var name = entry.SelectToken("$.name")?.Value<string>();
+            var value = entry.SelectToken("$.value")?.Value<string?>();
 
-            if (jToken["testVariables"] is null) return;
-
-            foreach (var entry in jToken["testVariables"]!)
+            if (name is not null)
             {
-                var name = entry.SelectToken("$.name")?.Value<string>();
-                var value = entry.SelectToken("$.value")?.Value<string?>();
-
-                if (name is not null)
-                {
-                    SetVariable(name, value);
-                }
+                SetVariable(name, value);
             }
+        }
+    }
+
+    private void SetGlobalVariables()
+    {
+        foreach (var v in _settingsService.GetVariables())
+        {
+            SetVariable(v.Name, v.Value);
         }
     }
 }

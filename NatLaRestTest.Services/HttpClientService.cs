@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Versioning;
 using System.Text;
-using System.Threading.Tasks;
 using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Helpers.OAuth;
 using NatLaRestTest.Services.Interfaces;
@@ -138,11 +133,8 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     /// <inheritdoc />
     public void SetDefaultHeader(string headerName, string headerValue)
     {
-        if (_httpClientOptions.DefaultRequestHeaders.ContainsKey(headerName))
-        {
-            _httpClientOptions.DefaultRequestHeaders.Remove(headerName);
-        }
-        
+        _httpClientOptions.DefaultRequestHeaders.Remove(headerName);
+
         _httpClientOptions.DefaultRequestHeaders.Add(headerName, headerValue);
     }
 

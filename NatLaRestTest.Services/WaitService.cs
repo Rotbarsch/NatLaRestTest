@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using NatLaRestTest.Services.Interfaces;
+﻿using NatLaRestTest.Services.Interfaces;
 
 namespace NatLaRestTest.Services;
 

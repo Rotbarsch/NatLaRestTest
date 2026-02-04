@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using NatLaRestTest.Core.Contracts;
+﻿using NatLaRestTest.Core.Contracts;
 
 namespace NatLaRestTest.Drivers.Interfaces;
 

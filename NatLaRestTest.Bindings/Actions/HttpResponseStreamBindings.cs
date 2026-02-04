@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using NatLaRestTest.Bindings.Interfaces.Actions;
+﻿using NatLaRestTest.Bindings.Interfaces.Actions;
 using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 

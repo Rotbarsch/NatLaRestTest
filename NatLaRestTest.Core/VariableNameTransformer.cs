@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text.RegularExpressions;
-using NatLaRestTest.Services.Interfaces;
+﻿using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
 using DataTable = Reqnroll.DataTable;
@@ -49,25 +44,6 @@ public class VariableNameTransformer(IVariableService variableService)
     public string? ResolveVariable(string argument)
     {
         Assert.NotNull(argument);
-        
-        // Match innermost placeholders only (no nested '(' or ')') in the variable name
-        var pattern = "\\$\\(([^\\(\\)]+)\\)";
-        var updated = argument;
-        var safetyCounter = 0;
-
-        // Resolve recursively until no more placeholders are found or safety limit reached
-        while (Regex.IsMatch(updated, pattern) && safetyCounter < 100)
-        {
-            updated = Regex.Replace(updated, pattern, match =>
-            {
-                var variableName = match.Groups[1].Value;
-                var value = variableService.GetVariable(variableName);
-                return value ?? string.Empty;
-            });
-
-            safetyCounter++;
-        }
-
-        return updated;
+        return variableService.ResolvePlaceHolderString(argument);
     }
 }

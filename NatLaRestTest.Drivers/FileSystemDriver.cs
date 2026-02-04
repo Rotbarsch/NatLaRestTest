@@ -10,7 +10,8 @@ namespace NatLaRestTest.Drivers;
 /// Initializes a new instance of the <see cref="FileSystemDriver"/> class.
 /// </remarks>
 /// <param name="variableService">Service used to set and load scenario variables.</param>
-public class FileSystemDriver(IVariableService variableService) : IFileSystemDriver
+/// <param name="fileSystemService">Service used to interact with the file system.</param>
+public class FileSystemDriver(IVariableService variableService, IFileSystemService fileSystemService) : IFileSystemDriver
 {
 
     /// <summary>
@@ -20,7 +21,7 @@ public class FileSystemDriver(IVariableService variableService) : IFileSystemDri
     /// <param name="variableName">Name of the scenario variable to store the file content in.</param>
     public void SetVariableFromFile(string filePath, string variableName)
     {
-        var content = File.ReadAllText(filePath);
+        var content = fileSystemService.GetContentFromFile(filePath);
         variableService.SetVariable(variableName, content);
     }
 
@@ -30,6 +31,7 @@ public class FileSystemDriver(IVariableService variableService) : IFileSystemDri
     /// <param name="filePath">Path to the variables file (e.g., JSON).</param>
     public void LoadVariablesFile(string filePath)
     {
-        variableService.LoadVariablesFromFile(filePath);
+        var json = fileSystemService.GetContentFromFile(filePath);
+        variableService.LoadVariablesFromJson(json);
     }
 }

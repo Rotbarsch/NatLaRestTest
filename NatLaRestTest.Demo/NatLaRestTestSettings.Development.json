@@ -1,0 +1,22 @@
+{
+  "globalVariables": [
+    {
+      "name": "stage",
+      "value": "Test"
+    },
+    {
+      "name": "demoApiBaseUrl",
+      "value": "https://localhost:7031"
+    }
+  ],
+  "fileRedirects": [
+    {
+      "originalFileName": "TestData/ExampleVariables.json",
+      "redirect": "TestData/ExampleVariables.$(stage).json"
+    },
+    {
+      "originalFileName": "TestData/oauth.json",
+      "redirect": "TestData/oauth.$(stage).json"
+    }
+  ]
+}

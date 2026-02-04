@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using NatLaRestTest.Services.Extensions;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;

@@ -1,5 +1,7 @@
 Feature: File and external variables
 
+Keep in mind: All these variables are defined in ExampleVariables.Test.json, controlled by the NatlaRestTestSettings.json (and corresponding *.Development.json) file.
+
 Scenario: Read from file
 	When the content of file 'TestData/ExampleFile.txt' is stored in variable 'fileContent'
 	Then the value of variable 'fileContent' is not null
