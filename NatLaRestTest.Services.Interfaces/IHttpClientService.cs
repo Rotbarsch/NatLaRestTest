@@ -60,7 +60,7 @@ public interface IHttpClientService
     void SetDefaultTimeout(int seconds);
 
     /// <summary>
-    ///     Adds a default header to all outgoing HTTP requests.
+    ///     Adds a default header to all outgoing HTTP requests. If the header key already exists, value is overwritten.
     /// </summary>
     /// <param name="headerName">The header name.</param>
     /// <param name="headerValue">The header value.</param>
