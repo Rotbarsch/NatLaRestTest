@@ -162,6 +162,8 @@ This block allows you to specify additional configuration files to be loaded by 
 All files (and the default entry file) are loaded and merged together before test execution starts. In case of conflicts, the last loaded file wins, meaning that you can use this mechanism to override settings from the default configuration file.
 This allows you to have both a 'NatLaRestTestSettings.json' file with default settings and additional files like 'NatLaRestTestSettings.Development.json' or 'NatLaRestTestSettings.Production.json' with environment-specific overrides, which can also be included in a .gitignore file to keep secrets like API keys from being commited.
 
+Compare to appsettings.json files in ASP.NET Core applications, which work in a similar way.
+
 ### GlobalVariables Block
 This block allows you to define global variables that can be used throughout your tests. Global variables are accessible from any test and can be used to store values that need to be shared across multiple test cases.
 They are initialized before test execution starts, so they are available right from the beginning of your tests.
@@ -186,7 +188,7 @@ NatLaRestTest will instead try to load the file `variables.Development.json`, as
 
 This allows you to easily switch between different files based on the current environment or other criteria defined by your global variables.
 
-In contract to the mechanism for additional configuration files, file-redirects are not additive.
+In contrast to the mechanism for additional configuration files, file-redirects are not additive. Meaning, no file merging takes place and only the file defined in the redirect is loaded.
 
 ## Translating into other languages
 NatLaRestTest currently supports only English (en-US) as the language for writing test cases. However, since Reqnroll supports multiple languages, it is possible to translate the bindings into other languages.
