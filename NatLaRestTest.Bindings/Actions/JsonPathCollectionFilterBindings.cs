@@ -139,4 +139,28 @@ public class JsonPathCollectionFilterBindings(IJsonPathDriver jsonPathDriver) : 
     [When("each element of collection in variable '(.*)' where the value of JSONPath '(.*)' has no elements is stored in variable '(.*)'")]
     public void FilterCollectionByJPathHasNoElements(string sourceVariableName, string jPath, string targetVariableName) =>
         jsonPathDriver.FilterCollectionByJPath(sourceVariableName, jPath, targetVariableName, ComparisonOperation.HasNoElements);
+
+    /// <summary>
+    /// Filters the collection where the JSONPath value is valid (property does exist).
+    /// </summary>
+    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
+    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
+    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
+    [When("each element of collection in variable '(.*)' where the value of JSONPath '(.*)' is valid is stored in variable '(.*)'")]
+    public void FilterCollectionByJPathIsValid(string sourceVariableName, string jPath, string targetVariableName)
+    {
+        jsonPathDriver.FilterCollectionByJPath(sourceVariableName,jPath,targetVariableName,ComparisonOperation.JsonPathValid);
+    }
+
+    /// <summary>
+    /// Filters the collection where the JSONPath value is invalid (property does not exist).
+    /// </summary>
+    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
+    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
+    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
+    [When("each element of collection in variable '(.*)' where the value of JSONPath '(.*)' is not valid is stored in variable '(.*)'")]
+    public void FilterCollectionByJPathIsInvalid(string sourceVariableName, string jPath, string targetVariableName)
+    {
+        jsonPathDriver.FilterCollectionByJPath(sourceVariableName, jPath, targetVariableName, ComparisonOperation.JsonPathInvalid);
+    }
 }

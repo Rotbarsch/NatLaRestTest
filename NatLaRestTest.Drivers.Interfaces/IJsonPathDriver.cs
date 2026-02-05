@@ -81,4 +81,5 @@ public interface IJsonPathDriver
     void FilterCollectionByJPath(string sourceVariableName, string jPath, string targetVariableName, ComparisonOperation comparisonOperation, string? comparisonValue = null);
     
     void AssertJsonPathReturnsBoolean(string variableName, string jsonPath, bool expected);
+    void AssertJsonPathDoesNotReturnAnyValue(string jPath, string sourceVariableName);
 }

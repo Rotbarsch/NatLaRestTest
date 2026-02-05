@@ -62,6 +62,15 @@ public class JsonPathDriver(IJsonPathService jsonPathService, IVariableService v
     }
 
     /// <summary>
+    /// Asserts that the JSONPath does not resolve to any value.
+    /// </summary>
+    public void AssertJsonPathDoesNotReturnAnyValue(string jsonPath, string variable)
+    {
+        Assert.False(jsonPathService.JsonPathReturnsAnyValue(variableService.GetVariable(variable), jsonPath),
+            $"JSONPath expression '{jsonPath}' did resolve in variable '{variable}'.");
+    }
+
+    /// <summary>
     /// Asserts that the selected array has at least one element.
     /// </summary>
     public void AssertCollectionIsNotEmpty(string jsonPath, string variableName)
@@ -258,7 +267,9 @@ public class JsonPathDriver(IJsonPathService jsonPathService, IVariableService v
 
         foreach (var item in jArray)
         {
-            var jsonPathOnItem = jsonPathService.GetValueFromJsonPath(item.ToString(), jPath);
+            var jsonPathOnItem = comparisonOperation is ComparisonOperation.JsonPathValid or ComparisonOperation.JsonPathInvalid ?
+                jsonPathService.JsonPathReturnsAnyValue(item.ToString(), jPath).ToString() :
+                jsonPathService.GetValueFromJsonPath(item.ToString(), jPath);
 
             var fitsCriteria = comparisonDriver.Compare(jsonPathOnItem, comparisonOperation, comparisonValue);
 

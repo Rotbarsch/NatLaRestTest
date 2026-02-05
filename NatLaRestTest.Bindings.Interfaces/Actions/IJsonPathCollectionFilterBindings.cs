@@ -104,4 +104,20 @@ public interface IJsonPathCollectionFilterBindings
     /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
     /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
     void FilterCollectionByJPathHasNoElements(string sourceVariableName, string jPath, string targetVariableName);
+
+    /// <summary>
+    /// Filters the collection where the JSONPath value resolves to any value (so the property exists).
+    /// </summary>
+    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
+    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
+    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
+    void FilterCollectionByJPathIsValid(string sourceVariableName, string jPath, string targetVariableName);
+
+    /// <summary>
+    /// Filters the collection where the JSONPath value does not resolve to any value (so the property does not exist).
+    /// </summary>
+    /// <param name="sourceVariableName">The name of the variable containing the JSON collection.</param>
+    /// <param name="jPath">The JSONPath expression evaluated against each element.</param>
+    /// <param name="targetVariableName">The variable to store the filtered collection into.</param>
+    void FilterCollectionByJPathIsInvalid(string sourceVariableName, string jPath, string targetVariableName);
 }

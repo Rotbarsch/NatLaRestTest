@@ -64,6 +64,8 @@ public class CollectionVariableDriver(IVariableService variableService) : IColle
     private JArray GetVariableAsArray(string variableName)
     {
         var value = variableService.GetVariable(variableName);
+        if (value is null) return new JArray();
+        
         var jArray = JArray.Parse(value!);
         return jArray;
     }
