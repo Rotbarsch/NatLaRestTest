@@ -76,5 +76,14 @@ public enum ComparisonOperation
     /// Offer a comparison of boolean values.
     /// </summary>
     BoolEquals,
-    
+
+    /// <summary>
+    /// JSONPath is valid.
+    /// </summary>
+    JsonPathValid,
+
+    /// <summary>
+    /// JSONPath is invalid.
+    /// </summary>
+    JsonPathInvalid
 }

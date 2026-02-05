@@ -27,6 +27,10 @@ public class ComparisonService(INumericService numericService, IBoolService bool
             // String only
             ComparisonOperation.IsEmpty => value is not null && string.IsNullOrEmpty(value),
             ComparisonOperation.IsNotEmpty => value is not null && !string.IsNullOrEmpty(value),
+            // JsonPath (In)valid
+            ComparisonOperation.JsonPathValid => value is not null && bool.Parse(value),
+            ComparisonOperation.JsonPathInvalid => value is not null && !bool.Parse(value),
+
             _ => throw new InvalidOperationException($"Unsupported comparison operation '{comparisonOperation}'.")
         };
     }

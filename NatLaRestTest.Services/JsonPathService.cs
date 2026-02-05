@@ -1,4 +1,5 @@
 using NatLaRestTest.Services.Interfaces;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -24,16 +25,27 @@ public class JsonPathService(ITestOutputLoggingService loggingService) : IJsonPa
 
         loggingService.WriteLine("JSONPath '{jsonPathExpression}' on '{inputJson}' returned: '{token}'", jsonPathExpression, inputJson!, token ?? "null");
 
-        if (token is null) return null;
+        if (token is null || token.Type == JTokenType.Null) return null;
         return token.Type is JTokenType.Array or JTokenType.Object ? token.ToString() : token.Value<string>();
     }
 
     /// <inheritdoc />
     public bool JsonPathReturnsAnyValue(string? inputJson, string jsonPathExpression)
     {
-        var jToken = JToken.Parse(inputJson!);
-        var token = jToken.SelectToken(jsonPathExpression);
+        try
+        {
+            var jToken = JToken.Parse(inputJson!);
+            jToken.SelectToken(jsonPathExpression, new JsonSelectSettings
+            {
+                ErrorWhenNoMatch = true
+            });
 
-        return token is not null;
+            return true;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+        
     }
 }
