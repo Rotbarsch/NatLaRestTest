@@ -35,10 +35,22 @@ public class JsonPathService(ITestOutputLoggingService loggingService) : IJsonPa
         try
         {
             var jToken = JToken.Parse(inputJson!);
-            jToken.SelectToken(jsonPathExpression, new JsonSelectSettings
+
+            if (jToken.Type is JTokenType.Array)
             {
-                ErrorWhenNoMatch = true
-            });
+                jToken.SelectTokens(jsonPathExpression, new JsonSelectSettings
+                {
+                    ErrorWhenNoMatch = true
+                });
+            }
+            else
+            {
+                jToken.SelectToken(jsonPathExpression, new JsonSelectSettings
+                {
+                    ErrorWhenNoMatch = true
+                });
+
+            }
 
             return true;
         }
@@ -46,6 +58,6 @@ public class JsonPathService(ITestOutputLoggingService loggingService) : IJsonPa
         {
             return false;
         }
-        
+
     }
 }
