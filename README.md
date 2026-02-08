@@ -1,4 +1,4 @@
-# ![Icon](./icon.png) NatLaRestTest
+# ![Icon](./icon64.png) NatLaRestTest
 
 *Natural Language REST API Testing Framework*
 
