@@ -1,4 +1,4 @@
-# NatLaRestTest
+# ![Icon](./icon.png) NatLaRestTest
 
 *Natural Language REST API Testing Framework*
 
@@ -65,6 +65,10 @@ Currently, only NUnit is supported as the test framework.
 
 ## About variables
 NatLaRestTest provides a system to work with variables in your test cases. Usage of variables in parameters (aka everything enclosed by single quotes in binding expressions) is indicated by the syntax `$(variableName)`.
+
+Do not confuse NatLaRestTest variables with [Gherkin Scenario Outlines](https://docs.reqnroll.net/latest/gherkin/gherkin-reference.html#scenario-outline).
+They are combinable, though. The Demo project provides an example for this in the `ScenarioOutlineAndExamples.feature` file.
+
 There are several ways to define variables for usage in your tests:
 
 ### Global variables
@@ -160,7 +164,7 @@ Consider the following example:
 ### AdditionalConfigurationFiles Block
 This block allows you to specify additional configuration files to be loaded by NatLaRestTest. These files can contain environment-specific settings or overrides for the default configuration.
 All files (and the default entry file) are loaded and merged together before test execution starts. In case of conflicts, the last loaded file wins, meaning that you can use this mechanism to override settings from the default configuration file.
-This allows you to have both a 'NatLaRestTestSettings.json' file with default settings and additional files like 'NatLaRestTestSettings.Development.json' or 'NatLaRestTestSettings.Production.json' with environment-specific overrides, which can also be included in a .gitignore file to keep secrets like API keys from being commited.
+This allows you to have both a 'NatLaRestTestSettings.json' file with default settings and additional files like 'NatLaRestTestSettings.Development.json' or 'NatLaRestTestSettings.Production.json' with environment-specific overrides, which can also be included in a .gitignore file to keep secrets like API keys from being committed.
 
 Compare to appsettings.json files in ASP.NET Core applications, which work in a similar way.
 
@@ -195,12 +199,14 @@ NatLaRestTest currently supports only English (en-US) as the language for writin
 
 NatLaRestTest was designed with localization in mind. To translate the bindings into another language, you would need to create a new set of bindings with the same functionality but with step definitions in the desired language.
 
-See [a Proof of Concept for a German translation](./NatLaRestTest.Demo.de) (only translated a few basic bindings to demonstrate the idea) and its [underlying german bindings](./NatLaRestTest.Demo.de).
+See [a Proof of Concept for a German translation](./NatLaRestTest.Demo.de) (only translated a few basic bindings to demonstrate the idea) and its [underlying German bindings](./NatLaRestTest.Demo.de).
 
 ## Recommended workflow
 
 ### Using the Reqnroll IDE integrations
 For an optimal experience when working with NatLaRestTest, it is recommended to use one of the Reqnroll IDE integrations, such as the [Visual Studio Extension](https://docs.reqnroll.net/latest/installation/setup-ide.html#setup-visual-studio), the [Visual Studio Code Extension](https://docs.reqnroll.net/latest/installation/setup-ide.html#setup-visual-studio-code) or the [JetBrains Rider Extension](https://docs.reqnroll.net/latest/installation/setup-ide.html#setup-rider). These integrations provide features like syntax highlighting, autocompletion, and easy test execution directly from the IDE.
+
+Also see [my Visual Studio Code Extension](https://github.com/Rotbarsch/RotbarschReqnroll-vscode) which was created with NatLaRestTest in mind, but not bound to it and should work with any Reqnroll based test suite.
 
 ### Using AI agents to generate tests
 Given the natural language basis of NatLaRestTest, it is well-suited for usage with AI agents like GitHub Copilot or others. It has proven effective to "feed" either the [Bindings.md](./Bindings.md) or the `NatLaRestTest.Bindings.xml` to the agent, to familiarize it with the available step bindings. Alternatively, check out this repository and ask GitHub Copilot to create your tests using the bindings in this repository.
