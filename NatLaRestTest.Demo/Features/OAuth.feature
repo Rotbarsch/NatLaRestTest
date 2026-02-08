@@ -5,12 +5,12 @@ This OAuth example uses a free-tier Auth0 account. Configure it yourself in Test
 Background:
 	Given the variables file 'TestData/oauth.json' is loaded
 	And OAuth is configured with the following parameters:
-		| Field         | Value                  |
-		| TokenEndpoint | $(oauth.tokenendpoint) |
-		| ClientID      | $(oauth.clientid)      |
-		| ClientSecret  | $(oauth.clientsecret)  |
-		| Audience      | $(oauth.audience)      |
-	And the base URL 'https://dev-ycm4177pr1dciqt0.us.auth0.com/api/v2'
+	| Field         | Value                  |
+	| TokenEndpoint | $(oauth.tokenendpoint) |
+	| ClientID      | $(oauth.clientid)      |
+	| ClientSecret  | $(oauth.clientsecret)  |
+	| Audience      | $(oauth.audience)      |
+	And the base URL '$(oauth.baseurl)'
 
 Scenario: OAuth
 	When a 'GET' request to '/clients' is made

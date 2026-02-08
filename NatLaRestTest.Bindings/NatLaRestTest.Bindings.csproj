@@ -5,9 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
 
 
     <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
     <PackageId>NatLaRestTest.Bindings</PackageId>
     <Description>English Gherkin bindings for usage in a Reqnroll test project for testing REST APIs.</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -31,6 +33,7 @@
 
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

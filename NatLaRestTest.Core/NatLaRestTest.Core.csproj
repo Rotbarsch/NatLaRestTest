@@ -5,9 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
 
 
     <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
     <PackageId>NatLaRestTest.Core</PackageId>
     <Description>Core functionality of NatLaRestTest, handling dependency injection and setup.</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -26,6 +28,7 @@
 
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

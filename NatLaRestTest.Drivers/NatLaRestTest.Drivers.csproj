@@ -5,9 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
 
 
     <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
     <PackageId>NatLaRestTest.Drivers</PackageId>
     <Description>Code-behind for the NatLaRestTest Gherkin bindings.</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -28,5 +30,6 @@
 
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

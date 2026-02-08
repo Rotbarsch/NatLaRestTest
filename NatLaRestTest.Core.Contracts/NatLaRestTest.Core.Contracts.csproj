@@ -5,9 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
 
 
     <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
     <PackageId>NatLaRestTest.Core.Contracts</PackageId>
     <Description>Contracts used across the whole NatLaRestTest framework.</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -17,6 +19,7 @@
 
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
