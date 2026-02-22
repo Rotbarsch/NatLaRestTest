@@ -19,6 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../THIRD-PARTY-NOTICES.txt"
+          Pack="true"
+          PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Reqnroll" Version="3.3.2" />
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.2">
       <TreatAsUsed>true</TreatAsUsed>

@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../THIRD-PARTY-NOTICES.txt"
+          Pack="true"
+          PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NatLaRestTest.Bindings.Interfaces" Version="0.0.1-preview5" />
     <PackageReference Include="NatLaRestTest.Core" Version="0.0.1-preview5" />
     <PackageReference Include="NatLaRestTest.Drivers.Interfaces" Version="0.0.1-preview5" />

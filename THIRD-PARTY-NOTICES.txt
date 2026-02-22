@@ -1,0 +1,87 @@
+THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+---------------------------------------------
+
+
+This project depends on the following third-party software:
+
+=============================================================
+
+Reqnroll
+Copyright © Reqnroll contributors
+
+Licensed under the MIT License.
+https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
+
+=============================================================
+
+Reqnroll.NUnit
+Copyright © Reqnroll contributors
+
+Licensed under the MIT License.
+https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
+
+=============================================================
+
+Reqnroll.Microsoft.Extensions.DependencyInjection
+Copyright © Reqnroll contributors
+
+Licensed under the MIT License.
+https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
+
+=============================================================
+
+Microsoft.NET.Test.Sdk
+Copyright © Microsoft
+
+Licensed under the MIT License.
+https://github.com/microsoft/msbuild/blob/main/LICENSE.txt
+
+=============================================================
+
+NUnit3TestAdapter
+Copyright © NUnit contributors
+
+Licensed under the MIT License.
+https://github.com/nunit/nunit3-vs-adapter/blob/master/LICENSE.txt
+
+=============================================================
+
+Newtonsoft.Json
+Copyright © James Newton-King
+
+Licensed under the MIT License.
+https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md
+
+=============================================================
+
+Newtonsoft.Json.Schema
+Copyright © James Newton-King
+
+Licensed under the MIT License.
+https://github.com/JamesNK/Newtonsoft.Json.Schema/blob/master/LICENSE.md
+
+=============================================================
+
+NUnit
+Copyright © NUnit contributors
+
+Licensed under the MIT License.
+https://github.com/nunit/nunit/blob/master/LICENSE.txt
+
+=============================================================
+
+Bogus
+Copyright © Brian Chavez
+
+Licensed under the MIT License.
+https://github.com/bchavez/Bogus/blob/master/LICENSE
+
+=============================================================
+
+Microsoft.Extensions.DependencyInjection.Abstractions
+Copyright © Microsoft
+
+Licensed under the MIT License.
+https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+
+=============================================================
