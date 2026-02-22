@@ -9,7 +9,7 @@ This project depends on the following third-party software:
 Reqnroll
 Copyright © Reqnroll contributors
 
-Licensed under the MIT License.
+Licensed under the BSD 3-Clause License.
 https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
 
 =============================================================
@@ -17,7 +17,7 @@ https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
 Reqnroll.NUnit
 Copyright © Reqnroll contributors
 
-Licensed under the MIT License.
+Licensed under the BSD 3-Clause License.
 https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
 
 =============================================================
@@ -25,7 +25,7 @@ https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
 Reqnroll.Microsoft.Extensions.DependencyInjection
 Copyright © Reqnroll contributors
 
-Licensed under the MIT License.
+Licensed under the BSD 3-Clause License.
 https://github.com/reqnroll/Reqnroll/blob/main/LICENSE
 
 =============================================================
