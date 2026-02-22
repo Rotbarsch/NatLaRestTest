@@ -213,6 +213,10 @@ Given the natural language basis of NatLaRestTest, it is well-suited for usage w
 
 *Also check out another of my projects, the [ReqnRoll MCP Server](https://github.com/Rotbarsch/ReqnRoll-MCP-Server).*
 
-## License
-See the [MIT License](./LICENSE) for more information.
 
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
+### Third-Party Dependencies
+Information about the licenses of dependencies can be found in the [THIRD-PARTY_NOTICES.txt](./THIRD-PARTY_NOTICES.txt) file.

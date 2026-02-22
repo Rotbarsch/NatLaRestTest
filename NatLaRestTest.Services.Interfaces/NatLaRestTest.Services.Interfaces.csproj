@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../THIRD-PARTY-NOTICES.txt"
+          Pack="true"
+          PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NatLaRestTest.Core.Contracts\NatLaRestTest.Core.Contracts.csproj" />
   </ItemGroup>
 
