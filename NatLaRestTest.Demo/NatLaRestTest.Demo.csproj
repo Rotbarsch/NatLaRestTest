@@ -10,12 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="../THIRD-PARTY-NOTICES.txt"
-          Pack="true"
-          PackagePath="" />
+    <None Include="../THIRD-PARTY-NOTICES.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.0.1" />
@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NatLaRestTest.Bindings\NatLaRestTest.Bindings.csproj" />
+    <ProjectReference Include="..\NatLaRestTest.DemoWebApi\NatLaRestTest.DemoWebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

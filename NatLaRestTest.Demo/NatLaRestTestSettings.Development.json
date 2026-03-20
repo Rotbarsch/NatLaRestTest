@@ -6,7 +6,7 @@
     },
     {
       "name": "demoApiBaseUrl",
-      "value": "https://localhost:7031"
+      "value": "http://localhost:5000"
     }
   ],
   "fileRedirects": [

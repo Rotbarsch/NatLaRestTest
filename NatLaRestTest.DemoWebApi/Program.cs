@@ -13,3 +13,5 @@ app.MapPost("/create", () => Results.Created());
 app.MapGet("/missing", () => Results.NotFound());
 
 await app.RunAsync();
+
+public partial class Program { }
