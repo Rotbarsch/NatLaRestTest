@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using NatLaRestTest.Services;
-using NatLaRestTest.Services.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Demo.Bindings;
@@ -29,15 +28,9 @@ public class DemoApiHostBindings : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    internal class DemoApiWebAppFactory : WebApplicationFactory<Program>
+    internal class DemoApiWebAppFactory(string url) : WebApplicationFactory<Program>
     {
         private IHost? _kestrelHost;
-        private readonly string _url;
-
-        public DemoApiWebAppFactory(string url) : base()
-        {
-            _url = url;
-        }
 
 
         protected override IHost CreateHost(IHostBuilder builder)
@@ -47,7 +40,7 @@ public class DemoApiHostBindings : IDisposable
             builder.ConfigureWebHost(webHost =>
             {
                 webHost.UseKestrel();
-                webHost.UseUrls(_url);
+                webHost.UseUrls(url);
             });
 
             _kestrelHost = builder.Build();

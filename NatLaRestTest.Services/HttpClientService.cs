@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Runtime.Versioning;
-using System.Text;
 using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Helpers.OAuth;
 using NatLaRestTest.Services.Interfaces;

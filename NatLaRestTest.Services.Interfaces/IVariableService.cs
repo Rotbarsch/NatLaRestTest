@@ -31,4 +31,6 @@ public interface IVariableService
     /// </summary>
     /// <param name="json">JSON to parse.</param>
     void LoadVariablesFromJson(string? json);
+
+    IEnumerable<string> GetVariableNames();
 }
