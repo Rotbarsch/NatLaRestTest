@@ -6,6 +6,7 @@
   - [Class: CollectionVariableAssertions](#class-collectionvariableassertions)
   - [Class: DateTimeVariableBindings](#class-datetimevariablebindings)
   - [Class: DateTimeVariableManipulationBindings](#class-datetimevariablemanipulationbindings)
+  - [Class: DebugBindings](#class-debugbindings)
   - [Class: HttpClientConfigurationBindings](#class-httpclientconfigurationbindings)
   - [Class: HttpClientRequestBindings](#class-httpclientrequestbindings)
   - [Class: HttpClientRequestStreamBindings](#class-httpclientrequeststreambindings)
@@ -380,4 +381,14 @@ Step bindings to configure the shared HTTP client used across scenarios (base UR
 | SetBaseUrl | Given the base URL '(.\*)' | Given step: Configures the base address used by the shared HTTP client.<br>*baseUrl*: The absolute base URL (e.g., https://api.example.com). |
 | SetDefaultHeader | Given the default header '(.\*)' with value '(.\*)' | Given step: Adds a default request header to the shared HTTP client.<br>*headerName*: The name of the header to add.<br>*headerValue*: The value of the header. |
 | SetDefaultTimeout | Given the default timeout of '(.\*)' seconds | Given step: Sets the default timeout for HTTP requests executed by the shared HTTP client.<br>*seconds*: The timeout value in seconds. |
+
+
+<a id="class-natlaresttestbindingsutilitydebugbindings"></a>
+## Class: NatLaRestTest.Bindings.Utility.DebugBindings
+
+Debug bindings.
+
+| MethodName | BindingValue | Comments |
+|------------|--------------|----------|
+| EnterDebugMode | Then enter debug mode | Special binding for entering NatLaRestTest debug mode. |
 

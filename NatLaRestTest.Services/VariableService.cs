@@ -22,6 +22,11 @@ public class VariableService : IVariableService
         SetGlobalVariables();
     }
 
+    public IEnumerable<string> GetVariableNames()
+    {
+        return _variableStorage.Select(x => x.Key).ToList();
+    }
+
     /// <inheritdoc />
     public string? GetVariable(string variableName)
     {

@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using NatLaRestTest.Services.Helpers;
 using NatLaRestTest.Services.Interfaces;
 using Reqnroll;
 
@@ -49,6 +50,12 @@ public partial class TestOutputLoggingService(IReqnrollOutputHelper outputHelper
 #pragma warning restore IDE0305 // Simplify collection initialization
 
         WriteLine(result);
+    }
+
+    public async Task LogResponse(HttpResponseMessage response)
+    {
+        var serialized = await HttpMessageSerializer.SerializeHttpResponseMessage(response);
+        outputHelper.WriteLine(serialized);
     }
 
     [GeneratedRegex(@"{[^}]+}")]

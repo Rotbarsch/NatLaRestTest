@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Runtime.Versioning;
-using System.Text;
 using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Helpers.OAuth;
 using NatLaRestTest.Services.Interfaces;
@@ -25,6 +24,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     private long? _responseTime;
     private bool _useNtlm;
     private OAuthHelper? _oAuthService;
+
 
     /// <summary>
     ///     Gets or sets the current HTTP response captured by the Service.
@@ -62,9 +62,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
             msg.Content = new StringContent(requestBody, new MediaTypeHeaderValue(contentType));
         }
 
-        await LogHttpRequest(msg);
         await SendHttpRequestMessage(msg);
-        await LogHttpResponse(CurrentResponse);
     }
 
     /// <summary>
@@ -90,11 +88,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
             }
         };
 
-        await LogHttpRequest(msg);
-
         await SendHttpRequestMessage(msg);
-
-        await LogHttpResponse(CurrentResponse);
     }
 
     /// <inheritdoc />
@@ -224,6 +218,8 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         sw.Stop();
         loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
         _responseTime = sw.ElapsedMilliseconds;
+
+        await loggingService.LogResponse(CurrentResponse);
     }
 
     /// <summary>
@@ -275,57 +271,6 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     private void AssertResponseAvailable()
     {
         Assert.NotNull(CurrentResponse, "No current response available.");
-    }
-
-    /// <summary>
-    ///     Logs details of the outgoing HTTP request.
-    /// </summary>
-    /// <param name="msg">The HTTP request message.</param>
-    private async Task LogHttpRequest(HttpRequestMessage msg)
-    {
-        var bodyLength = 0;
-        if (msg.Content != null)
-        {
-            var contentBytes = await msg.Content.ReadAsByteArrayAsync();
-            bodyLength = contentBytes.Length;
-        }
-
-        var sb = new StringBuilder();
-
-        sb.AppendLine($"Request to {msg.Method} {msg.RequestUri} with body size of {bodyLength} bytes with Headers:");
-        foreach (var header in msg.Headers)
-        {
-            sb.AppendLine($"{header.Key} = {string.Join(",", header.Value)}");
-        }
-
-        loggingService.WriteLine(sb.ToString());
-    }
-
-    /// <summary>
-    ///     Logs summary details of the received HTTP response.
-    /// </summary>
-    /// <param name="currentResponse">The HTTP response message.</param>
-    private async Task LogHttpResponse(HttpResponseMessage? currentResponse)
-    {
-        if (currentResponse is null) return;
-
-        var bodyLength = (await currentResponse.Content.ReadAsByteArrayAsync()).Length;
-
-        var sb = new StringBuilder();
-
-        sb.AppendLine(
-            $"Received response {currentResponse.StatusCode} with body size of {bodyLength} bytes with headers:");
-        foreach (var header in currentResponse.Headers)
-        {
-            sb.AppendLine($"{header.Key} = {string.Join(",", header.Value)}");
-        }
-
-        if (!currentResponse.IsSuccessStatusCode)
-        {
-            sb.AppendLine(await currentResponse.Content.ReadAsStringAsync());
-        }
-
-        loggingService.WriteLine(sb.ToString());
     }
 
     /// <summary>

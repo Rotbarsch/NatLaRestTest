@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IComparisonService, ComparisonService>()
             .AddScoped<ICultureInfoService, CultureInfoService>()
             .AddScoped<IDateTimeManipulationService, DateTimeManipulationService>()
+            .AddScoped<IDebugUtilityService, DebugUtilityService>()
             .AddScoped<IFileSystemService, FileSystemService>()
             .AddScoped<IHttpClientService, HttpClientService>()
             .AddScoped<IJsonPathService, JsonPathService>()
