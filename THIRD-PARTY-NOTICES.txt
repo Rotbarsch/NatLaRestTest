@@ -54,11 +54,12 @@ https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md
 
 =============================================================
 
-Newtonsoft.Json.Schema
-Copyright © James Newton-King
+
+NJsonSchema
+Copyright © Rico Suter
 
 Licensed under the MIT License.
-https://github.com/JamesNK/Newtonsoft.Json.Schema/blob/master/LICENSE.md
+https://github.com/RicoSuter/NJsonSchema/blob/master/LICENSE.md
 
 =============================================================
 
