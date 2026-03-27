@@ -1,7 +1,6 @@
 ﻿using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
+using NJsonSchema;
 using NUnit.Framework;
 
 namespace NatLaRestTest.Drivers;
@@ -30,12 +29,12 @@ public class JsonSchemaDriver(IVariableService variableService) : IJsonSchemaDri
             Assert.Fail($"Variable '{variableName}' is null.");
         }
 
-        var schema = JSchema.Parse(jsonSchema);
-        var jsonObject = JObject.Parse(value!);
-        if (!jsonObject.IsValid(schema, out IList<string> errorMessages))
+        var schema = JsonSchema.FromSampleJson(jsonSchema);
+        var errors = schema.Validate(value!);
+        if (errors.Count > 0)
         {
-            var errors = string.Join("; ", errorMessages);
-            Assert.Fail($"Variable '{variableName}' does not conform to the JSON schema. Errors: {errors}");
+            var errorMessages = string.Join("; ", errors.Select(e => e.ToString()));
+            Assert.Fail($"Variable '{variableName}' does not conform to the JSON schema. Errors: {errorMessages}");
         }
     }
 }
