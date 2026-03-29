@@ -18,7 +18,8 @@ namespace NatLaRestTest.Services;
 /// </remarks>
 /// <param name="loggingService">The logging Service used to write request/response traces.</param>
 /// <param name="variableService">The variable Service used to manage variables.</param>
-public class HttpClientService(ITestOutputLoggingService loggingService, IVariableService variableService) : IHttpClientService, IDisposable
+/// <param name="natLaRestTestHttpClientFactory">Factory to create HttpClient instances.</param>
+public class HttpClientService(ITestOutputLoggingService loggingService, IVariableService variableService, INatLaRestTestHttpClientFactory natLaRestTestHttpClientFactory) : IHttpClientService, IDisposable
 {
     private readonly HttpClientOptions _httpClientOptions = new();
     private long? _responseTime;
@@ -228,24 +229,27 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     /// <returns>A new configured <see cref="HttpClient" /> instance.</returns>
     private HttpClient GetConfiguredHttpClient()
     {
-        HttpClient httpClient;
+        HttpClientHandler httpClientHandler;
+
+        //HttpClient httpClient;
         if (_httpClientOptions.CheckSsl)
         {
-            httpClient = new(new HttpClientHandler()
+            httpClientHandler = new HttpClientHandler()
             {
                 UseDefaultCredentials = _useNtlm,
-            });
+            };
         }
         else
         {
-            var httpClientHandler = new HttpClientHandler()
+            httpClientHandler = new HttpClientHandler()
             {
                 ClientCertificateOptions = ClientCertificateOption.Manual,
                 ServerCertificateCustomValidationCallback = (_, _, _, _) => true,
                 UseDefaultCredentials = _useNtlm,
             };
-            httpClient = new(httpClientHandler);
         }
+
+        var httpClient = natLaRestTestHttpClientFactory.CreateHttpClient(httpClientHandler);
 
         if (_httpClientOptions.BaseUrl is not null)
         {

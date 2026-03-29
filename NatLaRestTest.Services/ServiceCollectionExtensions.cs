@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IHttpClientService, HttpClientService>()
             .AddScoped<IHttpMessageSerializer,HttpMessageSerializer>()
             .AddScoped<IJsonPathService, JsonPathService>()
+            .AddScoped<INatLaRestTestHttpClientFactory, NatLaRestTestHttpClientFactory>()
             .AddScoped<INumericService, NumericService>()
             .AddScoped<IRandomDataService, RandomDataService>()
             .AddScoped<IStopwatchService, StopwatchService>()
