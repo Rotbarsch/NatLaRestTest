@@ -27,37 +27,13 @@ See the NatLaRestTest.Demo project for more usage examples or the full listing o
 - **Ready for AI**: The natural language used for describing tests is well-suited for AI-driven test generation and analysis.
 
 ## Getting Started
-Assuming you prepared a Reqnroll project (see the [Quickstart](https://docs.reqnroll.net/latest/quickstart/index.html)), we need to register and prepare the project for usage with NatLaRestTest:
-1. Make sure your project has a reference to [Reqnroll.NUnit](https://www.nuget.org/packages/Reqnroll.NUnit) and [Microsoft.NET.Test.Sdk](https://www.nuget.org/packages/microsoft.net.test.sdk).
-2. Add a reference to the [NatLaRestTest](https://www.nuget.org/packages/NatLaRestTest.Bindings) NuGet package.
-3. Make sure your test project has a reqnroll.json configuration file. It should look like this:
+NatLaRestTest provides a project template. Install and use it as follows:
 ```
-{
-  "$schema": "https://schemas.reqnroll.net/reqnroll-config-latest.json",
-  "language": {
-    "feature": "en-US"
-  },
-  "trace": {
-    "stepDefinitionSkeletonStyle": "RegexAttribute"
-  },
-  "bindingAssemblies": [    
-  ]
-}
+dotnet new install NatLaRestTest.Template
+dotnet new natlaresttest -n MyTestProject
 ```
-4. Add the NatLaRestTest assemblies (**both of them**) to the `bindingAssemblies` section:
-```
-...
-"bindingAssemblies": [
-    {
-      "assembly": "NatLaRestTest.Core"
-    },
-    {
-      "assembly": "NatLaRestTest.Bindings"
-    }
-  ]
-...
-```
-5. Now you can start writing your tests as Reqnroll Feature files, using the NatLaRestTest bindings.
+This will create a new test project with the necessary dependencies and a sample test case named `MyTestProject`.
+Check if it runs correctly via `dotnet test`, and then start writing your own test cases.
 
 ## Running tests
 You can run tests created with this framework using your preferred test runner that supports NUnit, such as the built-in test explorer in Visual Studio, or via command line using the `dotnet test` command.

@@ -31,8 +31,11 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore -p:Version=${{ steps.version.outputs.VERSION }}
 
-      - name: Pack
+      - name: Pack NuGet packages
         run: dotnet pack --configuration Release --no-build -p:ContinuousIntegrationBuild=true -p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Project template
+        run: dotnet pack ./Template/NatLaRestTest.Template.Package.csproj --no-build --configuration Release -p:Version=${{ steps.version.outputs.VERSION }}
 
       - name: Publish to NuGet
         run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
