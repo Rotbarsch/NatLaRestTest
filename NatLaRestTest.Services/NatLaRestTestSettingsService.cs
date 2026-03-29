@@ -10,12 +10,11 @@ namespace NatLaRestTest.Services;
 public class NatLaRestTestSettingsService : INatLaRestTestSettingsService
 {
     private readonly NatLaRestTestSettings _settings;
-    private readonly List<string> LoadedSettingsFiles = new();
+    private readonly List<string> _loadedSettingsFiles = [];
     private static readonly string SettingsFileName = "NatLaRestTestSettings.json";
 
     public NatLaRestTestSettingsService()
     {
-        //_loggingService = loggingService;
         _settings = ConstructSettings();
     }
 
@@ -32,17 +31,23 @@ public class NatLaRestTestSettingsService : INatLaRestTestSettingsService
     public IEnumerable<FileRedirect> GetFileRedirects() => _settings.FileRedirects;
 
     /// <summary>
+    /// Returns logging configuration.
+    /// </summary>
+    /// <returns>The logging configuration.</returns>
+    public NatLaRestTestLoggingSettings GetLoggingSettings() => _settings.Logging;
+
+    /// <summary>
     /// Returns paths of all actually loaded settings files.
     /// </summary>
     /// <returns>List of file paths.</returns>
-    public IEnumerable<string> GetLoadedSettingsFiles() => LoadedSettingsFiles;
+    public IEnumerable<string> GetLoadedSettingsFiles() => _loadedSettingsFiles;
 
     private NatLaRestTestSettings ConstructSettings()
     {
         if (!File.Exists(SettingsFileName)) return new NatLaRestTestSettings();
         var json = File.ReadAllText(SettingsFileName);
         var settingsObject = JObject.Parse(json) ?? JObject.FromObject(new NatLaRestTestSettings());
-        LoadedSettingsFiles.Add(SettingsFileName);
+        _loadedSettingsFiles.Add(SettingsFileName);
 
         if (settingsObject.TryGetValue("additionalConfigurationFiles", out var additionalConfigurationFilesToken))
         {
@@ -74,6 +79,6 @@ public class NatLaRestTestSettingsService : INatLaRestTestSettingsService
         }
 
         settingsObject.Merge(subObject, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
-        LoadedSettingsFiles.Add(additionalContentFile);
+        _loadedSettingsFiles.Add(additionalContentFile);
     }
 }

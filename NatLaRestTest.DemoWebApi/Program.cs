@@ -14,4 +14,7 @@ app.MapGet("/missing", () => Results.NotFound());
 
 await app.RunAsync();
 
-public partial class Program { }
+namespace NatLaRestTest.DemoWebApi
+{
+    public partial class Program { }
+}

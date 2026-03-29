@@ -1,11 +1,14 @@
-﻿using System.Net.Http.Headers;
+﻿using NatLaRestTest.Services.Interfaces;
+using System.Net.Http.Headers;
 using System.Text;
 
-namespace NatLaRestTest.Services.Helpers;
+namespace NatLaRestTest.Services;
 
-internal static class HttpMessageSerializer
+/// <inheritdoc/>
+public class HttpMessageSerializer(IContentStringBeautifier contentStringBeautifier) : IHttpMessageSerializer
 {
-    public static async Task<string> SerializeHttpResponseMessage(HttpResponseMessage response)
+    /// <inheritdoc/>
+    public async Task<string> SerializeHttpResponseMessage(HttpResponseMessage response)
     {
         var sb = new StringBuilder();
 
@@ -22,32 +25,39 @@ internal static class HttpMessageSerializer
         return sb.ToString();
     }
 
-    private static async Task LogRequest(StringBuilder sb, HttpRequestMessage request)
+    private async Task LogRequest(StringBuilder sb, HttpRequestMessage request)
     {
         sb.AppendLine($"{request.Method} {request.RequestUri} HTTP/{request.Version}");
         AppendHttpMessageHeaders(sb, request.Headers, request.Content?.Headers);
         await AppendHttpMessageContent(sb, request.Content);
     }
 
-    private static async Task LogResponse(HttpResponseMessage response, StringBuilder sb)
+    private async Task LogResponse(HttpResponseMessage response, StringBuilder sb)
     {
         sb.AppendLine($"HTTP/{response.Version} {(int)response.StatusCode} {response.ReasonPhrase}");
         AppendHttpMessageHeaders(sb, response.Headers, response.Content?.Headers);
         await AppendHttpMessageContent(sb, response.Content);
     }
 
-    private static async Task AppendHttpMessageContent(StringBuilder sb, HttpContent? httpMessageContent)
+    private async Task AppendHttpMessageContent(StringBuilder sb, HttpContent? httpMessageContent)
     {
         if (httpMessageContent is null) return;
         try
         {
-            var contentString = await httpMessageContent.ReadAsStringAsync();
+            var contentString = PrepareContentStringForLogging(await httpMessageContent.ReadAsStringAsync(), httpMessageContent.Headers.ContentType?.MediaType);
+
             sb.AppendLine(contentString);
         }
         catch (ObjectDisposedException)
         {
             sb.AppendLine("<content stream already disposed>");
         }
+    }
+
+    private string PrepareContentStringForLogging(string contentString, string? contentType)
+    {
+        var formattedString = contentStringBeautifier.Beautify(contentString, contentType);
+        return contentStringBeautifier.EnforceLength(formattedString);
     }
 
     private static void AppendHttpMessageHeaders(StringBuilder sb, HttpHeaders requestHeaders, HttpContentHeaders? contentHeaders)

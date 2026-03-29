@@ -14,6 +14,7 @@
     <Project Path="NatLaRestTest.Drivers/NatLaRestTest.Drivers.csproj" />
   </Folder>
   <Folder Name="/Services/">
+    <File Path="NatLaRestTest.Services/Helpers/HttpMessageSerializer.cs" />
     <Project Path="NatLaRestTest.Services.Interfaces/NatLaRestTest.Services.Interfaces.csproj" />
     <Project Path="NatLaRestTest.Services/NatLaRestTest.Services.csproj" />
   </Folder>

@@ -21,4 +21,10 @@ public interface INatLaRestTestSettingsService
     /// </summary>
     /// <returns>List of file paths.</returns>
     IEnumerable<string> GetLoadedSettingsFiles();
+
+    /// <summary>
+    /// Returns logging configuration.
+    /// </summary>
+    /// <returns>The logging configuration.</returns>
+    NatLaRestTestLoggingSettings GetLoggingSettings();
 }
