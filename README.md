@@ -16,7 +16,7 @@ When a request to '/produces/1' is made
 Then the response code equals '200'
 ```
 
-See the NatLaRestTest.Demo project for more usage examples or the full listing of [implemented bindings](./Bindings.md).
+See the NatLaRestTest.Demo project for more usage examples or the full listing of [implemented bindings](https://github.com/Rotbarsch/NatLaRestTest/wiki/Bindings).
 
 ## Advantages of using NatLaRestTest
 - **Natural Language**: Write tests in plain English, making them accessible to non-technical team members.
