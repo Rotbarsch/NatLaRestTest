@@ -39,3 +39,23 @@ jobs:
 
       - name: Publish to NuGet
         run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Checkout Wiki
+        uses: actions/checkout@v4
+        with:
+          repository: Rotbarsch/NatLaRestTest.wiki
+          path: wiki
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Bindings.md
+        run: |
+          dnx -y Rotbarsch.ReqnrollDocumentationGenerator -- -i "./NatLaRestTest.Demo/bin/Release/net8.0/NatLaRestTest.Bindings.dll;./NatLaRestTest.Demo/bin/Release/net8.0/NatLaRestTest.Bindings.xml" -o "./wiki/Bindings.md"
+
+      - name: Commit and Push Bindings.md to Wiki
+        working-directory: wiki
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Bindings.md
+          git commit -m "updated Bindings.md" || echo "No changes to commit"
+          git push
