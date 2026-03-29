@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using NatLaRestTest.Services.Helpers;
 using NatLaRestTest.Services.Interfaces;
 using Reqnroll;
 
@@ -12,9 +11,9 @@ namespace NatLaRestTest.Services;
 ///     Initializes a new instance of the <see cref="TestOutputLoggingService" /> class.
 /// </remarks>
 /// <param name="outputHelper">The Reqnroll output helper to write logs to.</param>
-public partial class TestOutputLoggingService(IReqnrollOutputHelper outputHelper) : ITestOutputLoggingService
+/// <param name="httpMessageSerializer">Service to serialize HTTP messages.</param>
+public partial class TestOutputLoggingService(IReqnrollOutputHelper outputHelper, IHttpMessageSerializer httpMessageSerializer) : ITestOutputLoggingService
 {
-
     /// <inheritdoc />
     public void WriteLine(string logMessage)
     {
@@ -23,38 +22,16 @@ public partial class TestOutputLoggingService(IReqnrollOutputHelper outputHelper
 
     public void WriteLine(string logMessage, params object[] messageParameters)
     {
-        var updatedParamArray = new List<object?>();
-
-        foreach (var mp in messageParameters)
-        {
-            var s = mp?.ToString();
-            if (string.IsNullOrEmpty(s))
-            {
-                updatedParamArray.Add(s);
-                continue;
-            }
-
-            if (s.Length > 50)
-            {
-                updatedParamArray.Add(s[..50] + "...");
-                continue;
-            }
-
-            updatedParamArray.Add(s);
-        }
-
         int i = 0;
         var numeric = VariableRegEx().Replace(logMessage, _ => $"{{{i++}}}");
-#pragma warning disable IDE0305 // Simplify collection initialization
-        var result = string.Format(numeric, updatedParamArray.ToArray());
-#pragma warning restore IDE0305 // Simplify collection initialization
+        var result = string.Format(numeric, messageParameters.ToArray());
 
         WriteLine(result);
     }
 
     public async Task LogResponse(HttpResponseMessage response)
     {
-        var serialized = await HttpMessageSerializer.SerializeHttpResponseMessage(response);
+        var serialized = await httpMessageSerializer.SerializeHttpResponseMessage(response);
         outputHelper.WriteLine(serialized);
     }
 

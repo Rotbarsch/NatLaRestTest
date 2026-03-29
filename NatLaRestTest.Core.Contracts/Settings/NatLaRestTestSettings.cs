@@ -7,4 +7,6 @@ public record NatLaRestTestSettings
     public List<SettingsVariable> GlobalVariables { get; init; } = [];
 
     public List<FileRedirect> FileRedirects { get; init; } = [];
+
+    public NatLaRestTestLoggingSettings Logging { get; init; } = new();
 }
