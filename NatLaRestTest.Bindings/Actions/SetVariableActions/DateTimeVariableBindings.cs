@@ -1,4 +1,5 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Actions.SetVariableActions;
+using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
@@ -27,4 +28,30 @@ public class DateTimeVariableBindings(IDateTimeDriver dateTimeDriver) : IDateTim
     [When("^the current date is stored in variable '([^']+)' in format '([^']+)'$")]
     public void SetCurrentDateFormatted(string variableName, string dateFormat) =>
         dateTimeDriver.SetCurrentDateFormatted(variableName, dateFormat);
+
+    /// <summary>
+    /// When step: Extracts a specific component (e.g., year, month, day) from the provided date and stores it as a string in the specified variable.
+    ///
+    /// The following components are currently supported:
+    /// Ticks,
+    /// Date,
+    /// Day,
+    /// DayOfWeek,
+    /// DayOfYear,
+    /// Hour,
+    /// Microsecond,
+    /// Millisecond,
+    /// Minute,
+    /// Month,
+    /// NanoSecond,
+    /// Second,
+    /// TimeOfDay,
+    /// Year
+    /// </summary>
+    /// <param name="dateTimeComponent">Component to extract.</param>
+    /// <param name="date">Date to operate on.</param>
+    /// <param name="variableName">Name of variable to store result in.</param>
+    [When("^the '(.*)' component of '([^']+)' is stored in variable '([^']+)'$")]
+    public void GetComponentOfDate(DateComponent dateTimeComponent, string? date, string variableName) =>    
+        dateTimeDriver.SetDateComponent(dateTimeComponent, date, variableName);    
 }

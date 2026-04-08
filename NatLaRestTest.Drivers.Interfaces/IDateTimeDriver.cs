@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Core.Contracts;
+
+namespace NatLaRestTest.Drivers.Interfaces;
 
 /// <summary>
 /// Provides operations to manipulate and store date/time values in variables.
@@ -40,4 +42,5 @@ public interface IDateTimeDriver
     void SetCurrentDateFormatted(string variableName, string dateFormat);
 
     void SaveDateTimeFormatted(string dateTime, string format, string targetVariableName);
+    void SetDateComponent(DateComponent dateTimeComponent, string? date, string variableName);
 }

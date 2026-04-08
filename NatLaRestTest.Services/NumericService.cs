@@ -46,32 +46,6 @@ public class NumericService(IVariableService variableService, ICultureInfoServic
         variableService.SetVariable(targetVariableName, (d / di).ToString(cultureInfoService.GetConfiguredCultureInfo()));
     }
 
-    /// <summary>
-    /// Asserts that the numeric value stored in the variable is greater than the provided value.
-    /// </summary>
-    public void NumericVariableIsGreaterThan(string variableName, double value)
-    {
-        var actualValue = variableService.GetVariable(variableName);
-        Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
-        
-        Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
-
-        Assert.Greater(parsed, value, $"The value in variable '{variableName}' is not more than {value}.");
-    }
-
-    /// <summary>
-    /// Asserts that the numeric value stored in the variable is less than the provided value.
-    /// </summary>
-    public void NumericVariableIsLessThan(string variableName, double value)
-    {
-        var actualValue = variableService.GetVariable(variableName);
-        Assert.NotNull(actualValue, $"Variable '{variableName}' returned null.");
-
-        Assert.IsTrue(ParseNumber(actualValue, out var parsed), $"Variable '{variableName}' does not contain a numeric value. Actual: '{actualValue}'.");
-
-        Assert.Less(parsed, value, $"The value in variable '{variableName}' is not less than {value}.");
-    }
-
     public bool ParseNumber(string? input, out double parsed)
     {
         Assert.NotNull(input, "Cannot parse null.");

@@ -1,4 +1,6 @@
-﻿namespace NatLaRestTest.Services.Interfaces;
+﻿using NatLaRestTest.Core.Contracts;
+
+namespace NatLaRestTest.Services.Interfaces;
 
 /// <summary>
 ///     Provides operations to parse and manipulate <see cref="DateTime" /> and <see cref="TimeSpan" /> values.
@@ -42,4 +44,12 @@ public interface IDateTimeManipulationService
     /// <param name="dateToSubtract">The date/time to subtract.</param>
     /// <returns>The difference as a <c>c</c> format string.</returns>
     string SubtractDateTimeFromDateTime(DateTime currentDate, DateTime dateToSubtract);
+
+    /// <summary>
+    /// Extract a component from the <see cref="DateTime"/> value.
+    /// </summary>
+    /// <param name="dateTimeComponent">Component to extract.</param>
+    /// <param name="date">Date to get.</param>
+    /// <returns>The extracted component as a string, or null if the date is null.</returns>
+    string? GetComponent(DateComponent dateTimeComponent, string? date);
 }
