@@ -11,23 +11,32 @@ public class ComparisonService(INumericService numericService, IBoolService bool
     {
         return comparisonOperation switch
         {
-            ComparisonOperation.DoesNotEqual => value != comparisonValue,
+            // Equality
             ComparisonOperation.Equals => value == comparisonValue,
-            ComparisonOperation.IsNotNull => value is not null,
+            ComparisonOperation.DoesNotEqual => value != comparisonValue,
+
+            // Null checks
             ComparisonOperation.IsNull => value is null,
-            // Numeric
-            ComparisonOperation.LessThan or ComparisonOperation.LessThanOrEqual or ComparisonOperation.GreaterThan
-                or ComparisonOperation.GreaterThanOrEqual =>
-                CompareNumeric(value, comparisonValue, comparisonOperation),
-            // Collection only
+            ComparisonOperation.IsNotNull => value is not null,
+
+            // Relational (numeric / DateTime)
+            ComparisonOperation.LessThan
+                or ComparisonOperation.LessThanOrEqual
+                or ComparisonOperation.GreaterThan
+                or ComparisonOperation.GreaterThanOrEqual => CompareTyped(value, comparisonValue, comparisonOperation),
+
+            // String
+            ComparisonOperation.IsEmpty => value?.Length == 0,
+            ComparisonOperation.IsNotEmpty => !string.IsNullOrEmpty(value),
+
+            // Collection
             ComparisonOperation.HasElements => value is not null && JArray.Parse(value).HasValues,
             ComparisonOperation.HasNoElements => value is not null && !JArray.Parse(value).HasValues,
-            // Bool only
+
+            // Boolean
             ComparisonOperation.BoolEquals => CompareBool(comparisonValue, value),
-            // String only
-            ComparisonOperation.IsEmpty => value is not null && string.IsNullOrEmpty(value),
-            ComparisonOperation.IsNotEmpty => value is not null && !string.IsNullOrEmpty(value),
-            // JsonPath (In)valid
+
+            // JsonPath validity
             ComparisonOperation.JsonPathValid => value is not null && bool.Parse(value),
             ComparisonOperation.JsonPathInvalid => value is not null && !bool.Parse(value),
 
@@ -37,21 +46,27 @@ public class ComparisonService(INumericService numericService, IBoolService bool
 
     private bool CompareBool(string? expectedBooleanString, string? actualBooleanString)
     {
-        if(!boolService.ParseBool(expectedBooleanString, out var expected)) Assert.Fail($"Cannot parse '{expectedBooleanString}' as bool");
-        if(!boolService.ParseBool(actualBooleanString, out var actual)) Assert.Fail($"Cannot parse '{actualBooleanString}' as bool");
+        if (!boolService.ParseBool(expectedBooleanString, out var expected)) Assert.Fail($"Cannot parse '{expectedBooleanString}' as bool");
+        if (!boolService.ParseBool(actualBooleanString, out var actual)) Assert.Fail($"Cannot parse '{actualBooleanString}' as bool");
 
         return expected == actual;
     }
 
-    private bool CompareNumeric(string? value, string? compareValue, ComparisonOperation comparisonOperation)
+    private bool CompareTyped(string? value, string? compareValue, ComparisonOperation comparisonOperation)
     {
-        if (!numericService.ParseNumber(value, out var parsedValue))
-            Assert.Fail($"'{value}' is not parsable as a number.");
-        if (!numericService.ParseNumber(compareValue, out var compareParsedValue))
-            Assert.Fail($"'{compareValue}' is not parsable as a number.");
+        if (numericService.ParseNumber(value, out var n1) && numericService.ParseNumber(compareValue, out var n2))
+            return CompareNumbers(comparisonOperation, n1, n2);
 
+        if (DateTime.TryParse(value, out var d1) && DateTime.TryParse(compareValue, out var d2))
+            return CompareDateTimes(comparisonOperation, d1, d2);
+
+        Assert.Fail($"'{value}' and/or '{compareValue}' are neither parsable as dates nor numbers.");
+        return false;
+    }
+
+    private static bool CompareDateTimes(ComparisonOperation comparisonOperation, DateTime parsedValue, DateTime compareParsedValue)
+    {
         // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
-        // We only handle numeric comparison operations here
         return comparisonOperation switch
         {
             ComparisonOperation.LessThan => parsedValue < compareParsedValue,
@@ -59,7 +74,21 @@ public class ComparisonService(INumericService numericService, IBoolService bool
             ComparisonOperation.GreaterThan => parsedValue > compareParsedValue,
             ComparisonOperation.GreaterThanOrEqual => parsedValue >= compareParsedValue,
             _ => throw new InvalidOperationException(
-                $"Unsupported comparison operation '{comparisonOperation}' for numeric comparison.")
+                $"Unsupported comparison operation '{comparisonOperation}' for this comparison.")
+        };
+    }
+
+    private static bool CompareNumbers(ComparisonOperation comparisonOperation, double parsedValue, double compareParsedValue)
+    {
+        // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+        return comparisonOperation switch
+        {
+            ComparisonOperation.LessThan => parsedValue < compareParsedValue,
+            ComparisonOperation.LessThanOrEqual => parsedValue <= compareParsedValue,
+            ComparisonOperation.GreaterThan => parsedValue > compareParsedValue,
+            ComparisonOperation.GreaterThanOrEqual => parsedValue >= compareParsedValue,
+            _ => throw new InvalidOperationException(
+                $"Unsupported comparison operation '{comparisonOperation}' for this comparison.")
         };
     }
 }

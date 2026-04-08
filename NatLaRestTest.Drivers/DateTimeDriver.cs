@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Core.Contracts;
+using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
 
@@ -83,5 +84,10 @@ public class DateTimeDriver(IVariableService variableService, IDateTimeManipulat
     {
         var date = dateTimeManipulationService.ParseDate(dateTime);
         variableService.SetVariable(targetVariableName,date.ToString(format));
+    }
+
+    public void SetDateComponent(DateComponent dateTimeComponent, string? date, string variableName)
+    {
+        variableService.SetVariable(variableName,dateTimeManipulationService.GetComponent(dateTimeComponent,date));
     }
 }

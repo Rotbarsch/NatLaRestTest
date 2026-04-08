@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Extensions;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
@@ -59,5 +60,31 @@ public class DateTimeManipulationService(ICultureInfoService cultureInfoService)
     public string SubtractDateTimeFromDateTime(DateTime currentDate, DateTime dateToSubtract)
     {
         return currentDate.Subtract(dateToSubtract).ToString("c");
+    }
+
+    /// <inheritdoc />
+    public string? GetComponent(DateComponent dateTimeComponent, string? date)
+    {
+        if (date is null) return null;
+        var dt = ParseDate(date);
+
+        return dateTimeComponent switch
+        {
+            DateComponent.Ticks => dt.Ticks.ToString(),
+            DateComponent.Date => dt.Date.ToInvariantDateTimeString(cultureInfoService.GetConfiguredCultureInfo(),"yyyy-MM-dd"),
+            DateComponent.Day => dt.Day.ToString(),
+            DateComponent.DayOfWeek => dt.DayOfWeek.ToString(),
+            DateComponent.DayOfYear => dt.DayOfYear.ToString(),
+            DateComponent.Hour => dt.Hour.ToString(),
+            DateComponent.Microsecond => dt.Microsecond.ToString(),
+            DateComponent.Millisecond => dt.Millisecond.ToString(),
+            DateComponent.Minute => dt.Minute.ToString(),
+            DateComponent.Month => dt.Month.ToString(),
+            DateComponent.NanoSecond => dt.Nanosecond.ToString(),
+            DateComponent.Second => dt.Second.ToString(),
+            DateComponent.TimeOfDay => dt.TimeOfDay.ToString(),
+            DateComponent.Year => dt.Year.ToString(),
+            _ => throw new ArgumentOutOfRangeException(nameof(dateTimeComponent), dateTimeComponent, null)
+        };
     }
 }

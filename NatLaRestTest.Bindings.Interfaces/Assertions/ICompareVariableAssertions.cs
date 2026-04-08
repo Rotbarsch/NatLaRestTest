@@ -1,18 +1,18 @@
 ﻿namespace NatLaRestTest.Bindings.Interfaces.Assertions;
 
-public interface INumericVariableAssertions
+public interface ICompareVariableAssertions
 {
     /// <summary>
-    ///     Then step: Asserts that the numeric value stored in the specified variable is greater than the given value.
+    ///     Then step: Asserts that the value stored in the specified variable is greater than the given value.
     /// </summary>
     /// <param name="variableName">The variable name containing a numeric value.</param>
     /// <param name="value">The threshold value (exclusive).</param>
-    void NumericVariableIsGreaterThan(string variableName, double value);
+    void VariableIsGreaterThan(string variableName, string? value);
 
     /// <summary>
-    ///     Then step: Asserts that the numeric value stored in the specified variable is less than the given value.
+    ///     Then step: Asserts that the value stored in the specified variable is less than the given value.
     /// </summary>
     /// <param name="variableName">The variable name containing a numeric value.</param>
     /// <param name="value">The threshold value (exclusive).</param>
-    void NumericVariableIsLessThan(string variableName, double value);
+    void VariableIsLessThan(string variableName, string? value);
 }
