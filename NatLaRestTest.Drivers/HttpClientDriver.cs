@@ -36,10 +36,11 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     /// <param name="url">Absolute or relative URL.</param>
     /// <param name="fileName">Path to the file to upload.</param>
     /// <param name="contentType">Optional content type of the stream part.</param>
+    /// <param name="formFieldName">Optional form field name for the file part. Defaults to <c>file</c>.</param>
     public async Task SendRequestWithStreamBody(string httpMethod, string url, string fileName,
-        string? contentType = null)
+        string? contentType = null, string formFieldName = "file")
     {
-        await httpClientService.SendRequestWithStreamBody(httpMethod, url, fileName, contentType);
+        await httpClientService.SendRequestWithStreamBody(httpMethod, url, fileName, contentType, formFieldName);
     }
 
     /// <summary>

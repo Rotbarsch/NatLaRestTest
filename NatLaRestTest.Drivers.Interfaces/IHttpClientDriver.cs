@@ -25,7 +25,8 @@ public interface IHttpClientDriver
     /// <param name="url">Absolute or relative URL.</param>
     /// <param name="fileName">Path to the file to upload.</param>
     /// <param name="contentType">Optional content type for the uploaded content.</param>
-    Task SendRequestWithStreamBody(string httpMethod, string url, string fileName, string? contentType = null);
+    /// <param name="formFieldName">Optional form field name for the file part. Defaults to <c>file</c>.</param>
+    Task SendRequestWithStreamBody(string httpMethod, string url, string fileName, string? contentType = null, string formFieldName = "file");
 
     /// <summary>
     /// Saves the current HTTP response content stream to a file.

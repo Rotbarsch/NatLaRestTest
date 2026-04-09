@@ -73,20 +73,28 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     /// <param name="url">The absolute or relative URL to request.</param>
     /// <param name="fileName">Path to the file to be uploaded.</param>
     /// <param name="contentType">Optional content type of the stream part.</param>
+    /// <param name="formFieldName">Optional form field name for the file part. Defaults to <c>file</c>.</param>
     public async Task SendRequestWithStreamBody(string httpMethod, string url, string fileName,
-        string? contentType = null)
+        string? contentType = null, string formFieldName = "file")
     {
         Assert.IsTrue(File.Exists(fileName), $"File '{fileName} does not exist.");
 
         await using var fileStream = File.OpenRead(fileName);
+        var streamContent = new StreamContent(fileStream);
+
+        if (contentType is not null)
+        {
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+        }
+
+        var formData = new MultipartFormDataContent();
+        formData.Add(streamContent, formFieldName, Path.GetFileName(fileName));
+
         var msg = new HttpRequestMessage(
             HttpMethod.Parse(httpMethod),
             url)
         {
-            Content = new MultipartFormDataContent
-            {
-                new StreamContent(fileStream)
-            }
+            Content = formData
         };
 
         await SendHttpRequestMessage(msg);
