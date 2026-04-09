@@ -26,7 +26,8 @@ public interface IHttpClientService
     /// <param name="url">The absolute or relative URL to request.</param>
     /// <param name="fileName">Path to the file to be uploaded.</param>
     /// <param name="contentType">Optional content type of the stream part.</param>
-    Task SendRequestWithStreamBody(string httpMethod, string url, string fileName, string? contentType = null);
+    /// <param name="formFieldName">Optional form field name for the file part. Defaults to <c>file</c>.</param>
+    Task SendRequestWithStreamBody(string httpMethod, string url, string fileName, string? contentType = null, string formFieldName = "file");
 
     /// <summary>
     ///     Determines whether the last HTTP response indicates success.
