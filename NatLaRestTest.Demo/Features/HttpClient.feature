@@ -29,5 +29,14 @@ Scenario: Basic functionality
 	And the response code does not equal '200'
 	And the response does not indicate success
 
+Scenario: Set and remove default headers
+	Given the default header 'x-application' with value 'NatLaRestTest'
+	When a 'GET' request to '/require-natla-header' is made
+	Then the response code equals '200'
+	Given the default header 'x-application' is removed
+	When a 'GET' request to '/require-natla-header' is made
+	Then the response code equals '400'
+	
+
 	
 	

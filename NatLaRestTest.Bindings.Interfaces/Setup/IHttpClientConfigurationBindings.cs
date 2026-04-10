@@ -24,6 +24,12 @@ public interface IHttpClientConfigurationBindings
     void SetDefaultHeader(string headerName, string headerValue);
 
     /// <summary>
+    /// Given step: Removes a default request header from the shared HTTP client.
+    /// </summary>
+    /// <param name="headerName">Name of the header to remove from following requests.</param>
+    void RemoveDefaultHeader(string headerName);
+
+    /// <summary>
     ///     Given step: Disables SSL certificate validation for outgoing requests.
     /// </summary>
     void DisableSslCertificateValidation();

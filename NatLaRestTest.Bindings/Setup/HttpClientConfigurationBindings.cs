@@ -43,6 +43,16 @@ public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver)
     }
 
     /// <summary>
+    /// Given step: Removes a default request header from the shared HTTP client.
+    /// </summary>
+    /// <param name="headerName">Name of the header to remove from following requests.</param>
+    [Given("the default header '(.*)' is removed")]
+    public void RemoveDefaultHeader(string headerName)
+    {
+        httpClientDriver.RemoveDefaultHeader(headerName);
+    }
+
+    /// <summary>
     ///     Given step: Disables SSL certificate validation for outgoing requests.
     /// </summary>
     [Given("SSL certificate validation is disabled")]

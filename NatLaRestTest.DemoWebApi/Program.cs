@@ -64,6 +64,15 @@ app.MapPost("/upload/form/named", async (HttpRequest request) =>
     return Results.Ok(new { fieldName = file.Name, fileName = file.FileName, size = file.Length, content });
 }).DisableAntiforgery();
 
+app.MapGet("/require-natla-header", async (HttpRequest request) =>
+{
+    if (request.Headers.ContainsKey("x-application") && request.Headers["x-application"] == "NatLaRestTest")
+    {
+        return Results.Ok();
+    }
+    return Results.BadRequest();
+});
+
 await app.RunAsync();
 
 namespace NatLaRestTest.DemoWebApi

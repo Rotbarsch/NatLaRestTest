@@ -73,6 +73,12 @@ public interface IHttpClientDriver
     void SetDefaultHeader(string headerName, string headerValue);
 
     /// <summary>
+    /// Removes a default header so it will no longer be included with outgoing requests.
+    /// </summary>
+    /// <param name="headerName">Name of the header to remove.</param>
+    void RemoveDefaultHeader(string headerName);
+
+    /// <summary>
     /// Disables SSL certificate validation for outgoing requests.
     /// </summary>
     void DisableSslCertificateValidation();
