@@ -67,6 +67,12 @@ public interface IHttpClientService
     void SetDefaultHeader(string headerName, string headerValue);
 
     /// <summary>
+    /// Removes a default header so it will no longer be included with outgoing requests.
+    /// </summary>
+    /// <param name="headerName">Name of the header to remove.</param>
+    void RemoveDefaultHeader(string headerName);
+
+    /// <summary>
     ///     Saves the response content stream to a file.
     /// </summary>
     /// <param name="filePath">Target file path.</param>

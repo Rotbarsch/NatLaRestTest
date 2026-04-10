@@ -142,6 +142,12 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     }
 
     /// <inheritdoc />
+    public void RemoveDefaultHeader(string headerName)
+    {
+        _httpClientOptions.DefaultRequestHeaders.Remove(headerName);
+    }
+
+    /// <inheritdoc />
     public async Task SaveResponseStreamToFile(string filePath)
     {
         AssertResponseAvailable();

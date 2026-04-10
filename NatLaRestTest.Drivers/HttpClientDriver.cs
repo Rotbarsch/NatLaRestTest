@@ -111,6 +111,15 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     }
 
     /// <summary>
+    /// Removes a default header so it will no longer be included with outgoing requests.
+    /// </summary>
+    /// <param name="headerName">Name of the header to remove.</param>
+    public void RemoveDefaultHeader(string headerName)
+    {
+        httpClientService.RemoveDefaultHeader(headerName);
+    }
+
+    /// <summary>
     /// Disables SSL certificate validation on the HTTP client.
     /// </summary>
     public void DisableSslCertificateValidation()
