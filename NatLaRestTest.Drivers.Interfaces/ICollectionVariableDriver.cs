@@ -37,4 +37,10 @@ public interface ICollectionVariableDriver
     /// <param name="variableName">The variable name.</param>
     /// <param name="count">The expected count.</param>
     void AssertCollectionHasExactCount(string variableName, int count);
+    /// <summary>
+    /// Stores the length of a collection stored in a variable into another variable.
+    /// </summary>
+    /// <param name="collectionVariableName">Name of the variable containing the collection.</param>
+    /// <param name="targetVariableName">Name of the variable receiving the value.</param>
+    void StoreCollectionLengthInVariable(string collectionVariableName, string targetVariableName);
 }
