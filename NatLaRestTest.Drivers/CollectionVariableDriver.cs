@@ -61,6 +61,15 @@ public class CollectionVariableDriver(IVariableService variableService) : IColle
         Assert.AreEqual(count, jArray.Count);
     }
 
+    /// <summary>
+    /// Stores length of a collection in a variable.
+    /// </summary>
+    public void StoreCollectionLengthInVariable(string collectionVariableName, string targetVariableName)
+    {
+        var jArray = GetVariableAsArray(collectionVariableName);
+        variableService.SetVariable(targetVariableName, jArray.Count.ToString());
+    }
+
     private JArray GetVariableAsArray(string variableName)
     {
         var value = variableService.GetVariable(variableName);
