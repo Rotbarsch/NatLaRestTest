@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.WebUtilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -62,6 +64,24 @@ app.MapPost("/upload/form/named", async (HttpRequest request) =>
     var content = await reader.ReadToEndAsync();
 
     return Results.Ok(new { fieldName = file.Name, fileName = file.FileName, size = file.Length, content });
+}).DisableAntiforgery();
+
+app.MapPost("/form", async (HttpRequest request) =>
+{
+    using var reader = new StreamReader(request.Body);
+    var body = await reader.ReadToEndAsync();
+    var fields = QueryHelpers.ParseQuery(body)
+        .ToDictionary(kv => kv.Key, kv => kv.Value.FirstOrDefault() ?? "");
+    return Results.Ok(new { contentType = request.ContentType, fields });
+}).DisableAntiforgery();
+
+app.MapPut("/form", async (HttpRequest request) =>
+{
+    using var reader = new StreamReader(request.Body);
+    var body = await reader.ReadToEndAsync();
+    var fields = QueryHelpers.ParseQuery(body)
+        .ToDictionary(kv => kv.Key, kv => kv.Value.FirstOrDefault() ?? "");
+    return Results.Ok(new { contentType = request.ContentType, fields });
 }).DisableAntiforgery();
 
 app.MapGet("/require-natla-header", async (HttpRequest request) =>
