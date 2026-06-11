@@ -67,6 +67,24 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     }
 
     /// <summary>
+    ///    Sends an HTTP request with the specified method and uploads form content as key-value pairs in a dictionary.
+    /// </summary>
+    /// <param name="httpMethod">HTTP method (e.g., GET, POST, PUT, DELETE).</param>
+    /// <param name="url"></param>
+    /// <param name="dict">Content of the form.</param>
+    /// <param name="contentType">Content-Type header, defaults to <c>multipart/form-data</c>.</param>
+    public async Task SendFormRequest(string httpMethod, string url, Dictionary<string, string> dict, string contentType = "multipart/form-data")
+    {
+        using HttpContent formContent = new FormUrlEncodedContent(dict);
+        var request = new HttpRequestMessage(new HttpMethod(httpMethod), url)
+        {
+            Content = formContent,
+        };
+        request.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+        await SendHttpRequestMessage(request);
+    }
+
+    /// <summary>
     ///     Sends an HTTP request with the specified method and uploads the contents of a file as multipart stream content.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., POST, PUT).</param>

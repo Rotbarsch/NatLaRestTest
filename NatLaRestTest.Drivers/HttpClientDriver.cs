@@ -44,6 +44,18 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     }
 
     /// <summary>
+    /// Sends an HTTP request with form content specified as key-value pairs in a dictionary.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., POST, PUT).</param>
+    /// <param name="url">The absolute or relative URL to request.</param>
+    /// <param name="dict">The form content as key-value pairs.</param>
+    /// <param name="contentType">The content type of the form data. Defaults to <c>multipart/form-data</c>.</param>
+    public async Task SendFormRequest(string httpMethod, string url, Dictionary<string, string> dict, string contentType = "multipart/form-data")
+    {
+        await httpClientService.SendFormRequest(httpMethod, url, dict, contentType);
+    }
+
+    /// <summary>
     /// Saves the current response stream to a file.
     /// </summary>
     /// <param name="filePath">Path to the destination file.</param>

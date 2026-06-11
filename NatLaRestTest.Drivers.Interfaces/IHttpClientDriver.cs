@@ -19,6 +19,15 @@ public interface IHttpClientDriver
         string contentType = "application/json");
 
     /// <summary>
+    /// Sends an HTTP request with form content specified as key-value pairs in a dictionary.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., POST, PUT).</param>
+    /// <param name="url">The absolute or relative URL to request.</param>
+    /// <param name="dict">The form content as key-value pairs.</param>
+    /// <param name="contentType">The content type of the form data. Defaults to <c>multipart/form-data</c>.</param>
+    Task SendFormRequest(string httpMethod, string url, Dictionary<string, string> dict, string contentType = "multipart/form-data");
+
+    /// <summary>
     /// Sends an HTTP request and uploads a file as the request body using stream/multipart content.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., POST, PUT).</param>
@@ -120,5 +129,5 @@ public interface IHttpClientDriver
     /// Configures and fetches OAuth tokens for outgoing requests.
     /// </summary>
     /// <param name="options"></param>
-    Task EnableOAuth(OAuthOptions options);
+    Task EnableOAuth(OAuthOptions options);    
 }
