@@ -10,6 +10,13 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("x-application", "NatLaDemoApi");
+    context.Response.Headers.Expires = DateTime.Now.AddDays(1).ToString("O");
+    await next.Invoke();
+});
+
 app.MapGet("/ok", () => Results.Ok("works"));
 app.MapPost("/create", () => Results.Created());
 app.MapGet("/missing", () => Results.NotFound());

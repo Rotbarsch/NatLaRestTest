@@ -93,6 +93,13 @@ public interface IHttpClientService
     string GetCurrentResponseHeaderValue(string headerName);
 
     /// <summary>
+    ///    Gets the value of a content header from the last HTTP response.
+    /// </summary>
+    /// <param name="headerName">The content header name.</param>
+    /// <returns>The content header value concatenated if multiple values exist.</returns>
+    string GetCurrentResponseContentHeaderValue(string headerName);
+
+    /// <summary>
     ///     Disables SSL certificate validation for outgoing requests.
     /// </summary>
     void DisableSslCertificateValidation();

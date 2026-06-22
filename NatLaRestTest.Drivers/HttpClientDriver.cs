@@ -95,6 +95,17 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     }
 
     /// <summary>
+    /// Retrieves a content header value from the current response and stores it in a scenario variable.
+    /// </summary>
+    /// <param name="headerName">Name of the content header.</param>
+    /// <param name="variableName">Name of the scenario variable to store the value.</param>
+    public void StoreResponseContentHeaderValueInVariable(string headerName, string variableName)
+    {
+        var headerValue = httpClientService.GetCurrentResponseContentHeaderValue(headerName);
+        variableService.SetVariable(variableName, headerValue);
+    }
+
+    /// <summary>
     /// Sets the base URL used by the HTTP client.
     /// </summary>
     /// <param name="baseUrl">Base URL.</param>

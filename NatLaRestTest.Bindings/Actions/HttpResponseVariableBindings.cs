@@ -27,7 +27,7 @@ public class HttpResponseVariableBindings(IHttpClientDriver httpClientDriver) : 
     }
 
     /// <summary>
-    ///     When step: Stores the value of the specified response header into a scenario variable.
+    ///     When step: Stores the value of the specified response header into a scenario variable. Note that this does not access content headers like Content-Type, Expires, etc.
     /// </summary>
     /// <param name="headerName">The response header to read.</param>
     /// <param name="variableName">The target variable name.</param>
@@ -35,6 +35,18 @@ public class HttpResponseVariableBindings(IHttpClientDriver httpClientDriver) : 
     public void StoreResponseHeaderValue(string headerName, string variableName)
     {
         httpClientDriver.StoreResponseHeaderValueInVariable(headerName, variableName);
+    }
+
+
+    /// <summary>
+    /// When step: Stores the value of the specified content header into a scenario variable. Note that this accesses content headers like Content-Type, Expires, etc.
+    /// </summary>
+    /// <param name="headerName">The content header to read.</param>
+    /// <param name="variableName">The target variable name.</param>
+    [When("the value of content header '(.*)' is stored in variable '(.*)'")]
+    public void StoreResponseContentHeaderValue(string headerName, string variableName)
+    {
+        httpClientDriver.StoreResponseContentHeaderValueInVariable(headerName, variableName);
     }
 
     /// <summary>
