@@ -63,6 +63,13 @@ public interface IHttpClientDriver
     void StoreResponseHeaderValueInVariable(string headerName, string variableName);
 
     /// <summary>
+    /// Stores the value of a response content header in a variable.
+    /// </summary>
+    /// <param name="headerName">The content header name.</param>
+    /// <param name="variableName">The target variable name.</param>
+    void StoreResponseContentHeaderValueInVariable(string headerName, string variableName);
+
+    /// <summary>
     /// Sets the base URL used for outgoing requests.
     /// </summary>
     /// <param name="baseUrl">Absolute base URL.</param>

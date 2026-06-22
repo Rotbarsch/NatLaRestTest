@@ -27,14 +27,14 @@ public class HttpMessageSerializer(IContentStringBeautifier contentStringBeautif
 
     private async Task LogRequest(StringBuilder sb, HttpRequestMessage request)
     {
-        sb.AppendLine($"{request.Method} {request.RequestUri} HTTP/{request.Version}");
+        sb.AppendLine($"REQUEST {request.Method} {request.RequestUri} HTTP/{request.Version}");
         AppendHttpMessageHeaders(sb, request.Headers, request.Content?.Headers);
         await AppendHttpMessageContent(sb, request.Content);
     }
 
     private async Task LogResponse(HttpResponseMessage response, StringBuilder sb)
     {
-        sb.AppendLine($"HTTP/{response.Version} {(int)response.StatusCode} {response.ReasonPhrase}");
+        sb.AppendLine($"RESPONSE HTTP/{response.Version} {(int)response.StatusCode} {response.ReasonPhrase}");
         AppendHttpMessageHeaders(sb, response.Headers, response.Content?.Headers);
         await AppendHttpMessageContent(sb, response.Content);
     }
@@ -62,16 +62,20 @@ public class HttpMessageSerializer(IContentStringBeautifier contentStringBeautif
 
     private static void AppendHttpMessageHeaders(StringBuilder sb, HttpHeaders requestHeaders, HttpContentHeaders? contentHeaders)
     {
+        sb.AppendLine();
+        sb.AppendLine("Message headers:");
         foreach (var h in requestHeaders)
         {
-            sb.AppendLine($"{h.Key}: {string.Join(", ", h.Value)}");
+            sb.AppendLine($"  {h.Key}: {string.Join(", ", h.Value)}");
         }
 
+        sb.AppendLine();
+        sb.AppendLine("Content headers:");
         if (contentHeaders is not null)
         {
             foreach (var h in contentHeaders)
             {
-                sb.AppendLine($"{h.Key}: {string.Join(", ", h.Value)}");
+                sb.AppendLine($"  {h.Key}: {string.Join(", ", h.Value)}");
             }
         }
     }

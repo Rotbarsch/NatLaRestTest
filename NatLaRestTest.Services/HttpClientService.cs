@@ -202,6 +202,15 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     }
 
     /// <inheritdoc />
+    public string GetCurrentResponseContentHeaderValue(string headerName)
+    {
+        AssertResponseAvailable();
+        Assert.IsTrue(CurrentResponse!.Content.Headers.TryGetValues(headerName, out var headerValues),
+            $"No content header with key '{headerName}' in current response.");
+        return string.Join(",", headerValues!);
+    }
+
+    /// <inheritdoc />
     public void DisableSslCertificateValidation()
     {
         _httpClientOptions.CheckSsl = false;
