@@ -214,4 +214,40 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     {
         await httpClientService.EnableOAuth(options);
     }
+
+    /// <summary>
+    /// Asserts that the HTTP response contains the specified header.
+    /// </summary>
+    /// <param name="headerName">The name of the response header to check for.</param>
+    public void AssertResponseHeaderExists(string headerName)
+    {
+        Assert.IsTrue(httpClientService.HasHeader(headerName),$"Expected response to have header '{headerName}', but it's missing.");
+    }
+
+    /// <summary>
+    /// Asserts that the HTTP response contains the specified content header.
+    /// </summary>
+    /// <param name="headerName">The name of the content header to check for.</param>
+    public void AssertResponseContentHeaderExists(string headerName)
+    {
+        Assert.IsTrue(httpClientService.HasContentHeader(headerName), $"Expected response to have content header '{headerName}', but it's missing.");
+    }
+
+    /// <summary>
+    /// Asserts that the HTTP response does not contain the specified header.
+    /// </summary>
+    /// <param name="headerName">The name of the response header that must be absent.</param>
+    public void AssertResponseHeaderNotExists(string headerName)
+    {
+        Assert.IsFalse(httpClientService.HasHeader(headerName), $"Expected response to not have header '{headerName}', but it's set.");
+    }
+
+    /// <summary>
+    /// Asserts that the HTTP response does not contain the specified content header.
+    /// </summary>
+    /// <param name="headerName">The name of the content header that must be absent.</param>
+    public void AssertResponseContentHeaderNotExists(string headerName)
+    {
+        Assert.IsFalse(httpClientService.HasContentHeader(headerName), $"Expected response to not have content header '{headerName}', but it's set.");
+    }
 }

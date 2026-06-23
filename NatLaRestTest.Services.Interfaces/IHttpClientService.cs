@@ -129,4 +129,22 @@ public interface IHttpClientService
     /// <param name="dict">The form content as key-value pairs.</param>
     /// <param name="contentType">The content type of the form data. Defaults to <c>multipart/form-data</c>.</param>
     Task SendFormRequest(string httpMethod, string url, Dictionary<string, string> dict, string contentType="multipart/form-data");
+
+    /// <summary>
+    ///     Determines whether a specific header is present in the last HTTP response.
+    /// </summary>
+    /// <param name="headerName">The response header name to look for.</param>
+    /// <returns>
+    ///     <c>true</c> if the header is present; <c>false</c> if not present;
+    /// </returns>
+    bool HasHeader(string headerName);
+
+    /// <summary>
+    ///     Determines whether a specific content header is present in the last HTTP response.
+    /// </summary>
+    /// <param name="headerName">The content header name to look for.</param>
+    /// <returns>
+    ///     <c>true</c> if the content header is present; <c>false</c> if not present;
+    /// </returns>
+    bool HasContentHeader(string headerName);
 }

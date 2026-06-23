@@ -47,4 +47,44 @@ public class HttpResponseAssertionBindings(IHttpClientDriver httpClientDriver) :
     {
         httpClientDriver.AssertResponseCodeIsNot(code);
     }
+
+    /// <summary>
+    ///     Then step: Asserts that the current HTTP response contains the specified response header.
+    /// </summary>
+    /// <param name="headerName">The name of the response header to check for (e.g., "Authorization").</param>
+    [Then("the response has the header '(.*)'")]
+    public void AssertResponseHeaderExists(string headerName)
+    {
+        httpClientDriver.AssertResponseHeaderExists(headerName);
+    }
+
+    /// <summary>
+    ///     Then step: Asserts that the current HTTP response contains the specified content header.
+    /// </summary>
+    /// <param name="headerName">The name of the content header to check for (e.g., "Content-Type").</param>
+    [Then("the response has the content header '(.*)'")]
+    public void AssertResponseContentHeaderExists(string headerName)
+    {
+        httpClientDriver.AssertResponseContentHeaderExists(headerName);
+    }
+
+    /// <summary>
+    ///     Then step: Asserts that the current HTTP response does not contain the specified response header.
+    /// </summary>
+    /// <param name="headerName">The name of the response header that must not be present (e.g., "Authorization").</param>
+    [Then("the response does not have the header '(.*)'")]
+    public void AssertResponseHeaderNotExists(string headerName)
+    {
+        httpClientDriver.AssertResponseHeaderNotExists(headerName);
+    }
+
+    /// <summary>
+    ///     Then step: Asserts that the current HTTP response does not contain the specified content header.
+    /// </summary>
+    /// <param name="headerName">The name of the content header that must not be present (e.g., "Content-Type").</param>
+    [Then("the response does not have the content header '(.*)'")]
+    public void AssertResponseContentHeaderNotExists(string headerName)
+    {
+        httpClientDriver.AssertResponseContentHeaderNotExists(headerName);
+    }
 }
