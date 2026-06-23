@@ -22,10 +22,15 @@ Scenario: Basic functionality
 	Then the value of variable 'resp_time' is greater than '0'
 
 	# Headers
-	When the value of content header 'Expires' is stored in variable 'expiry'
-	#Then the value of variable 'content_type' equals 'text/plain'
+	When the value of content header 'Expires' is stored in variable 'expiry'	
 	When the value of header 'x-application' is stored in variable 'x_application'
 	Then the value of variable 'x_application' equals 'NatLaDemoApi'
+
+	# Header assertions
+	Then the response has the header 'x-application'
+	And the response has the content header 'Expires'
+	And the response does not have the header 'Expires'
+	And the response does not have the content header 'x-application'
 
 	# Example for post
 	When a 'POST' request to '/create' is made with the following request body:

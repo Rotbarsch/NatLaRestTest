@@ -135,6 +135,30 @@ public interface IHttpClientDriver
     /// <summary>
     /// Configures and fetches OAuth tokens for outgoing requests.
     /// </summary>
-    /// <param name="options"></param>
-    Task EnableOAuth(OAuthOptions options);    
+    /// <param name="options">The OAuth configuration options (token endpoint, credentials, scopes, etc.).</param>
+    Task EnableOAuth(OAuthOptions options);
+
+    /// <summary>
+    /// Asserts that the current HTTP response contains the specified response header.
+    /// </summary>
+    /// <param name="headerName">The name of the response header to check for (e.g., "Authorization").</param>
+    void AssertResponseHeaderExists(string headerName);
+
+    /// <summary>
+    /// Asserts that the current HTTP response contains the specified content header.
+    /// </summary>
+    /// <param name="headerName">The name of the content header to check for (e.g., "Content-Type").</param>
+    void AssertResponseContentHeaderExists(string headerName);
+
+    /// <summary>
+    /// Asserts that the current HTTP response does not contain the specified response header.
+    /// </summary>
+    /// <param name="headerName">The name of the response header that must not be present (e.g., "Authorization").</param>
+    void AssertResponseHeaderNotExists(string headerName);
+
+    /// <summary>
+    /// Asserts that the current HTTP response does not contain the specified content header.
+    /// </summary>
+    /// <param name="headerName">The name of the content header that must not be present (e.g., "Content-Type").</param>
+    void AssertResponseContentHeaderNotExists(string headerName);
 }

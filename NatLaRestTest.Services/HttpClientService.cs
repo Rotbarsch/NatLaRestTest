@@ -202,12 +202,27 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     }
 
     /// <inheritdoc />
+    public bool HasHeader(string headerName)
+    {
+        AssertResponseAvailable();
+        return CurrentResponse!.Headers.Select(x=>x.Key).Contains(headerName);
+    }
+
+    
+    /// <inheritdoc />
     public string GetCurrentResponseContentHeaderValue(string headerName)
     {
         AssertResponseAvailable();
         Assert.IsTrue(CurrentResponse!.Content.Headers.TryGetValues(headerName, out var headerValues),
             $"No content header with key '{headerName}' in current response.");
         return string.Join(",", headerValues!);
+    }
+
+    /// <inheritdoc />
+    public bool HasContentHeader(string headerName)
+    {
+        AssertResponseAvailable();
+        return CurrentResponse!.Content.Headers.Select(x=>x.Key).Contains(headerName);
     }
 
     /// <inheritdoc />
