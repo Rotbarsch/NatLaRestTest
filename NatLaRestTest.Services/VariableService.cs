@@ -24,7 +24,7 @@ public class VariableService : IVariableService
 
     public IEnumerable<string> GetVariableNames()
     {
-        return _variableStorage.Select(x => x.Key).ToList();
+        return [.. _variableStorage.Select(x => x.Key)];
     }
 
     /// <inheritdoc />

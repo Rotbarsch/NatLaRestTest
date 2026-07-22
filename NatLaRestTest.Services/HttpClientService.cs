@@ -105,8 +105,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
         }
 
-        var formData = new MultipartFormDataContent();
-        formData.Add(streamContent, formFieldName, Path.GetFileName(fileName));
+        var formData = new MultipartFormDataContent { { streamContent, formFieldName, Path.GetFileName(fileName) } };
 
         var msg = new HttpRequestMessage(
             HttpMethod.Parse(httpMethod),

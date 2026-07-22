@@ -57,8 +57,6 @@ internal class OAuthHelper
 
     private static Dictionary<string,string> GetExtraParameters(string? optionsExtraParameters)
     {
-        return string.IsNullOrEmpty(optionsExtraParameters) ? 
-            new() : 
-            optionsExtraParameters.Split(";").ToDictionary(s => s.Split("=")[0], s => s.Split("=")[1]);
+        return string.IsNullOrEmpty(optionsExtraParameters) ? [] : optionsExtraParameters.Split(";").ToDictionary(s => s.Split("=")[0], s => s.Split("=")[1]);
     }
 }

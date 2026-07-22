@@ -93,7 +93,7 @@ app.MapPut("/form", async (HttpRequest request) =>
 
 app.MapGet("/require-natla-header", async (HttpRequest request) =>
 {
-    if (request.Headers.ContainsKey("x-application") && request.Headers["x-application"] == "NatLaRestTest")
+    if (request.Headers.TryGetValue("x-application", out Microsoft.Extensions.Primitives.StringValues value) && value == "NatLaRestTest")
     {
         return Results.Ok();
     }

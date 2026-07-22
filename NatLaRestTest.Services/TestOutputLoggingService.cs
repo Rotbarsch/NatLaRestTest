@@ -24,7 +24,7 @@ public partial class TestOutputLoggingService(IReqnrollOutputHelper outputHelper
     {
         int i = 0;
         var numeric = VariableRegEx().Replace(logMessage, _ => $"{{{i++}}}");
-        var result = string.Format(numeric, messageParameters.ToArray());
+        var result = string.Format(numeric, [.. messageParameters]);
 
         WriteLine(result);
     }

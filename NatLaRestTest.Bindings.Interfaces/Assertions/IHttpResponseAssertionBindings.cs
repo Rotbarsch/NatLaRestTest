@@ -15,12 +15,12 @@ public interface IHttpResponseAssertionBindings
     /// <summary>
     ///     Then step: Asserts that the current HTTP response status code equals the expected value.
     /// </summary>
-    /// <param name="code">The expected HTTP status code (e.g., 200).</param>
-    void AssertResponseCode(int code);
+    /// <param name="codeAsString">The expected HTTP status code (e.g., 200).</param>
+    void AssertResponseCode(string codeAsString);
 
     /// <summary>
     ///     Then step: Asserts that the current HTTP response status code does not equal the specified value.
     /// </summary>
-    /// <param name="code">The HTTP status code that must not match.</param>
-    void AssertResponseCodeIsNot(int code);
+    /// <param name="codeAsString">The HTTP status code that must not match.</param>
+    void AssertResponseCodeIsNot(string codeAsString);
 }
