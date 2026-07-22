@@ -13,8 +13,8 @@ public interface IHttpClientConfigurationBindings
     /// <summary>
     ///     Given step: Sets the default timeout for HTTP requests executed by the shared HTTP client.
     /// </summary>
-    /// <param name="seconds">The timeout value in seconds.</param>
-    void SetDefaultTimeout(int seconds);
+    /// <param name="secondsAsString">The timeout value in seconds.</param>
+    void SetDefaultTimeout(string secondsAsString);
 
     /// <summary>
     ///     Given step: Adds a default request header to the shared HTTP client.

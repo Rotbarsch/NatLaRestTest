@@ -1,5 +1,6 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
 using NatLaRestTest.Drivers.Interfaces;
+using NUnit.Framework;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Assertions;
@@ -31,20 +32,22 @@ public class HttpResponseAssertionBindings(IHttpClientDriver httpClientDriver) :
     /// <summary>
     ///     Then step: Asserts that the current HTTP response status code equals the expected value.
     /// </summary>
-    /// <param name="code">The expected HTTP status code (e.g., 200).</param>
+    /// <param name="codeAsString">The expected HTTP status code (e.g., 200).</param>
     [Then("the response code equals '(.*)'")]
-    public void AssertResponseCode(int code)
+    public void AssertResponseCode(string codeAsString)
     {
+        if(!int.TryParse(codeAsString, out int code)) Assert.Fail($"{codeAsString} is not valid HTTP code.");
         httpClientDriver.AssertResponseCode(code);
     }
 
     /// <summary>
     ///     Then step: Asserts that the current HTTP response status code does not equal the specified value.
     /// </summary>
-    /// <param name="code">The HTTP status code that must not match.</param>
+    /// <param name="codeAsString">The HTTP status code that must not match.</param>
     [Then("the response code does not equal '(.*)'")]
-    public void AssertResponseCodeIsNot(int code)
+    public void AssertResponseCodeIsNot(string codeAsString)
     {
+        if (!int.TryParse(codeAsString, out int code)) Assert.Fail($"{codeAsString} is not valid HTTP code.");
         httpClientDriver.AssertResponseCodeIsNot(code);
     }
 

@@ -75,7 +75,7 @@ public class HttpClientFormBindings(IHttpClientDriver httpClientDriver) : IHttpC
         await httpClientDriver.SendFormRequest("POST", url, GetFormDict(formContent), contentType);
     }
 
-    private Dictionary<string, string> GetFormDict(DataTable formContent)
+    private static Dictionary<string, string> GetFormDict(DataTable formContent)
     {
         return formContent.Rows.ToDictionary(x => x["Key"], x => x["Value"]);
     }

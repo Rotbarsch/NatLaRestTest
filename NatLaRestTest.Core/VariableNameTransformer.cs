@@ -24,11 +24,11 @@ public class VariableNameTransformer(IVariableService variableService)
     [StepArgumentTransformation]
     public DataTable ResolveVariablesInDataTable(DataTable dataTable)
     {
-        var resultDt = new DataTable(dataTable.Header.ToArray());
+        var resultDt = new DataTable([..dataTable.Header]);
 
         foreach (var r in dataTable.Rows)
         {
-            resultDt.AddRow(r.Values.Select(ResolveVariable).ToArray());
+            resultDt.AddRow([..r.Values.Select(ResolveVariable)]);
         }
 
         return resultDt;

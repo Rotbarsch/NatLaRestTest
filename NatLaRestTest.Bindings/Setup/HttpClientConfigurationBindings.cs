@@ -1,6 +1,7 @@
 ﻿using NatLaRestTest.Bindings.Interfaces.Setup;
 using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
+using NUnit.Framework;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Setup;
@@ -24,10 +25,11 @@ public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver)
     /// <summary>
     ///     Given step: Sets the default timeout for HTTP requests executed by the shared HTTP client.
     /// </summary>
-    /// <param name="seconds">The timeout value in seconds.</param>
+    /// <param name="secondsAsString">The timeout value in seconds.</param>
     [Given("the default timeout of '(.*)' seconds")]
-    public void SetDefaultTimeout(int seconds)
+    public void SetDefaultTimeout(string secondsAsString)
     {
+        if(!int.TryParse(secondsAsString,out var seconds)) Assert.Fail($"{seconds} is no valid integer.");
         httpClientDriver.SetDefaultTimeout(seconds);
     }
 
