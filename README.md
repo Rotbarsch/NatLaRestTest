@@ -11,31 +11,6 @@ It uses the shared binding from [Rotbarsch.Reqnroll.BaseBindings](https://github
 
 **TL;DR: A set of Reqnroll Bindings for writing REST API tests in Natural Language.**
 
-## Migration from 0.0.* to 1.*
-There are two main things to update after doing the "big" update for your test projects.
-
-1. Update reqnroll.json
-Update the ``bindingAssemblies`` block to look as follows:
-```
-"bindingAssemblies": [
-    {
-      "assembly": "Rotbarsch.Reqnroll.Core"
-    },
-    {
-      "assembly": "Rotbarsch.Reqnroll.Bindings"
-    },
-    {
-      "assembly": "NatLaRestTest.Bindings"
-    }
-  ]
-```
-
-2. Rename NatLaRestTestSettings.*.json files
-The central settings files were renamed from the ``NatLaRestTestSettings.*.json`` pattern to ``rotbarsch.reqnroll.*.json``
-For example:
-``NatLaRestTest.json`` --> ``rotbarsch.reqnroll.json``
-``NatLaRestTest.Development.json`` --> ``rotbarsch.reqnroll.Development.json``
-
 ## Minimal Usage Example
 ```
 Given the base URL 'https://awesome-api.de'
@@ -61,6 +36,31 @@ dotnet new natlaresttest -n MyTestProject
 ```
 This will create a new test project with the necessary dependencies and a sample test case named `MyTestProject`.
 Check if it runs correctly via `dotnet test`, and then start writing your own test cases.
+
+## Migration from 0.0.* to 1.*
+There are two main things to update after doing the "big" update for your test projects.
+
+1. Update reqnroll.json
+Update the ``bindingAssemblies`` block to look as follows:
+```
+"bindingAssemblies": [
+    {
+      "assembly": "Rotbarsch.Reqnroll.Core"
+    },
+    {
+      "assembly": "Rotbarsch.Reqnroll.Bindings"
+    },
+    {
+      "assembly": "NatLaRestTest.Bindings"
+    }
+  ]
+```
+
+2. Rename NatLaRestTestSettings.*.json files
+The central settings files were renamed from the ``NatLaRestTestSettings.*.json`` pattern to ``rotbarsch.reqnroll.*.json``
+For example:
+``NatLaRestTest.json`` --> ``rotbarsch.reqnroll.json``
+``NatLaRestTest.Development.json`` --> ``rotbarsch.reqnroll.Development.json``
 
 ## Running tests
 You can run tests created with this framework using your preferred test runner that supports NUnit, such as the built-in test explorer in Visual Studio, or via command line using the `dotnet test` command.
