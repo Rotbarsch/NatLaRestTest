@@ -8,6 +8,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
 
     steps:
       - name: Checkout
@@ -37,8 +39,14 @@ jobs:
       - name: Pack Project template
         run: dotnet pack ./Template/NatLaRestTest.Template.Package.csproj --configuration Release -p:Version=${{ steps.version.outputs.VERSION }}
 
+      - name: NuGet login (get temp api key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Publish to NuGet
-        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Checkout Wiki
         uses: actions/checkout@v4
