@@ -37,7 +37,7 @@ dotnet new natlaresttest -n MyTestProject
 This will create a new test project with the necessary dependencies and a sample test case named `MyTestProject`.
 Check if it runs correctly via `dotnet test`, and then start writing your own test cases.
 
-## Migration from 0.0.* to 1.*
+## Migration from 0.0.* to 26+.*
 There are two main things to update after doing the "big" update for your test projects.
 
 1. Update reqnroll.json
