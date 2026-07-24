@@ -7,7 +7,7 @@ This project aims to simplify the process of testing REST APIs by leveraging nat
 powered by the excellent [Reqnroll](https://github.com/reqnroll/Reqnroll). 
 It allows testers to write test cases in plain English, making it easier for non-technical stakeholders to understand and contribute to the testing process.
 
-It uses the shared binding from [Rotbarsch.Reqnroll.BaseBindings]() for variables etc. See there for further info.
+It uses the shared binding from [Rotbarsch.Reqnroll.BaseBindings](https://github.com/Rotbarsch/Rotbarsch.Reqnroll.BaseBindings) for variables etc. See there for further info.
 
 **TL;DR: A set of Reqnroll Bindings for writing REST API tests in Natural Language.**
 
@@ -139,8 +139,8 @@ And the value '$($(varName))' is stored in variable 'result'
 Then the value of variable 'result' equals '42'
 ```
 
-## NatLaRestTestSettings.json
-NatLaRestTest uses a configuration file named `NatLaRestTestSettings.json` to manage several settings.
+## rotbarsch.reqnroll.json
+NatLaRestTest uses a configuration file named `rotbarsch.reqnroll.json` to manage several settings.
 
 Consider the following example:
 ```
@@ -196,13 +196,6 @@ NatLaRestTest will instead try to load the file `variables.Development.json`, as
 This allows you to easily switch between different files based on the current environment or other criteria defined by your global variables.
 
 In contrast to the mechanism for additional configuration files, file-redirects are not additive. Meaning, no file merging takes place and only the file defined in the redirect is loaded.
-
-## Translating into other languages
-NatLaRestTest currently supports only English (en-US) as the language for writing test cases. However, since Reqnroll supports multiple languages, it is possible to translate the bindings into other languages.
-
-NatLaRestTest was designed with localization in mind. To translate the bindings into another language, you would need to create a new set of bindings with the same functionality but with step definitions in the desired language.
-
-See [a Proof of Concept for a German translation](./NatLaRestTest.Demo.de) (only translated a few basic bindings to demonstrate the idea) and its [underlying German bindings](./NatLaRestTest.Demo.de).
 
 ## Recommended workflow
 
