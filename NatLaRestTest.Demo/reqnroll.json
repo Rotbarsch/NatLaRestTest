@@ -8,7 +8,10 @@
   },
   "bindingAssemblies": [
     {
-      "assembly": "NatLaRestTest.Core"
+      "assembly": "Rotbarsch.Reqnroll.Core"
+    },
+    {
+      "assembly": "Rotbarsch.Reqnroll.Bindings"
     },
     {
       "assembly": "NatLaRestTest.Bindings"

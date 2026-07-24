@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using NatLaRestTest.DemoWebApi;
 using NatLaRestTest.Services;
 using Reqnroll;
+using Rotbarsch.Reqnroll.Services;
 
 namespace NatLaRestTest.Demo.Bindings;
 
@@ -16,7 +17,7 @@ public class DemoApiHostBindings : IDisposable
     public static void ApiIsStarted()
     {
 
-        var settingsService = new NatLaRestTestSettingsService();
+        var settingsService = new RotbarschReqnrollSettingsService();
         var url = settingsService.GetVariables().Single(x => x.Name == "demoApiBaseUrl").Value!;
         
         _appFactory = new DemoApiWebAppFactory(url);

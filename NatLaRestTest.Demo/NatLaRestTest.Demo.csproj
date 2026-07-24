@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.0.1" />
+    <PackageReference Include="Rotbarsch.Reqnroll.Bindings" Version="0.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,19 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="NatLaRestTestSettings.Development.json">
+    <None Update="rotbarsch.reqnroll.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="NatLaRestTestSettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\ExampleFile.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\ExampleVariables.Test.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\ExampleVariables.json">
+    <None Update="rotbarsch.reqnroll.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="reqnroll.json">

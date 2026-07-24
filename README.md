@@ -7,7 +7,34 @@ This project aims to simplify the process of testing REST APIs by leveraging nat
 powered by the excellent [Reqnroll](https://github.com/reqnroll/Reqnroll). 
 It allows testers to write test cases in plain English, making it easier for non-technical stakeholders to understand and contribute to the testing process.
 
+It uses the shared binding from [Rotbarsch.Reqnroll.BaseBindings]() for variables etc. See there for further info.
+
 **TL;DR: A set of Reqnroll Bindings for writing REST API tests in Natural Language.**
+
+## Migration from 0.0.* to 1.*
+There are two main things to update after doing the "big" update for your test projects.
+
+1. Update reqnroll.json
+Update the ``bindingAssemblies`` block to look as follows:
+```
+"bindingAssemblies": [
+    {
+      "assembly": "Rotbarsch.Reqnroll.Core"
+    },
+    {
+      "assembly": "Rotbarsch.Reqnroll.Bindings"
+    },
+    {
+      "assembly": "NatLaRestTest.Bindings"
+    }
+  ]
+```
+
+2. Rename NatLaRestTestSettings.*.json files
+The central settings files were renamed from the ``NatLaRestTestSettings.*.json`` pattern to ``rotbarsch.reqnroll.*.json``
+For example:
+``NatLaRestTest.json`` --> ``rotbarsch.reqnroll.json``
+``NatLaRestTest.Development.json`` --> ``rotbarsch.reqnroll.Development.json``
 
 ## Minimal Usage Example
 ```

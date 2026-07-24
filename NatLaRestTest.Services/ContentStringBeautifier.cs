@@ -1,12 +1,13 @@
-﻿using NatLaRestTest.Core.Contracts.Settings;
-using NatLaRestTest.Services.Helpers.HttpMessageContentBeautifier;
+﻿using NatLaRestTest.Services.Helpers.HttpMessageContentBeautifier;
 using NatLaRestTest.Services.Interfaces;
+using Rotbarsch.Reqnroll.Core.Contracts.Settings;
+using Rotbarsch.Reqnroll.Services.Interfaces;
 
 namespace NatLaRestTest.Services;
 
-public class ContentStringBeautifier(INatLaRestTestSettingsService settingsService) : IContentStringBeautifier
+public class ContentStringBeautifier(IRotbarschReqnrollSettingsService settingsService) : IContentStringBeautifier
 {
-    private readonly NatLaRestTestLoggingSettings _loggingSettings = settingsService.GetLoggingSettings();
+    private readonly RotbarschReqnrollLoggingSettings _loggingSettings = settingsService.GetLoggingSettings();
 
     public string Beautify(string contentString, string? contentType)
     {

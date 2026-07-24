@@ -2,6 +2,7 @@
 using NatLaRestTest.Drivers.Interfaces;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
+using Rotbarsch.Reqnroll.Services.Interfaces;
 
 namespace NatLaRestTest.Drivers;
 
@@ -15,7 +16,6 @@ namespace NatLaRestTest.Drivers;
 /// <param name="variableService">Service used to store values in scenario variables.</param>
 public class HttpClientDriver(IHttpClientService httpClientService, IVariableService variableService) : IHttpClientDriver
 {
-
     /// <summary>
     /// Sends an HTTP request with optional body and content type.
     /// </summary>

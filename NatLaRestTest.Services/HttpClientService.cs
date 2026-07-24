@@ -5,6 +5,8 @@ using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Services.Helpers.OAuth;
 using NatLaRestTest.Services.Interfaces;
 using NUnit.Framework;
+using Reqnroll;
+using Rotbarsch.Reqnroll.Services.Interfaces;
 
 namespace NatLaRestTest.Services;
 
@@ -19,7 +21,12 @@ namespace NatLaRestTest.Services;
 /// <param name="loggingService">The logging Service used to write request/response traces.</param>
 /// <param name="variableService">The variable Service used to manage variables.</param>
 /// <param name="natLaRestTestHttpClientFactory">Factory to create HttpClient instances.</param>
-public class HttpClientService(ITestOutputLoggingService loggingService, IVariableService variableService, INatLaRestTestHttpClientFactory natLaRestTestHttpClientFactory) : IHttpClientService, IDisposable
+/// <param name="httpMessageSerializer">HTTP message serializer.</param>
+public class HttpClientService(
+    ITestOutputLoggingService loggingService, 
+    IVariableService variableService, 
+    INatLaRestTestHttpClientFactory natLaRestTestHttpClientFactory,
+    IHttpMessageSerializer httpMessageSerializer) : IHttpClientService, IDisposable
 {
     private readonly HttpClientOptions _httpClientOptions = new();
     private long? _responseTime;
@@ -204,10 +211,10 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     public bool HasHeader(string headerName)
     {
         AssertResponseAvailable();
-        return CurrentResponse!.Headers.Select(x=>x.Key).Contains(headerName);
+        return CurrentResponse!.Headers.Select(x => x.Key).Contains(headerName);
     }
 
-    
+
     /// <inheritdoc />
     public string GetCurrentResponseContentHeaderValue(string headerName)
     {
@@ -221,7 +228,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
     public bool HasContentHeader(string headerName)
     {
         AssertResponseAvailable();
-        return CurrentResponse!.Content.Headers.Select(x=>x.Key).Contains(headerName);
+        return CurrentResponse!.Content.Headers.Select(x => x.Key).Contains(headerName);
     }
 
     /// <inheritdoc />
@@ -260,6 +267,12 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         CurrentResponse?.Dispose();
     }
 
+    private async Task LogResponse(HttpResponseMessage response)
+    {
+        var serialized = await httpMessageSerializer.SerializeHttpResponseMessage(response);
+        loggingService.WriteLine(serialized);
+    }
+
     private async Task SendHttpRequestMessage(HttpRequestMessage msg)
     {
         if (_oAuthService is not null)
@@ -275,7 +288,7 @@ public class HttpClientService(ITestOutputLoggingService loggingService, IVariab
         loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
         _responseTime = sw.ElapsedMilliseconds;
 
-        await loggingService.LogResponse(CurrentResponse);
+        await LogResponse(CurrentResponse);
     }
 
     /// <summary>

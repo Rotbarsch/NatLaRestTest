@@ -2,6 +2,8 @@
 using NatLaRestTest.Drivers;
 using NatLaRestTest.Services;
 using Reqnroll.Microsoft.Extensions.DependencyInjection;
+using Rotbarsch.Reqnroll.Drivers;
+using Rotbarsch.Reqnroll.Services;
 
 namespace NatLaRestTest.Core;
 
@@ -20,6 +22,8 @@ public static class DependencyInjectionSetup
         get
         {
             _services ??= new ServiceCollection()
+                .RegisterRotbarschReqnrollServices()
+                .RegisterRotbarschReqnrollDrivers()
                 .RegisterNatLaRestTestServices()
                 .RegisterNatLaRestTestDrivers();
 
