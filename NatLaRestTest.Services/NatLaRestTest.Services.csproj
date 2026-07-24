@@ -27,6 +27,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="NUnit" Version="3.13.1" />
     <PackageReference Include="Reqnroll" Version="3.3.2" />
+    <PackageReference Include="Rotbarsch.Reqnroll.Services" Version="0.26.725" />
   </ItemGroup>
 
   <ItemGroup>

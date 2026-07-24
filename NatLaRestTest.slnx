@@ -4,8 +4,6 @@
     <Project Path="NatLaRestTest.Core/NatLaRestTest.Core.csproj" />
   </Folder>
   <Folder Name="/Demo/">
-    <Project Path="NatLaRestTest.Bindings.de/NatLaRestTest.Bindings.de.csproj" Id="e04f0fe0-a25d-4d4b-916f-98ea1dc75dea" />
-    <Project Path="NatLaRestTest.Demo.de/NatLaRestTest.Demo.de.csproj" Id="3a8e6fde-ae90-41da-8474-d0f389a00349" />
     <Project Path="NatLaRestTest.Demo/NatLaRestTest.Demo.csproj" />
     <Project Path="NatLaRestTest.DemoWebApi/NatLaRestTest.DemoWebApi.csproj" />
   </Folder>
@@ -14,7 +12,6 @@
     <Project Path="NatLaRestTest.Drivers/NatLaRestTest.Drivers.csproj" />
   </Folder>
   <Folder Name="/Services/">
-    <File Path="NatLaRestTest.Services/Helpers/HttpMessageSerializer.cs" />
     <Project Path="NatLaRestTest.Services.Interfaces/NatLaRestTest.Services.Interfaces.csproj" />
     <Project Path="NatLaRestTest.Services/NatLaRestTest.Services.csproj" />
   </Folder>

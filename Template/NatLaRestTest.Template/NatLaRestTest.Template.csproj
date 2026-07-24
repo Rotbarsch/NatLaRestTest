@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="NatLaRestTestSettings.Development.json">
+    <None Update="rotbarsch.reqnroll.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="NatLaRestTestSettings.json">
+    <None Update="rotbarsch.reqnroll.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="reqnroll.json">

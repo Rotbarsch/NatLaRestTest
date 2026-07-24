@@ -8,26 +8,11 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterNatLaRestTestServices(this IServiceCollection serviceCollection)
     {
         serviceCollection
-            .AddSingleton<INatLaRestTestSettingsService, NatLaRestTestSettingsService>()
-            .AddScoped<IBoolService, BoolService>()
-            .AddScoped<IComparisonService, ComparisonService>()
             .AddScoped<IContentStringBeautifier, ContentStringBeautifier>()
-            .AddScoped<ICultureInfoService, CultureInfoService>()
-            .AddScoped<IDateTimeManipulationService, DateTimeManipulationService>()
-            .AddScoped<IDebugUtilityService, DebugUtilityService>()
-            .AddScoped<IFileSystemService, FileSystemService>()
             .AddScoped<IHttpClientService, HttpClientService>()
-            .AddScoped<IHttpMessageSerializer,HttpMessageSerializer>()
-            .AddScoped<IJsonPathService, JsonPathService>()
-            .AddScoped<INatLaRestTestHttpClientFactory, NatLaRestTestHttpClientFactory>()
-            .AddScoped<INumericService, NumericService>()
-            .AddScoped<IRandomDataService, RandomDataService>()
-            .AddScoped<IStopwatchService, StopwatchService>()
-            .AddScoped<ITestOutputLoggingService, TestOutputLoggingService>()
-            .AddScoped<IVariableService, VariableService>()
-            .AddScoped<IWaitService, WaitService>()
-            .AddScoped<IXPathService, XPathService>();
-
+            .AddScoped<IHttpMessageSerializer, HttpMessageSerializer>()
+            .AddScoped<INatLaRestTestHttpClientFactory, NatLaRestTestHttpClientFactory>();
+            
         return serviceCollection;
     }
 }
