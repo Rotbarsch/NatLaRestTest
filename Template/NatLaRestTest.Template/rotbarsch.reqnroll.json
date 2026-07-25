@@ -6,6 +6,6 @@
     }
   ],
   "additionalConfigurationFiles": [
-    "./NatLaRestTestSettings.Development.json"
+    "./rotbarsch.reqnroll.Development.json"
   ]
 }
