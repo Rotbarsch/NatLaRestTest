@@ -19,6 +19,7 @@ Then the response code equals '200'
 ```
 
 See the NatLaRestTest.Demo project for more usage examples or the full listing of [implemented bindings](https://github.com/Rotbarsch/NatLaRestTest/wiki/Bindings).
+The common bindings (Assert, Variable operations, etc) are documented in the wiki of [Rotbarsch.Reqnroll.BaseBindings](https://github.com/Rotbarsch/Rotbarsch.Reqnroll.BaseBindings/wiki/Bindings).
 
 ## Advantages of using NatLaRestTest
 - **Natural Language**: Write tests in plain English, making them accessible to non-technical team members.
