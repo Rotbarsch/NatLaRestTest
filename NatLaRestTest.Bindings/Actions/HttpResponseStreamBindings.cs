@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -8,7 +7,7 @@ namespace NatLaRestTest.Bindings.Actions;
 ///     Step bindings for working with HTTP response streams, including saving to a file and storing the stream length.
 /// </summary>
 [Binding]
-public class HttpResponseStreamBindings(IHttpClientDriver httpClientDriver) : IHttpResponseStreamBindings
+public class HttpResponseStreamBindings(IHttpClientDriver httpClientDriver)
 {
     /// <summary>
     ///     When step: Saves the current response stream to a file.

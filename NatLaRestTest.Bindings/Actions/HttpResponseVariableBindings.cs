@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -12,7 +11,7 @@ namespace NatLaRestTest.Bindings.Actions;
 /// </remarks>
 /// <param name="httpClientDriver">Driver component used to access the current HTTP response and store values.</param>
 [Binding]
-public class HttpResponseVariableBindings(IHttpClientDriver httpClientDriver) : IHttpResponseVariableBindings
+public class HttpResponseVariableBindings(IHttpClientDriver httpClientDriver)
 {
 
     /// <summary>

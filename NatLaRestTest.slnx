@@ -22,6 +22,5 @@
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="NatLaRestTest.Bindings.Interfaces/NatLaRestTest.Bindings.Interfaces.csproj" />
   <Project Path="NatLaRestTest.Bindings/NatLaRestTest.Bindings.csproj" />
 </Solution>

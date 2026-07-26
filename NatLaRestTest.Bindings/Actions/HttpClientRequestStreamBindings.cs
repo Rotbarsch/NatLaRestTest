@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -8,7 +7,7 @@ namespace NatLaRestTest.Bindings.Actions;
 ///     Step bindings for uploading files as stream content in HTTP requests.
 /// </summary>
 [Binding]
-public class HttpClientRequestStreamBindings(IHttpClientDriver httpClientDriver) : IHttpClientRequestStreamBindings
+public class HttpClientRequestStreamBindings(IHttpClientDriver httpClientDriver)
 {
     /// <summary>
     ///     When step: Sends an HTTP request and uploads the contents of a file as stream content.

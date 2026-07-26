@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -9,7 +8,7 @@ namespace NatLaRestTest.Bindings.Actions;
 /// </summary>
 /// <param name="httpClientDriver">Instance of <see cref="IHttpClientDriver"/> to use.</param>
 [Binding]
-public class HttpClientFormBindings(IHttpClientDriver httpClientDriver) : IHttpClientFormBindings
+public class HttpClientFormBindings(IHttpClientDriver httpClientDriver)
 {
     /// <summary>
     ///    When step: Sends an HTTP request with form content specified as key-value pairs in a data table.

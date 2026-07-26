@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Assertions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
 
@@ -9,7 +8,7 @@ namespace NatLaRestTest.Bindings.Assertions;
 ///     Step bindings providing assertions for the current HTTP response (status success, exact/not-equal status codes).
 /// </summary>
 [Binding]
-public class HttpResponseAssertionBindings(IHttpClientDriver httpClientDriver) : IHttpResponseAssertionBindings
+public class HttpResponseAssertionBindings(IHttpClientDriver httpClientDriver)
 {
     /// <summary>
     ///     Then step: Asserts that the current HTTP response exists and indicates success (2xx status).

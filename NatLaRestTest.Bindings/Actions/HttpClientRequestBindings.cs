@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Actions;
-using NatLaRestTest.Drivers.Interfaces;
+﻿using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -12,7 +11,7 @@ namespace NatLaRestTest.Bindings.Actions;
 /// </remarks>
 /// <param name="httpClientDriver">Driver component used to send HTTP requests.</param>
 [Binding]
-public class HttpClientRequestBindings(IHttpClientDriver httpClientDriver) : IHttpClientRequestBindings
+public class HttpClientRequestBindings(IHttpClientDriver httpClientDriver)
 {
 
     /// <summary>

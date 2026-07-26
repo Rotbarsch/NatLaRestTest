@@ -1,5 +1,4 @@
-﻿using NatLaRestTest.Bindings.Interfaces.Setup;
-using NatLaRestTest.Core.Contracts;
+﻿using NatLaRestTest.Core.Contracts;
 using NatLaRestTest.Drivers.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
@@ -10,7 +9,7 @@ namespace NatLaRestTest.Bindings.Setup;
 ///     Step bindings to configure the shared HTTP client used across scenarios (base URL, timeout, headers).
 /// </summary>
 [Binding]
-public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver) : IHttpClientConfigurationBindings
+public class HttpClientConfigurationBindings(IHttpClientDriver httpClientDriver)
 {
     /// <summary>
     ///     Given step: Configures the base address used by the shared HTTP client.
