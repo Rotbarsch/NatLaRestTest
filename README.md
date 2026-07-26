@@ -19,6 +19,7 @@ Then the response code equals '200'
 ```
 
 See the NatLaRestTest.Demo project for more usage examples or the full listing of [implemented bindings](https://github.com/Rotbarsch/NatLaRestTest/wiki/Bindings).
+The common bindings (Assert, Variable operations, etc) are documented in the wiki of [Rotbarsch.Reqnroll.BaseBindings](https://github.com/Rotbarsch/Rotbarsch.Reqnroll.BaseBindings/wiki/Bindings).
 
 ## Advantages of using NatLaRestTest
 - **Natural Language**: Write tests in plain English, making them accessible to non-technical team members.
@@ -212,7 +213,7 @@ Given the natural language basis of NatLaRestTest, it is well-suited for usage w
 ## Debugging your tests
 You can use the special `Then enter debug mode` binding to enter NatLaRestTestDebug mode during test execution, provided a debugger is attached.
 In this state, a property named `Debug` is provided in your debug content. Use the Immediate Window (Visual Studio) or the Debug Console (Visual Studio Code) to execute commands against this property. 
-See [the debug service](https://github.com/Rotbarsch/NatLaRestTest/blob/main/NatLaRestTest.Services.Interfaces/IDebugUtilityService.cs) for the available commands.
+See [the debug service](https://github.com/Rotbarsch/Rotbarsch.Reqnroll.BaseBindings/blob/main/Rotbarsch.Reqnroll.Services.Interfaces/IDebugUtilityService.cs) for the available commands.
 
 ## License
 
