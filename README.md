@@ -41,7 +41,9 @@ Check if it runs correctly via `dotnet test`, and then start writing your own te
 ## Migration from 0.0.* to 26+.*
 There are two main things to update after doing the "big" update for your test projects.
 
-1. Update reqnroll.json
+1. Install the base bindings (if wanted) via Nuget, see [Rotbarsch.Reqnroll.BaseBindings](https://www.nuget.org/packages/Rotbarsch.Reqnroll.Bindings)
+
+2. Update reqnroll.json
 Update the ``bindingAssemblies`` block to look as follows:
 ```
 "bindingAssemblies": [
