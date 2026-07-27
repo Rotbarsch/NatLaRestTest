@@ -48,13 +48,16 @@ Update the ``bindingAssemblies`` block to look as follows:
 ```
 "bindingAssemblies": [
     {
+      "assembly": "NatLaRestTest.Core"
+    },
+    {
+      "assembly": "NatLaRestTest.Bindings"
+    },
+    {
       "assembly": "Rotbarsch.Reqnroll.Core"
     },
     {
       "assembly": "Rotbarsch.Reqnroll.Bindings"
-    },
-    {
-      "assembly": "NatLaRestTest.Bindings"
     }
   ]
 ```
