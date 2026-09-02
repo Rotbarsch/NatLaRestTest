@@ -1,66 +1,93 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Hosting;
-using NatLaRestTest.DemoWebApi;
-using NatLaRestTest.Services;
+﻿using System.Diagnostics;
+using System.Net.Sockets;
 using Reqnroll;
 using Rotbarsch.Reqnroll.Services;
 
 namespace NatLaRestTest.Demo.Bindings;
 
 [Binding]
-public class DemoApiHostBindings : IDisposable
+public class DemoApiHostBindings
 {
-    private static DemoApiWebAppFactory? _appFactory;
+    private const string ApiAssemblyFileName = "NatLaRestTest.DemoWebApi.dll";
+
+    private static Process? _apiProcess;
 
     [BeforeTestRun]
-    public static void ApiIsStarted()
+    public static void StartDemoApi()
     {
-
         var settingsService = new RotbarschReqnrollSettingsService();
         var url = settingsService.GetVariables().Single(x => x.Name == "demoApiBaseUrl").Value!;
-        
-        _appFactory = new DemoApiWebAppFactory(url);
-        _appFactory.StartServer();
-    }
 
-    public void Dispose()
-    {
-        _appFactory?.Dispose();
-        GC.SuppressFinalize(this);
-    }
+        var apiAssemblyPath = Path.Combine(AppContext.BaseDirectory, ApiAssemblyFileName);
 
-    internal class DemoApiWebAppFactory(string url) : WebApplicationFactory<Program>
-    {
-        private IHost? _kestrelHost;
-
-
-        protected override IHost CreateHost(IHostBuilder builder)
+        var startInfo = new ProcessStartInfo
         {
-            var testHost = base.CreateHost(builder);
+            FileName = "dotnet",
+            WorkingDirectory = AppContext.BaseDirectory,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+        };
+        startInfo.ArgumentList.Add(apiAssemblyPath);
+        startInfo.ArgumentList.Add("--urls");
+        startInfo.ArgumentList.Add(url);
 
-            builder.ConfigureWebHost(webHost =>
+        _apiProcess = new Process { StartInfo = startInfo, EnableRaisingEvents = true };
+        _apiProcess.Start();
+
+        WaitForWebApiReady(url);
+    }
+
+    [AfterTestRun]
+    public static void StopDemoApi()
+    {
+        if (_apiProcess is null)
+        {
+            return;
+        }
+
+        try
+        {
+            if (!_apiProcess.HasExited)
             {
-                webHost.UseKestrel();
-                webHost.UseUrls(url);
-            });
-
-            _kestrelHost = builder.Build();
-            _kestrelHost.Start();
-
-            return testHost; // Return test host instead of kestrel host to prevent casting exceptions further down the line.
+                _apiProcess.Kill(entireProcessTree: true);
+                _apiProcess.WaitForExit(5000);
+            }
         }
-
-        protected override void Dispose(bool disposing)
+        finally
         {
-            base.Dispose(disposing);
-            _kestrelHost?.Dispose();
+            _apiProcess.Dispose();
+            _apiProcess = null;
+        }
+    }
+
+    private static void WaitForWebApiReady(string url, int timeoutSeconds = 30)
+    {
+        var uri = new Uri(url);
+        var deadline = DateTime.UtcNow.AddSeconds(timeoutSeconds);
+
+        while (DateTime.UtcNow < deadline)
+        {
+            if (_apiProcess is { HasExited: true })
+            {
+                throw new InvalidOperationException(
+                    $"DemoWebApi process exited prematurely with code {_apiProcess.ExitCode}. Check '{ApiAssemblyFileName}' in '{AppContext.BaseDirectory}'.");
+            }
+
+            try
+            {
+                using var tcpClient = new TcpClient();
+                tcpClient.Connect(uri.Host, uri.Port);
+                return;
+            }
+            catch (SocketException)
+            {
+                Thread.Sleep(200);
+            }
         }
 
-        public void StartServer()
-        {
-            var _ = Server; // the getter of Server will trigger the CreateHost method, which starts the Kestrel server.
-        }
+        throw new TimeoutException($"Timed out waiting for DemoWebApi to start listening on '{url}'.");
     }
 }
 
