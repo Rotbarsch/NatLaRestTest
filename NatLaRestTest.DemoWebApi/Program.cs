@@ -1,14 +1,21 @@
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.WebUtilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+    .AddNegotiate();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Use(async (context, next) =>
 {
@@ -90,6 +97,12 @@ app.MapPut("/form", async (HttpRequest request) =>
         .ToDictionary(kv => kv.Key, kv => kv.Value.FirstOrDefault() ?? "");
     return Results.Ok(new { contentType = request.ContentType, fields });
 }).DisableAntiforgery();
+
+app.MapGet("/require-ntlm", (HttpContext context) =>
+{
+    var userName = context.User?.Identity?.Name;
+    return Results.Ok(new { ntlmUser = userName });
+}).RequireAuthorization();
 
 app.MapGet("/require-natla-header", async (HttpRequest request) =>
 {
