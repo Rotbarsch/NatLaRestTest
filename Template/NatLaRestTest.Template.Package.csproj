@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PackageType>Template</PackageType>
 
     <PackageId>NatLaRestTest.Template</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Rotbarsch</Authors>
     <Description>NatLaRestTest project template (Reqnroll-based API testing)</Description>
 

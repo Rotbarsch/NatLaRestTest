@@ -57,7 +57,7 @@ jobs:
 
       - name: Generate Bindings.md
         run: |
-          dnx -y Rotbarsch.ReqnrollDocumentationGenerator -- -i "./NatLaRestTest.Demo/bin/Release/net8.0/NatLaRestTest.Bindings.dll;./NatLaRestTest.Demo/bin/Release/net8.0/NatLaRestTest.Bindings.xml" -o "./wiki/Bindings.md"
+          dnx -y Rotbarsch.ReqnrollDocumentationGenerator -- -i "./NatLaRestTest.Demo/bin/Release/net10.0/NatLaRestTest.Bindings.dll;./NatLaRestTest.Demo/bin/Release/net10.0/NatLaRestTest.Bindings.xml" -o "./wiki/Bindings.md"
 
       - name: Commit and Push Bindings.md to Wiki
         working-directory: wiki

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reqnroll.Microsoft.Extensions.DependencyInjection" Version="3.3.2" />
-    <PackageReference Include="Rotbarsch.Reqnroll.Drivers" Version="0.26.725" />
+    <PackageReference Include="Reqnroll.Microsoft.Extensions.DependencyInjection" Version="3.3.4" />
+    <PackageReference Include="Rotbarsch.Reqnroll.Drivers" Version="26.1122.0" />
   </ItemGroup>
 
   <ItemGroup>
