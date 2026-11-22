@@ -19,9 +19,9 @@ public class DemoApiHostBindings : IDisposable
 
         var settingsService = new RotbarschReqnrollSettingsService();
         var url = settingsService.GetVariables().Single(x => x.Name == "demoApiBaseUrl").Value!;
-        
+
         _appFactory = new DemoApiWebAppFactory(url);
-        _appFactory.StartServer();
+        _appFactory.StartTestServer();
     }
 
     public void Dispose()
@@ -57,7 +57,7 @@ public class DemoApiHostBindings : IDisposable
             _kestrelHost?.Dispose();
         }
 
-        public void StartServer()
+        public void StartTestServer()
         {
             var _ = Server; // the getter of Server will trigger the CreateHost method, which starts the Kestrel server.
         }
