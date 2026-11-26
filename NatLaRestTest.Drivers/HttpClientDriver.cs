@@ -30,6 +30,16 @@ public class HttpClientDriver(IHttpClientService httpClientService, IVariableSer
     }
 
     /// <summary>
+    /// Sends a request without replacing the scenario's current response, for use by concurrent requests.
+    /// </summary>
+    /// <param name="request">The fully configured HTTP request message.</param>
+    /// <returns>The response associated with this request. The caller must dispose it.</returns>
+    public async Task<HttpResponseMessage> SendIndependentRequest(HttpRequestMessage request)
+    {
+        return await httpClientService.SendIndependentRequest(request);
+    }
+
+    /// <summary>
     /// Sends an HTTP request and uploads the contents of a file as multipart form data.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., POST, PUT).</param>

@@ -19,6 +19,14 @@ public interface IHttpClientDriver
         string contentType = "application/json");
 
     /// <summary>
+    /// Sends a request through the configured HTTP client without replacing the scenario's current response.
+    /// This allows concurrent callers to inspect their own response independently.
+    /// </summary>
+    /// <param name="request">The fully configured HTTP request message.</param>
+    /// <returns>The response associated with this request. The caller must dispose it.</returns>
+    Task<HttpResponseMessage> SendIndependentRequest(HttpRequestMessage request);
+
+    /// <summary>
     /// Sends an HTTP request with form content specified as key-value pairs in a dictionary.
     /// </summary>
     /// <param name="httpMethod">The HTTP method (e.g., POST, PUT).</param>

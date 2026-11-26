@@ -20,6 +20,14 @@ public interface IHttpClientService
         string contentType = "application/json");
 
     /// <summary>
+    /// Sends a request through the configured HTTP client without replacing the scenario's current response.
+    /// This allows concurrent callers to inspect their own response independently.
+    /// </summary>
+    /// <param name="request">The fully configured HTTP request message.</param>
+    /// <returns>The response associated with this request. The caller must dispose it.</returns>
+    Task<HttpResponseMessage> SendIndependentRequest(HttpRequestMessage request);
+
+    /// <summary>
     ///     Sends an HTTP request with the specified method and uploads the contents of a file as stream content.
     /// </summary>
     /// <param name="httpMethod">HTTP method (e.g., POST, PUT).</param>
