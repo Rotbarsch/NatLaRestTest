@@ -30,6 +30,19 @@ public interface IHttpClientService
     Task SendRequestWithStreamBody(string httpMethod, string url, string fileName, string? contentType = null, string formFieldName = "file");
 
     /// <summary>
+    /// Sends a string payload as a multipart file part without creating a temporary file.
+    /// The payload is encoded as UTF-8.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., POST or PUT).</param>
+    /// <param name="url">The absolute or relative URL to request.</param>
+    /// <param name="fileName">The filename reported for the multipart file part.</param>
+    /// <param name="fileContent">The text content to upload, encoded as UTF-8.</param>
+    /// <param name="contentType">Optional MIME type for the multipart file part.</param>
+    /// <param name="formFieldName">The multipart form field name. Defaults to <c>file</c>.</param>
+    Task SendRequestWithMultipartFileContent(string httpMethod, string url, string fileName, string fileContent,
+        string? contentType = null, string formFieldName = "file");
+
+    /// <summary>
     ///     Determines whether the last HTTP response indicates success.
     /// </summary>
     /// <returns><c>true</c> if the response status code is in the 2xx range; otherwise, <c>false</c>.</returns>
