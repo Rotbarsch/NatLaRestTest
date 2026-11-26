@@ -74,6 +74,12 @@ public class HttpClientService(
         await SendHttpRequestMessage(msg);
     }
 
+    /// <inheritdoc />
+    public Task<HttpResponseMessage> SendIndependentRequest(HttpRequestMessage request)
+    {
+        return SendHttpRequestMessage(request, updateCurrentResponse: false);
+    }
+
     /// <summary>
     ///    Sends an HTTP request with the specified method and uploads form content as key-value pairs in a dictionary.
     /// </summary>
@@ -307,7 +313,9 @@ public class HttpClientService(
         loggingService.WriteLine(serialized);
     }
 
-    private async Task SendHttpRequestMessage(HttpRequestMessage msg)
+    private async Task<HttpResponseMessage> SendHttpRequestMessage(
+        HttpRequestMessage msg,
+        bool updateCurrentResponse = true)
     {
         if (_oAuthService is not null)
         {
@@ -317,12 +325,17 @@ public class HttpClientService(
 
         using var httpClient = GetConfiguredHttpClient();
         var sw = Stopwatch.StartNew();
-        CurrentResponse = await httpClient.SendAsync(msg);
+        var response = await httpClient.SendAsync(msg);
         sw.Stop();
         loggingService.WriteLine($"Request took {sw.ElapsedMilliseconds} ms.");
-        _responseTime = sw.ElapsedMilliseconds;
+        if (updateCurrentResponse)
+        {
+            CurrentResponse = response;
+            _responseTime = sw.ElapsedMilliseconds;
+        }
 
-        await LogResponse(CurrentResponse);
+        await LogResponse(response);
+        return response;
     }
 
     /// <summary>
