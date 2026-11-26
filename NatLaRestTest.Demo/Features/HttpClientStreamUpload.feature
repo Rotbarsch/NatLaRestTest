@@ -32,3 +32,13 @@ Scenario: Upload file as stream content with custom form field name
 	And the response code equals '200'
 	When the response body is stored in variable 'resp'
 	Then the value of variable 'resp' matches the regex pattern '"fieldName":"document"'
+
+Scenario: Upload string content as a multipart file without a temporary file
+	When the value 'NatLa in-memory upload' is stored in variable 'memoryContent'
+	And a 'POST' request is made to '/upload/form/named' with string content '$(memoryContent)' as multipart file 'memory.txt' with content type 'text/plain' and form field name 'document'
+	Then the response indicates success
+	And the response code equals '200'
+	When the response body is stored in variable 'resp'
+	Then the value of variable 'resp' matches the regex pattern '"fieldName":"document"'
+	And the value of variable 'resp' matches the regex pattern '"fileName":"memory.txt"'
+	And the value of variable 'resp' matches the regex pattern '"content":"NatLa in-memory upload"'

@@ -1,4 +1,5 @@
-﻿using NatLaRestTest.Drivers.Interfaces;
+﻿using System.Text;
+using NatLaRestTest.Drivers.Interfaces;
 using Reqnroll;
 
 namespace NatLaRestTest.Bindings.Actions;
@@ -48,5 +49,33 @@ public class HttpClientRequestStreamBindings(IHttpClientDriver httpClientDriver)
     public async Task UploadFileWithFormFieldName(string httpMethod, string url, string fileName, string contentType, string formFieldName)
     {
         await httpClientDriver.SendRequestWithStreamBody(httpMethod, url, fileName, contentType, formFieldName);
+    }
+
+    /// <summary>
+    ///     When step: Uploads string content as a multipart file part directly from memory.
+    ///     The string is encoded as UTF-8 and is not written to a temporary file.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method (e.g., POST or PUT).</param>
+    /// <param name="url">The absolute or relative URL to request.</param>
+    /// <param name="fileContent">The text payload to upload.</param>
+    /// <param name="fileName">The filename reported for the multipart file part.</param>
+    /// <param name="contentType">The MIME type for the multipart file part.</param>
+    /// <param name="formFieldName">The multipart form field name.</param>
+    [When("^a '([^']*)' request is made to '([^']*)' with string content '([^']*)' as multipart file '([^']*)' with content type '([^']*)' and form field name '([^']*)'$")]
+    public async Task UploadStringContentAsMultipartFile(
+        string httpMethod,
+        string url,
+        string fileContent,
+        string fileName,
+        string contentType,
+        string formFieldName)
+    {
+        await httpClientDriver.SendRequestWithMultipartFileContent(
+            httpMethod,
+            url,
+            fileName,
+            fileContent,
+            contentType,
+            formFieldName);
     }
 }
